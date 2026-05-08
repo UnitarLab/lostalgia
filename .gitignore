@@ -2,8 +2,23 @@
 *.tmp
 *.log
 
-# Scripts we might not want to track if they are scratch
-# (Leaving them for now unless they look like junk)
+# Utility/Automation Scripts (Unrelated to theme/app)
+add_*.js
+fetch_*.js
+test_*.js
+fix_*.js
+rebuild_*.js
+remove_*.js
+cleanup_*.js
+pipeline.js
+deep_lore.js
+create_*.js
+debug_*.js
+search_*.js
+
+# Data files
+*.json
+*.txt
 
 # OS files
 Thumbs.db

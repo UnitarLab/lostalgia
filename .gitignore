@@ -1,9 +1,8 @@
 # Main Entry Point
 index.html
 
-# Ignore other HTML versions/exports
+# Aesthetics Pages
 *.html
-!index.html
 
 # Utility/Automation Scripts (Unrelated to theme/app)
 add_*.js

@@ -1,0 +1,1419 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <meta name="description" content="Lostalgia Wiki - Fotonight Web">
+  <title>Lostalgia Wiki - Fotonight Web</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap');
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      background: #c0c0c0;
+      font-family: Tahoma, 'Segoe UI', Arial, sans-serif;
+      overflow: hidden;
+    }
+
+    /* ── DESKTOP: IE CHROME ── */
+    .ie-frame {
+      display: flex;
+      flex-direction: column;
+      width: 100vw;
+      height: 100vh;
+    }
+
+    .title-bar {
+      background: linear-gradient(90deg, #000080 0%, #1a8ad4 60%, #1084d0 100%);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 4px 6px;
+      color: #fff;
+      font-size: 12px;
+      font-weight: bold;
+      user-select: none;
+      flex-shrink: 0;
+    }
+
+    .title-bar-btns {
+      display: flex;
+      gap: 2px;
+    }
+
+    .win-btn {
+      background: #c0c0c0;
+      border: 1.5px solid;
+      border-top-color: #fff;
+      border-left-color: #fff;
+      border-bottom-color: #606060;
+      border-right-color: #606060;
+      width: 18px;
+      height: 16px;
+      font-size: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: #000;
+      font-weight: bold;
+    }
+
+    .menu-bar {
+      background: #d4d0c8;
+      border-bottom: 1px solid #808080;
+      padding: 2px 6px;
+      display: flex;
+      flex-shrink: 0;
+    }
+
+    .menu-bar span {
+      padding: 2px 10px;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    .menu-bar span:hover {
+      background: #000080;
+      color: #fff;
+    }
+
+    .toolbar {
+      background: #d4d0c8;
+      border-bottom: 2px solid #808080;
+      padding: 4px 8px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      flex-shrink: 0;
+    }
+
+    .tb-btn {
+      background: linear-gradient(180deg, #e8e4dc, #c8c4bc);
+      border: 1.5px solid;
+      border-top-color: #fff;
+      border-left-color: #fff;
+      border-bottom-color: #606060;
+      border-right-color: #606060;
+      padding: 3px 10px;
+      font-size: 12px;
+      cursor: pointer;
+      font-family: Tahoma, sans-serif;
+      white-space: nowrap;
+    }
+
+    .addr-bar {
+      flex: 1;
+      background: #fff;
+      border: 1.5px solid;
+      border-top-color: #606060;
+      border-left-color: #606060;
+      border-bottom-color: #fff;
+      border-right-color: #fff;
+      padding: 2px 6px;
+      font-size: 12px;
+      font-family: Tahoma, sans-serif;
+      outline: none;
+    }
+
+    .browser-body {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    /* sidebar */
+    .sidebar {
+      width: 190px;
+      flex-shrink: 0;
+      background: #e8e8f0;
+      border-right: 2px solid #808080;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.25s;
+    }
+
+    .sb-title {
+      background: linear-gradient(90deg, #000080, #1a4ab0);
+      color: #fff;
+      font-weight: bold;
+      font-size: 12px;
+      padding: 5px 10px;
+      text-align: center;
+      letter-spacing: 1px;
+      border-bottom: 1px solid #000050;
+    }
+
+    .sb-section {
+      padding: 7px 10px 4px;
+    }
+
+    .sb-label {
+      font-size: 10px;
+      font-weight: bold;
+      color: #000080;
+      display: block;
+      margin-bottom: 4px;
+      padding-bottom: 2px;
+      border-bottom: 1px dotted #a0a0c0;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .sb-link {
+      display: block;
+      font-size: 12px;
+      color: #0000cc;
+      text-decoration: underline;
+      padding: 2px 3px;
+      cursor: pointer;
+      line-height: 1.5;
+    }
+
+    .sb-link:hover {
+      color: #cc0000;
+      background: #dde;
+    }
+
+    .sb-link.active {
+      color: #cc0000;
+      font-weight: bold;
+      background: #f0e8e8;
+    }
+
+    .sb-divider {
+      border: none;
+      border-top: 1px solid #b0b0c0;
+      margin: 4px 8px;
+    }
+
+    .counter-box {
+      background: #000;
+      color: #00ff00;
+      font-family: 'Courier Prime', monospace;
+      font-size: 15px;
+      text-align: center;
+      padding: 4px;
+      margin: 8px 10px 0;
+      border: 2px inset #808080;
+      letter-spacing: 4px;
+    }
+
+    .counter-lbl {
+      font-size: 10px;
+      color: #666;
+      text-align: center;
+      padding: 3px 0 6px;
+    }
+
+    .uc-badge {
+      margin: 4px 10px 6px;
+      background: #000;
+      text-align: center;
+      padding: 3px;
+      font-size: 10px;
+      font-weight: bold;
+      color: #ffff00;
+      border: 1px solid #ffff00;
+      letter-spacing: 2px;
+    }
+
+    .best-viewed {
+      margin: 4px 10px 10px;
+      background: #fff8dc;
+      border: 1px solid #c0a000;
+      padding: 5px 7px;
+      font-size: 10px;
+      color: #4a3000;
+      line-height: 1.5;
+    }
+
+    .content-area {
+      flex: 1;
+      overflow-y: auto;
+      background: #fff;
+      min-width: 0;
+    }
+
+    /* page */
+    .page {
+      padding: 18px 24px 32px;
+      width: 100%;
+    }
+
+    .edit-note {
+      background: #fff8c4;
+      border: 1px solid #ddb000;
+      border-left: 4px solid #ddb000;
+      padding: 7px 12px;
+      font-size: 13px;
+      color: #5a3e00;
+      margin-bottom: 16px;
+      line-height: 1.5;
+    }
+
+    .edit-note a {
+      color: #0000cc;
+    }
+
+    /* infobox */
+    .infobox {
+      float: right;
+      background: #f8f8f0;
+      border: 1px solid #a2a9b1;
+      margin: 0 0 16px 24px;
+      width: 260px;
+      font-size: 13px;
+      clear: right;
+    }
+
+    .infobox-title {
+      background: linear-gradient(180deg, #cee0f2, #bdd4ea);
+      text-align: center;
+      font-weight: bold;
+      font-size: 14px;
+      padding: 6px;
+      border-bottom: 1px solid #a2a9b1;
+    }
+
+    .infobox-img {
+      width: 100%;
+      height: 170px;
+      object-fit: cover;
+      display: block;
+      border-bottom: 1px solid #a2a9b1;
+      cursor: pointer;
+    }
+
+    .infobox table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .infobox td {
+      padding: 4px 8px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+      vertical-align: top;
+      line-height: 1.4;
+    }
+
+    .infobox td:first-child {
+      color: #555;
+      white-space: nowrap;
+      width: 100px;
+      font-size: 12px;
+    }
+
+    /* typography */
+    .page-title {
+      font-size: 28px;
+      font-family: Georgia, 'Times New Roman', serif;
+      color: #000;
+      border-bottom: 3px double #a2a9b1;
+      margin-bottom: 14px;
+      padding-bottom: 7px;
+      font-weight: bold;
+      line-height: 1.2;
+    }
+
+    .toc {
+      background: #f8f8ff;
+      border: 1px solid #a0a0c0;
+      padding: 10px 16px;
+      display: inline-block;
+      margin-bottom: 16px;
+      min-width: 240px;
+    }
+
+    .toc-title {
+      font-weight: bold;
+      font-size: 13px;
+      text-align: center;
+      margin-bottom: 6px;
+      border-bottom: 1px solid #a0a0c0;
+      padding-bottom: 4px;
+    }
+
+    .toc ol {
+      margin: 0;
+      padding-left: 20px;
+    }
+
+    .toc li {
+      font-size: 12.5px;
+      padding: 2px 0;
+      line-height: 1.6;
+    }
+
+    .toc li ol {
+      padding-left: 16px;
+    }
+
+    .toc a {
+      color: #0000cc;
+      text-decoration: underline;
+    }
+
+    .toc a:hover {
+      color: #cc0000;
+    }
+
+    .section-head {
+      font-size: 22px;
+      font-family: Georgia, serif;
+      color: #000;
+      border-bottom: 1px solid #a2a9b1;
+      margin: 24px 0 8px;
+      padding-bottom: 4px;
+      font-weight: bold;
+    }
+
+    .sub-head {
+      font-size: 16px;
+      font-family: Georgia, serif;
+      color: #000;
+      border-bottom: 1px dotted #ccc;
+      margin: 16px 0 7px;
+      padding-bottom: 2px;
+      font-weight: bold;
+    }
+
+    .sub2-head {
+      font-size: 14px;
+      font-family: Georgia, serif;
+      color: #222;
+      margin: 12px 0 5px;
+      font-weight: bold;
+      font-style: italic;
+    }
+
+    .para {
+      font-size: 14px;
+      line-height: 1.85;
+      color: #111;
+      margin: 0 0 12px;
+    }
+
+    .para a {
+      color: #0000cc;
+      text-decoration: underline;
+    }
+
+    .para b {
+      color: #000;
+    }
+
+    .para i {
+      font-style: italic;
+    }
+
+    .clearfix::after {
+      content: '';
+      display: table;
+      clear: both;
+    }
+
+    .ul-plain {
+      padding-left: 22px;
+      margin: 6px 0 12px;
+    }
+
+    .ul-plain li {
+      font-size: 13.5px;
+      line-height: 1.85;
+    }
+
+    .ul-cols {
+      column-count: 2;
+      column-gap: 24px;
+      padding-left: 22px;
+      margin: 6px 0 12px;
+    }
+
+    .ul-cols li {
+      font-size: 13.5px;
+      line-height: 1.85;
+      break-inside: avoid;
+    }
+
+    .ul-3cols {
+      column-count: 3;
+      column-gap: 20px;
+      padding-left: 22px;
+      margin: 6px 0 12px;
+    }
+
+    .ul-3cols li {
+      font-size: 13px;
+      line-height: 1.75;
+      break-inside: avoid;
+    }
+
+    .music-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+      gap: 2px 20px;
+      margin: 6px 0 14px;
+      padding-left: 22px;
+    }
+
+    .music-grid li {
+      font-size: 13px;
+      line-height: 1.75;
+    }
+
+    /* checklist */
+    .checklist {
+      background: #f8f8f0;
+      border: 1px solid #a2a9b1;
+      padding: 12px 14px 10px;
+      margin: 10px 0 14px;
+    }
+
+    .checklist li {
+      font-size: 13.5px;
+      line-height: 2;
+      list-style: none;
+      padding-left: 4px;
+    }
+
+    .checklist li::before {
+      content: "\25A1  ";
+      color: #000080;
+      font-weight: bold;
+    }
+
+    /* subgenre cards */
+    .subgenre-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 10px;
+      margin: 10px 0 14px;
+    }
+
+    .sg-card {
+      border: 1px solid #a2a9b1;
+      background: #f4f4fc;
+      padding: 10px 12px;
+    }
+
+    .sg-card h4 {
+      font-size: 13px;
+      font-weight: bold;
+      color: #000080;
+      margin-bottom: 5px;
+      font-family: Georgia, serif;
+    }
+
+    .sg-card p {
+      font-size: 12px;
+      line-height: 1.6;
+      color: #333;
+    }
+
+    /* timeline */
+    .timeline {
+      border-left: 3px solid #a2a9b1;
+      margin: 8px 0 14px 12px;
+      padding-left: 16px;
+    }
+
+    .tl-item {
+      margin-bottom: 12px;
+      position: relative;
+    }
+
+    .tl-item::before {
+      content: '';
+      position: absolute;
+      left: -21px;
+      top: 5px;
+      width: 9px;
+      height: 9px;
+      background: #000080;
+      border: 2px solid #a2a9b1;
+    }
+
+    .tl-year {
+      font-size: 13px;
+      font-weight: bold;
+      color: #000080;
+      font-family: Georgia, serif;
+    }
+
+    .tl-text {
+      font-size: 13px;
+      line-height: 1.7;
+      color: #111;
+    }
+
+    /* pull quote */
+    .pull-quote {
+      border-left: 4px solid #000080;
+      background: #f0f0f8;
+      padding: 10px 14px;
+      margin: 12px 0 16px;
+      font-style: italic;
+      font-size: 14px;
+      color: #2a2a5a;
+      line-height: 1.7;
+    }
+
+    /* gallery */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 10px;
+      margin: 12px 0;
+    }
+
+    .gallery-item {
+      border: 1px solid #a2a9b1;
+      background: #f0f0f0;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .gallery-item:hover {
+      border: 2px solid #000080;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 110px;
+      object-fit: cover;
+      display: block;
+      transition: opacity 0.2s;
+    }
+
+    .gallery-item img.loading {
+      opacity: 0.4;
+    }
+
+    .gallery-caption {
+      font-size: 11px;
+      padding: 4px 5px;
+      color: #333;
+      text-align: center;
+    }
+
+    /* cat bar */
+    .cat-bar {
+      background: #f0f0f0;
+      border: 1px solid #a2a9b1;
+      padding: 7px 12px;
+      font-size: 13px;
+      color: #333;
+      margin-top: 24px;
+    }
+
+    .cat-bar a {
+      color: #0000cc;
+      text-decoration: underline;
+      margin: 0 6px 0 0;
+    }
+
+    /* see also box */
+    .see-also {
+      background: #f8f8ff;
+      border: 1px solid #a0a0c0;
+      padding: 10px 14px;
+      margin: 14px 0;
+    }
+
+    .see-also h4 {
+      font-size: 13px;
+      font-weight: bold;
+      color: #000080;
+      margin-bottom: 6px;
+      border-bottom: 1px dotted #a0a0c0;
+      padding-bottom: 3px;
+    }
+
+    .see-also ul {
+      padding-left: 18px;
+    }
+
+    .see-also li {
+      font-size: 13px;
+      line-height: 1.75;
+    }
+
+    .see-also a {
+      color: #0000cc;
+      text-decoration: underline;
+    }
+
+    /* lightbox */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.92);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+
+    .lightbox.open {
+      display: flex;
+    }
+
+    .lightbox img {
+      max-width: 88vw;
+      max-height: 80vh;
+      border: 3px solid #fff;
+      display: block;
+    }
+
+    .lb-cap {
+      color: #eee;
+      font-size: 13px;
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    .lb-close {
+      position: absolute;
+      top: 14px;
+      right: 18px;
+      color: #fff;
+      font-size: 14px;
+      cursor: pointer;
+      background: #000080;
+      border: 2px solid #fff;
+      padding: 3px 12px;
+      font-family: Tahoma, sans-serif;
+      font-weight: bold;
+    }
+
+    .lb-loading {
+      color: #aaa;
+      font-size: 13px;
+      margin-top: 8px;
+    }
+
+    .lb-nav {
+      display: flex;
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .lb-btn {
+      background: #c0c0c0;
+      border: 2px solid;
+      border-top-color: #fff;
+      border-left-color: #fff;
+      border-bottom-color: #808080;
+      border-right-color: #808080;
+      padding: 4px 18px;
+      font-size: 13px;
+      cursor: pointer;
+      font-weight: bold;
+      font-family: Tahoma, sans-serif;
+    }
+
+    /* status */
+    .status-bar {
+      background: #d4d0c8;
+      border-top: 1px solid #808080;
+      padding: 2px 10px;
+      font-size: 11px;
+      display: flex;
+      gap: 16px;
+      flex-shrink: 0;
+      align-items: center;
+    }
+
+    .status-panel {
+      background: #c0c0c0;
+      border: 1px solid;
+      border-top-color: #606060;
+      border-left-color: #606060;
+      border-bottom-color: #fff;
+      border-right-color: #fff;
+      padding: 1px 8px;
+      font-size: 11px;
+    }
+
+    .blink {
+      animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink {
+      50% {
+        opacity: 0;
+      }
+    }
+
+    /* ── MOBILE STYLES ─────────────────────────────────────────────── */
+    @media (max-width:768px) {
+
+      html,
+      body {
+        overflow: auto;
+      }
+
+      .ie-frame {
+        height: auto;
+        min-height: 100vh;
+      }
+
+      /* hide desktop chrome elements */
+      .toolbar {
+        display: none;
+      }
+
+      .menu-bar {
+        display: none;
+      }
+
+      .title-bar {
+        padding: 8px 10px;
+        font-size: 13px;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+
+      /* mobile top nav bar */
+      .mobile-topbar {
+        display: flex;
+        align-items: center;
+        background: #000080;
+        color: #fff;
+        padding: 0;
+        border-bottom: 2px solid #606060;
+        flex-shrink: 0;
+      }
+
+      .mobile-menu-btn {
+        background: none;
+        border: none;
+        color: #fff;
+        font-size: 20px;
+        padding: 8px 12px;
+        cursor: pointer;
+        font-family: Tahoma, sans-serif;
+        flex-shrink: 0;
+      }
+
+      .mobile-site-label {
+        font-size: 13px;
+        font-weight: bold;
+        letter-spacing: 1px;
+        flex: 1;
+        text-align: center;
+        color: #fff;
+      }
+
+      .mobile-home-btn {
+        font-size: 12px;
+        color: #aaccff;
+        text-decoration: underline;
+        padding: 8px 12px;
+        cursor: pointer;
+        background: none;
+        border: none;
+      }
+
+      /* sidebar becomes a drawer */
+      .browser-body {
+        flex-direction: column;
+        overflow: visible;
+      }
+
+      .sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 2px solid #808080;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+        flex-shrink: 0;
+      }
+
+      .sidebar.open {
+        max-height: 600px;
+        overflow-y: auto;
+      }
+
+      /* content */
+      .content-area {
+        overflow-y: visible;
+        background: #fff;
+      }
+
+      /* page */
+      .page {
+        padding: 12px 14px 24px;
+      }
+
+      /* infobox goes below title on mobile */
+      .infobox {
+        float: none;
+        width: 100%;
+        margin: 0 0 14px 0;
+      }
+
+      .infobox-img {
+        height: 200px;
+      }
+
+      /* typography scale-down */
+      .page-title {
+        font-size: 22px;
+      }
+
+      .section-head {
+        font-size: 18px;
+      }
+
+      .sub-head {
+        font-size: 14px;
+      }
+
+      .para {
+        font-size: 13.5px;
+        line-height: 1.75;
+      }
+
+      .ul-plain li,
+      .ul-cols li,
+      .ul-3cols li {
+        font-size: 13px;
+      }
+
+      .ul-cols {
+        column-count: 1;
+      }
+
+      .ul-3cols {
+        column-count: 2;
+      }
+
+      .music-grid {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      }
+
+      /* TOC */
+      .toc {
+        display: block;
+        width: 100%;
+      }
+
+      /* gallery */
+      .gallery-grid {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 6px;
+      }
+
+      .gallery-item img {
+        height: 90px;
+      }
+
+      /* subgenre grid */
+      .subgenre-grid {
+        grid-template-columns: 1fr;
+      }
+
+      /* lightbox bigger on mobile */
+      .lightbox img {
+        max-width: 95vw;
+        max-height: 70vh;
+      }
+
+      .lb-close {
+        top: 8px;
+        right: 8px;
+      }
+
+      /* status bar simplified */
+      .status-bar .status-panel:not(:first-child) {
+        display: none;
+      }
+
+      .status-bar .status-panel:last-child {
+        display: none;
+      }
+    }
+
+    /* hide mobile bar on desktop */
+    .mobile-topbar {
+      display: none;
+    }
+
+    @media (max-width:768px) {
+      .mobile-topbar {
+        display: flex;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="ie-frame">
+    <div class="title-bar">
+      <span>&#128194;&nbsp; Lostalgia Wiki - Fotonight Web - Microsoft Internet Explorer</span>
+      <div class="title-bar-btns">
+        <div class="win-btn">&#8212;</div>
+        <div class="win-btn">&#9633;</div>
+        <div class="win-btn" style="color:#c00;">&#10005;</div>
+      </div>
+    </div>
+    <div class="menu-bar">
+      <span>File</span><span>Edit</span><span>View</span><span>Favorites</span><span>Tools</span><span>Help</span>
+    </div>
+    <div class="toolbar">
+      <button class="tb-btn" onclick="history.back()">&#8592; Back</button>
+      <button class="tb-btn" onclick="history.forward()">Forward &#8594;</button>
+      <button class="tb-btn" onclick="location.reload()">&#8635; Refresh</button>
+      <button class="tb-btn" onclick="location.href='lostalgia_index.html'">&#127968; Home</button>
+      <span style="font-size:12px;">Address:</span>
+      <input class="addr-bar" value="http://www.lostalgia.net/wiki/Fotonight_Web" readonly />
+      <button class="tb-btn">Go</button>
+    </div>
+    <div class="mobile-topbar">
+      <button class="mobile-menu-btn" id="mobileMenuBtn">&#9776;</button>
+      <span class="mobile-site-label">LOSTALGIA.NET</span>
+      <button class="mobile-home-btn" onclick="location.href='lostalgia_index.html'">Home</button>
+    </div>
+    <div class="browser-body">
+      <div class="sidebar">
+        <div class="sb-title">LOSTALGIA.NET</div>
+              <div class="sb-section">
+        <span class="sb-label">Navigation</span>
+        <a class="sb-link" href="lostalgia_index.html">Main Page</a>
+        <a class="sb-link" href="lostalgia_index.html#recent-changes">Recent Changes</a>
+        <a class="sb-link" href="javascript:randomArticle()">Random Article</a>
+        <a class="sb-link" href="lostalgia_index.html#help-section">Help</a>
+      </div>
+        <hr class="sb-divider">
+                <div class="sb-section">
+          <span class="sb-label">Eras</span>
+          <a class="sb-link" href="frutiger_aero.html">Frutiger Aero</a>
+          <a class="sb-link" href="gen_x_soft_club.html">Gen X Soft Club</a>
+          <a class="sb-link" href="global_village_coffeehouse.html">Global Village Coffeehouse</a>
+          <a class="sb-link" href="bright_tertiaries.html">Bright Tertiaries</a>
+          <a class="sb-link" href="silicon_dreams.html">Silicon Dreams</a>
+          <a class="sb-link" href="mizuiro.html">Mizuiro</a>
+          <a class="sb-link" class="sb-link active" href="fotonight_web.html">Fotonight Web</a>
+          <a class="sb-link" href="signalwave.html">Signalwave</a>
+          <a class="sb-link" href="cryptidcore.html">Cryptidcore</a>
+          <a class="sb-link" href="liminal_space.html">Liminal Space</a>
+          <a class="sb-link" href="surf_crush.html">Surf Crush</a>
+          <a class="sb-link" href="vectordelia.html">Vectordelia</a>
+          <a class="sb-link" href="y2k.html">Y2k</a>
+          <a class="sb-link" href="vaporwave.html">Vaporwave</a>
+          <a class="sb-link" href="dreamcore.html">Dreamcore</a>
+          <a class="sb-link" href="cottagecore.html">Cottagecore</a>
+          <a class="sb-link" href="cyberpunk.html">Cyberpunk</a>
+          <a class="sb-link" href="dark_academia.html">Dark Academia</a>
+          <a class="sb-link" href="weirdcore.html">Weirdcore</a>
+          <a class="sb-link" href="seapunk.html">Seapunk</a>
+          <a class="sb-link" href="mcbling.html">Mcbling</a>
+          <a class="sb-link" href="indie_sleaze.html">Indie Sleaze</a>
+          <a class="sb-link" href="old_web.html">Old Web</a>
+          <a class="sb-link" href="coquette.html">Coquette</a>
+          <a class="sb-link" href="kidcore.html">Kidcore</a>
+          <a class="sb-link" href="old_money.html">Old Money</a>
+          <a class="sb-link" href="scene.html">Scene</a>
+          <a class="sb-link" href="mallgoth.html">Mallgoth</a>
+          <a class="sb-link" href="sanriocore.html">Sanriocore</a>
+          <a class="sb-link" href="glitchcore.html">Glitchcore</a>
+          <a class="sb-link" href="steampunk.html">Steampunk</a>
+          <a class="sb-link" href="cybercore.html">Cybercore</a>
+          <a class="sb-link" href="poolcore.html">Poolcore</a>
+          <a class="sb-link" href="utopian_scholastic.html">Utopian Scholastic</a>
+          <a class="sb-link" href="lofi_art.html">Lofi Art</a>
+          <a class="sb-link" href="frutiger_metro.html">Frutiger Metro</a>
+          <a class="sb-link" href="barbiecore.html">Barbiecore</a>
+          <a class="sb-link" href="naturecore.html">Naturecore</a>
+          <a class="sb-link" href="fairycore.html">Fairycore</a>
+          <a class="sb-link" href="gorpcore.html">Gorpcore</a>
+          <a class="sb-link" href="decora.html">Decora</a>
+          <a class="sb-link" href="solarpunk.html">Solarpunk</a>
+          <a class="sb-link" href="angelcore.html">Angelcore</a>
+          <a class="sb-link" href="goblincore.html">Goblincore</a>
+          <a class="sb-link" href="indie_kid.html">Indie Kid</a>
+          <a class="sb-link" href="cybergoth.html">Cybergoth</a>
+          <a class="sb-link" href="soft_grunge.html">Soft Grunge</a>
+          <a class="sb-link" href="normcore.html">Normcore</a>
+          </div>
+        <hr class="sb-divider">
+                <div class="sb-section">
+          <span class="sb-label">Eras</span>
+          <a class="sb-link" href="frutiger_aero.html">Frutiger Aero</a>
+          <a class="sb-link" href="gen_x_soft_club.html">Gen X Soft Club</a>
+          <a class="sb-link" href="global_village_coffeehouse.html">Global Village Coffeehouse</a>
+          <a class="sb-link" href="bright_tertiaries.html">Bright Tertiaries</a>
+          <a class="sb-link" href="silicon_dreams.html">Silicon Dreams</a>
+          <a class="sb-link" href="mizuiro.html">Mizuiro</a>
+          <a class="sb-link active" href="fotonight_web.html">Fotonight Web</a>
+          <a class="sb-link" href="signalwave.html">Signalwave</a>
+          <a class="sb-link" href="cryptidcore.html">Cryptidcore</a>
+          <a class="sb-link" href="liminal_space.html">Liminal Space</a>
+          <a class="sb-link" href="surf_crush.html">Surf Crush</a>
+          <a class="sb-link" href="vectordelia.html">Vectordelia</a>
+          <a class="sb-link" href="y2k.html">Y2K</a>
+          <a class="sb-link" href="vaporwave.html">Vaporwave</a>
+          <a class="sb-link" href="dreamcore.html">Dreamcore</a>
+          <a class="sb-link" href="cottagecore.html">Cottagecore</a>
+          <a class="sb-link" href="cyberpunk.html">Cyberpunk</a>
+          <a class="sb-link" href="dark_academia.html">Dark Academia</a>
+          <a class="sb-link" href="weirdcore.html">Weirdcore</a>
+        </div>
+        <div class="counter-box" id="counter">0000000</div>
+        <div class="counter-lbl">visitors since 1999</div>
+        <div class="uc-badge">UNDER CONSTRUCTION</div>
+        <div class="best-viewed">Best viewed in<br>Internet Explorer 6.0<br>at 1024&#215;768 resolution</div>
+      </div>
+      <div class="content-area">
+
+        <div class="page clearfix">
+          
+
+          <div class="infobox">
+            <div class="infobox-title">Fotonight Web</div>
+            <img class="infobox-img" src="https://i.ibb.co/kVN09Lpd/019.webp" alt="Fotonight Web"
+              onclick="openLightbox(0)" title="Click to enlarge" loading="lazy" />
+            <table>
+              <tr>
+                <td>Also known as</td>
+                <td>FNW</td>
+              </tr>
+              <tr>
+                <td>Origin</td>
+                <td>Reddit dream post, Jan 2023</td>
+              </tr>
+              <tr>
+                <td>Founded by</td>
+                <td>u/williamsaguaro2002</td>
+              </tr>
+              <tr>
+                <td>Community</td>
+                <td>r/FotonightWeb</td>
+              </tr>
+              <tr>
+                <td>Parent aesthetic</td>
+                <td>Frutiger Aero</td>
+              </tr>
+              <tr>
+                <td>Related to</td>
+                <td>Shanzhai, Xpiritualism</td>
+              </tr>
+              <tr>
+                <td>Key traits</td>
+                <td>Bootleg Aero, dream-logic, Shanzhai design, garish color</td>
+              </tr>
+            </table>
+          </div>
+
+          <h1 class="page-title">Fotonight Web</h1>
+
+          <div class="toc">
+            <div class="toc-title">Contents</div>
+            <ol>
+              <li><a href="#whatis">What is it?</a></li>
+              <li><a href="#origin">Origin: the dream</a></li>
+              <li><a href="#name">The name</a></li>
+              <li><a href="#look">What Fotonight Web looks like</a></li>
+              <li><a href="#shanzhai">The Shanzhai connection</a></li>
+              <li><a href="#xpiritualism">Xpiritualism and the Chinese internet</a></li>
+              <li><a href="#community">The internet community</a></li>
+              <li><a href="#why">Why this matters</a></li>
+              <li><a href="#checklist">Quick-reference checklist</a></li>
+              <li><a href="#gallery">Gallery</a></li>
+            </ol>
+          </div>
+
+          <h2 class="section-head" id="whatis">What is it?</h2>
+          <p class="para">There is a specific kind of image that shows up on certain corners of the internet. A Mickey
+            Mouse figurine, slightly off-model, posed in front of a garish background of blue sky and bubbles that is
+            unmistakably trying to be Frutiger Aero and not quite pulling it off. The fonts are wrong ,  too many,
+            too large, translated from Chinese via something that clearly isn&rsquo;t a professional translator. The
+            fish are too bright. The colors have been pushed past saturation into a kind of lurid unreality.</p>
+          <p class="para">It feels like it was made by someone who had seen Frutiger Aero, internalized its general
+            vibe, and then produced their own version of it with completely different tools, sensibilities, and goals.
+            It feels like a dream someone had about the internet.</p>
+          <p class="para"><b>Fotonight Web</b> is exactly that. It is simultaneously a meme aesthetic, a
+            community-defined visual genre, a tribute to bootleg consumer culture, and the world&rsquo;s most specific
+            aesthetics wiki entry. It is also one of the most remarkable examples of how internet communities create
+            meaning: a genre that exists because someone dreamed it, named it, and a subreddit decided it was real.</p>
+
+          <h2 class="section-head" id="origin">Origin: the dream</h2>
+          <p class="para">On <b>January 2, 2023</b>, a Reddit user named <b>u/williamsaguaro2002</b> had an unusual
+            dream.</p>
+          <p class="para">In the dream, he had received a voice-acting job at Walt Disney Studios for a &ldquo;big
+            purple fish&rdquo; character. The studio, however, was located in an underground secret base, which also
+            contained aliens and nuclear weapons. While navigating this atypical workplace, he came across an elderly
+            Asian man talking about something called &ldquo;Fotonight Web,&rdquo; who had an image associated with it
+            ,  though upon waking, the dreamer couldn&rsquo;t remember exactly what the old man had said or what
+            the image showed.</p>
+          <p class="para">He woke up with the name <b>&ldquo;Fotonight Web&rdquo;</b> stuck in his head and a vague but
+            persistent visual impression of what it had looked like in the dream. On January 3, 2023 ,  the day
+            after the dream ,  he posted about it on r/FrutigerAero, illustrated what he&rsquo;d seen, and
+            essentially asked the community: does this thing exist?</p>
+          <p class="para">The community&rsquo;s answer, in its own way, was: <i>it does now.</i></p>
+          <div class="pull-quote">&ldquo;An aesthetic that was named before it had a proper definition. The community
+            filled in the meaning.&rdquo;</div>
+
+          <h2 class="section-head" id="name">The name</h2>
+          <p class="para">Nobody knows what &ldquo;Fotonight Web&rdquo; means, because it came from a dream where an
+            elderly man said it and the dreamer woke up before getting an explanation.</p>
+          <p class="para">This is actually perfect. &ldquo;Fotonight&rdquo; sounds like a portmanteau ,  maybe
+            <i>foto</i> (Portuguese/Spanish for photo) + <i>night</i> ,  but that&rsquo;s speculation.
+            &ldquo;Web&rdquo; is clearly the internet, or possibly a spider web, or possibly something else entirely.
+            Crucially, the name has a specific quality: it sounds like it was translated from another language through a
+            process that wasn&rsquo;t quite right. It sounds like something you might find as a brand name on a Chinese
+            knockoff product. Which, as it turns out, is exactly the aesthetic the community landed on.</p>
+
+          <h2 class="section-head" id="look">What Fotonight Web actually looks like</h2>
+          <p class="para">The community developed a visual aesthetic with two overlapping registers:</p>
+          <h3 class="sub-head">The meme register</h3>
+          <p class="para">Deliberately silly, intentionally low-quality, and openly absurdist. Mickey Mouse placed in a
+            Chinese knockoff product environment. Garish bootleg merchandise with incorrect proportions. Surreal
+            juxtapositions that don&rsquo;t resolve into anything sensible ,  a fish next to a city next to a text
+            box in three languages.</p>
+          <h3 class="sub-head">The &ldquo;serious&rdquo; register</h3>
+          <p class="para">The more visually coherent version: cheap, tacky, low-quality Frutiger Aero imagery that
+            wasn&rsquo;t made as a joke but still has this specific quality of being somehow off. A product graphic for
+            a Chinese electronics brand with the Aero blue sky and green hills, but the proportions are slightly wrong
+            and the fish aren&rsquo;t quite the right kind and the font is Arial in a context where Arial
+            shouldn&rsquo;t be used. This is Fotonight Web as accidental aesthetic ,  it existed before it had a
+            name.</p>
+          <h3 class="sub-head">Common visual elements</h3>
+          <ul class="ul-plain">
+            <li>Blue skies and bubbles (Frutiger Aero base elements, present and slightly wrong)</li>
+            <li>Natural animals, particularly fish ,  but fish that are a little too bright, too many, too
+              strangely positioned</li>
+            <li>Water and green landscapes (Frutiger-derived)</li>
+            <li>Auroras and aero glass effects ,  but garish or inverted</li>
+            <li>Low quality Photoshop that&rsquo;s clearly consumer-grade or less</li>
+            <li>Non-sensical, dream-like visual arrangements</li>
+            <li>Chinese bootlegs of established brands ,  particularly Disney, Apple, and Microsoft</li>
+            <li>Mixed foreign languages (primarily Chinese and Japanese) in contexts where they don&rsquo;t fit</li>
+            <li>Mickey Mouse as a constant motif ,  whether legitimate or slightly wrong</li>
+            <li>&ldquo;Michaelsoft Binbows&rdquo; energy ,  brand names that are almost right but not quite</li>
+          </ul>
+
+          <h2 class="section-head" id="shanzhai">The Shanzhai connection</h2>
+          <p class="para"><b>Shanzhai</b> (&#23665;&#23531;) literally means &ldquo;mountain stronghold&rdquo; and
+            refers to the Chinese practice of creating counterfeit, imitation, and parody products. It originally
+            described copycat consumer electronics ,  fake iPhones, knockoff Nokias, bootleg Nikes. But Shanzhai
+            evolved into something more interesting: not just cheap imitations but creative reimaginings, products that
+            took a well-known design and transformed it through their own process of interpretation.</p>
+          <p class="para">In visual design terms, Shanzhai produced a specific aesthetic: the look of something that has
+            absorbed a Western design language and reproduced it with different tools, different quality standards, and
+            different underlying assumptions about what elements are important. The result isn&rsquo;t just &ldquo;bad
+            Frutiger Aero&rdquo; ,  it&rsquo;s Frutiger Aero as seen from a specific cultural and economic remove,
+            processed through a different visual sensibility.</p>
+          <p class="para">This is what the &ldquo;serious&rdquo; version of Fotonight Web documents: the Shanzhai life
+            of an aesthetic, the version of it that exists at the edges of its transmission range.</p>
+
+          <h2 class="section-head" id="xpiritualism">Xpiritualism and the Chinese internet dimension</h2>
+          <p class="para"><b>Xpiritualism</b> describes a specific kind of internet spirituality that emerged from
+            Chinese social media: the mixing of spiritual and religious imagery with internet vernacular, often in
+            contexts that feel deeply incongruous to Western eyes. A serene Buddha next to some product text. Sacred
+            geometry overlaid with hyperlinks.</p>
+          <p class="para">Fotonight Web absorbs some of this quality. The dream-like juxtapositions, the mixing of
+            apparently sacred or meaningful imagery with completely mundane commercial content, the sense that
+            significance might attach to anything regardless of its actual context. A piece of Shanzhai promotional
+            design for a USB hub that happens to include a Buddhist symbol, some fish, a poorly-rendered cloud
+            landscape, and the phrase &ldquo;good quality&rdquo; in several languages ,  none of that was intended
+            to be surreal, but the cumulative effect is.</p>
+
+          <h2 class="section-head" id="community">The internet community</h2>
+          <p class="para">r/FotonightWeb launched in January 2023 in the immediate aftermath of the original post. The
+            community has remained a niche interest within the broader Frutiger Aero world ,  not large, but active
+            in the specific way that very niche internet communities tend to be. Fotonight Web is officially categorized
+            as part of the &ldquo;Frutiger Family&rdquo; of aesthetics, sitting alongside Frutiger Eco, Dark Aero, and
+            Technozen.</p>
+          <p class="para">One notable recurring image is <b>&ldquo;Michaelsoft Binbows&rdquo;</b> ,  a real
+            photograph of signage for a Chinese software shop that used &ldquo;Michaelsoft&rdquo; instead of
+            &ldquo;Microsoft&rdquo; and &ldquo;Binbows&rdquo; instead of &ldquo;Windows.&rdquo; It perfectly captures
+            the Shanzhai quality of the aesthetic: not a random error but a deliberate substitution that reveals the way
+            brand names are understood at a certain distance from their origin.</p>
+
+          <h2 class="section-head" id="why">Why this matters</h2>
+          <p class="para">Fotonight Web is a small thing ,  a meme aesthetic, a community niche. But it&rsquo;s
+            interesting precisely because of how it came into being. An aesthetic that was dreamed before it was seen. A
+            community that decided something existed because someone said a name out loud. A visual genre that
+            documents, affectionately and with genuine curiosity, the Shanzhai life of design languages ,  the way
+            visual aesthetics travel across cultural and economic borders and arrive changed, stranger, and sometimes
+            more interesting than the original.</p>
+          <div class="pull-quote">&ldquo;The cheap, garish, dream-logic product graphic from a Chinese hardware company
+            wasn&rsquo;t trying to be art. It was just trying to sell USB hubs. But in the Fotonight Web
+            community&rsquo;s eyes ,  and arguably correctly ,  it is art.&rdquo;</div>
+
+          <h2 class="section-head" id="checklist">Quick-reference checklist: is it Fotonight Web?</h2>
+          <ul class="checklist">
+            <li>Frutiger Aero base elements (sky, bubbles, fish, nature) ,  but slightly off?</li>
+            <li>Colors pushed past comfortable saturation into the garish zone?</li>
+            <li>Low-quality image compositing ,  things don&rsquo;t quite fit together?</li>
+            <li>Chinese or Japanese text in unusual contexts?</li>
+            <li>Bootleg/knockoff character imagery (especially Mickey Mouse)?</li>
+            <li>Dream-logic visual arrangements ,  things next to each other for no explicable reason?</li>
+            <li>Brand names that are almost right but not quite?</li>
+            <li>Overall vibe: &ldquo;made in a dream about the internet by someone who had never quite seen it&rdquo;?
+            </li>
+          </ul>
+          <p class="para"><i>Four or more? You&rsquo;ve found a Fotonight Web artifact. Congratulations or condolences,
+              depending on your relationship to the uncanny.</i></p>
+
+          <div class="see-also">
+            <h4>See also</h4>
+            <ul>
+              <li><a href="frutiger_aero.html">Frutiger Aero</a> ,  parent aesthetic</li>
+              <li><a href="#">Weirdcore</a> ,  related dream-logic aesthetic</li>
+              <li><a href="https://www.reddit.com/r/FotonightWeb/" target="_blank">r/FotonightWeb</a> ,  the
+                community</li>
+              <li><a href="https://www.reddit.com/r/FrutigerAero/" target="_blank">r/FrutigerAero</a> ,  parent
+                community</li>
+            </ul>
+          </div>
+
+          <h2 class="section-head" id="gallery">Gallery</h2>
+          <p class="para">Click any image to enlarge. Images load on demand.</p>
+          <div class="gallery-grid" id="galleryGrid"></div>
+          <div class="cat-bar"><b>Categories:</b>
+            <a href="#">Internet Aesthetics</a><a href="#">Memes</a><a href="#">Frutiger Family</a>
+            <a href="#">Blue</a><a href="#">2020s</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="status-bar">
+      <span class="status-panel" id="statusText">Done</span>
+      <span class="status-panel">Internet zone</span>
+      <span class="status-panel" style="margin-left:auto;">Lostalgia Wiki v1.0 &nbsp;|&nbsp; lostalgia.net</span>
+    </div>
+  </div>
+  <div class="lightbox" id="lightbox">
+    <button class="lb-close" onclick="closeLightbox()">&#10005; Close</button>
+    <img id="lbImg" src="" alt="" style="display:none;" />
+    <div class="lb-loading" id="lbLoading"></div>
+    <div class="lb-cap" id="lbCap"></div>
+    <div class="lb-nav">
+      <button class="lb-btn" onclick="lbStep(-1)">&#8592; Prev</button>
+      <button class="lb-btn" onclick="lbStep(1)">Next &#8594;</button>
+    </div>
+  </div>
+  <script>
+    const IMGS_RAW = [["019", "https://i.ibb.co/kVN09Lpd/019.webp"], ["020", "https://i.ibb.co/j9dBx5zq/020.webp"], ["021", "https://i.ibb.co/B2dSfCp3/021.webp"], ["022", "https://i.ibb.co/xqJDZh7X/022.webp"], ["023", "https://i.ibb.co/gMcPX8Nb/023.webp"], ["024", "https://i.ibb.co/4wMSWLkd/024.webp"], ["025", "https://i.ibb.co/NgkV0sWb/025.webp"], ["026", "https://i.ibb.co/qLtLVXdb/026.webp"], ["027", "https://i.ibb.co/1ty5Nv7n/027.webp"], ["028", "https://i.ibb.co/Rk1Tnp3N/028.webp"], ["029", "https://i.ibb.co/C3rdfSk7/029.webp"], ["030", "https://i.ibb.co/tTtrNqmC/030.webp"], ["031", "https://i.ibb.co/NgtWnxb4/031.webp"], ["032", "https://i.ibb.co/20TSmcND/032.webp"], ["033", "https://i.ibb.co/nqfp3Nzb/033.webp"], ["034", "https://i.ibb.co/7JS0Hy9j/034.webp"], ["035", "https://i.ibb.co/Zpq7ggLp/035.webp"], ["001", "https://i.ibb.co/5WtRFyJn/001.webp"], ["002", "https://i.ibb.co/LhJvmGRB/002.webp"], ["003", "https://i.ibb.co/9HT1mTpZ/003.webp"], ["004", "https://i.ibb.co/RGgGZLTy/004.webp"], ["005", "https://i.ibb.co/YF3fRzSQ/005.webp"], ["006", "https://i.ibb.co/Qjz7GBKm/006.webp"], ["007", "https://i.ibb.co/1GP7Nfz5/007.webp"], ["008", "https://i.ibb.co/9HqyVKpP/008.webp"], ["009", "https://i.ibb.co/Jj7gbF9D/009.webp"], ["010", "https://i.ibb.co/sdcFsqWm/010.webp"], ["011", "https://i.ibb.co/9mpdb2C9/011.webp"], ["012", "https://i.ibb.co/81NLsb0/012.webp"], ["013", "https://i.ibb.co/V0c22bcN/013.webp"], ["014", "https://i.ibb.co/nsxJg3nT/014.webp"], ["015", "https://i.ibb.co/KpzYzqTN/015.webp"], ["016", "https://i.ibb.co/rGK11Bzv/016.webp"], ["017", "https://i.ibb.co/S7r3qsyj/017.webp"], ["018", "https://i.ibb.co/0pyG3VmH/018.webp"]];
+
+    // image data: key -> full url
+    const imgKeys = IMGS_RAW.map(r => r[0]);
+    const IMGS = {};
+    IMGS_RAW.forEach(r => { IMGS[r[0]] = r[1]; });
+
+    // counter
+    let count = 0; const target = 83412;
+    const counterEl = document.getElementById('counter');
+    const step = Math.ceil(target / 50);
+    const tick = setInterval(() => { count = Math.min(count + step, target); counterEl.textContent = String(count).padStart(7, '0'); if (count >= target) clearInterval(tick); }, 25);
+
+    // toc scroll
+    document.querySelectorAll('.toc a').forEach(a => {
+      a.addEventListener('click', e => {
+        e.preventDefault();
+        const id = a.getAttribute('href').replace('#', '');
+        const el = document.getElementById(id);
+        const ca = document.querySelector('.content-area');
+        if (el && ca) { ca.scrollTo({ top: el.offsetTop - 10, behavior: 'smooth' }); }
+        else if (el) { el.scrollIntoView({ behavior: 'smooth' }); }
+        setStatus('Navigating...'); setTimeout(() => setStatus('Done'), 700);
+      });
+    });
+
+    function setStatus(t) { const el = document.getElementById('statusText'); if (el) el.textContent = t; }
+
+    // mobile drawer toggle
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const sidebar = document.querySelector('.sidebar');
+    if (mobileMenuBtn && sidebar) {
+      mobileMenuBtn.addEventListener('click', () => {
+        sidebar.classList.toggle('open');
+        mobileMenuBtn.textContent = sidebar.classList.contains('open') ? '\\u2715' : '\\u2630';
+      });
+    }
+
+    // gallery: lazy load thumbnails, open full-res in lightbox
+    const gallery = document.getElementById('galleryGrid');
+    if (gallery) {
+      imgKeys.forEach((key, i) => {
+        const item = document.createElement('div');
+        item.className = 'gallery-item';
+        item.onclick = () => openLightbox(i);
+        const img = document.createElement('img');
+        img.className = 'loading';
+        img.alt = 'Image ' + key;
+        img.loading = 'lazy';
+        // use small thumb by appending ibb size param trick ,  just load normal url lazily
+        img.src = IMGS[key];
+        img.onload = () => img.classList.remove('loading');
+        const cap = document.createElement('div');
+        cap.className = 'gallery-caption';
+        cap.textContent = key;
+        item.appendChild(img); item.appendChild(cap);
+        gallery.appendChild(item);
+      });
+    }
+
+    // lightbox: load full-res on demand
+    let lbIndex = 0;
+    function openLightbox(i) {
+      lbIndex = i;
+      const lbImg = document.getElementById('lbImg');
+      const lbLoad = document.getElementById('lbLoading');
+      lbImg.style.display = 'none';
+      if (lbLoad) lbLoad.textContent = 'Loading...';
+      lbImg.src = IMGS[imgKeys[i]];
+      lbImg.onload = () => { lbImg.style.display = 'block'; if (lbLoad) lbLoad.textContent = ''; };
+      document.getElementById('lbCap').textContent = imgKeys[i] + '  \\u2014  ' + (i + 1) + ' / ' + imgKeys.length;
+      document.getElementById('lightbox').classList.add('open');
+      setStatus('Image: ' + imgKeys[i]);
+    }
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('open');
+      setStatus('Done');
+    }
+    function lbStep(dir) {
+      lbIndex = (lbIndex + dir + imgKeys.length) % imgKeys.length;
+      const lbImg = document.getElementById('lbImg');
+      const lbLoad = document.getElementById('lbLoading');
+      lbImg.style.display = 'none';
+      if (lbLoad) lbLoad.textContent = 'Loading...';
+      lbImg.src = IMGS[imgKeys[lbIndex]];
+      lbImg.onload = () => { lbImg.style.display = 'block'; if (lbLoad) lbLoad.textContent = ''; };
+      document.getElementById('lbCap').textContent = imgKeys[lbIndex] + '  \\u2014  ' + (lbIndex + 1) + ' / ' + imgKeys.length;
+    }
+    document.getElementById('lightbox').addEventListener('click', e => { if (e.target === document.getElementById('lightbox')) closeLightbox(); });
+    document.addEventListener('keydown', e => {
+      if (!document.getElementById('lightbox').classList.contains('open')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowRight') lbStep(1);
+      if (e.key === 'ArrowLeft') lbStep(-1);
+    });
+
+  function randomArticle(){
+  const articles=['frutiger_aero.html','gen_x_soft_club.html','global_village_coffeehouse.html','bright_tertiaries.html','silicon_dreams.html','mizuiro.html','fotonight_web.html','signalwave.html','cryptidcore.html','liminal_space.html','surf_crush.html'];
+  location.href=articles[Math.floor(Math.random()*articles.length)];
+}
+</script>
+</body>
+
+</html>

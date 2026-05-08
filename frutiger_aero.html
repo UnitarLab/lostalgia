@@ -1,0 +1,1601 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <meta name="description" content="Lostalgia Wiki - Frutiger Aero">
+  <title>Lostalgia Wiki - Frutiger Aero</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap');
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      background: #c0c0c0;
+      font-family: Tahoma, 'Segoe UI', Arial, sans-serif;
+      overflow: hidden;
+    }
+
+    /* ── DESKTOP: IE CHROME ── */
+    .ie-frame {
+      display: flex;
+      flex-direction: column;
+      width: 100vw;
+      height: 100vh;
+    }
+
+    .title-bar {
+      background: linear-gradient(90deg, #000080 0%, #1a8ad4 60%, #1084d0 100%);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 4px 6px;
+      color: #fff;
+      font-size: 12px;
+      font-weight: bold;
+      user-select: none;
+      flex-shrink: 0;
+    }
+
+    .title-bar-btns {
+      display: flex;
+      gap: 2px;
+    }
+
+    .win-btn {
+      background: #c0c0c0;
+      border: 1.5px solid;
+      border-top-color: #fff;
+      border-left-color: #fff;
+      border-bottom-color: #606060;
+      border-right-color: #606060;
+      width: 18px;
+      height: 16px;
+      font-size: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: #000;
+      font-weight: bold;
+    }
+
+    .menu-bar {
+      background: #d4d0c8;
+      border-bottom: 1px solid #808080;
+      padding: 2px 6px;
+      display: flex;
+      flex-shrink: 0;
+    }
+
+    .menu-bar span {
+      padding: 2px 10px;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    .menu-bar span:hover {
+      background: #000080;
+      color: #fff;
+    }
+
+    .toolbar {
+      background: #d4d0c8;
+      border-bottom: 2px solid #808080;
+      padding: 4px 8px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      flex-shrink: 0;
+    }
+
+    .tb-btn {
+      background: linear-gradient(180deg, #e8e4dc, #c8c4bc);
+      border: 1.5px solid;
+      border-top-color: #fff;
+      border-left-color: #fff;
+      border-bottom-color: #606060;
+      border-right-color: #606060;
+      padding: 3px 10px;
+      font-size: 12px;
+      cursor: pointer;
+      font-family: Tahoma, sans-serif;
+      white-space: nowrap;
+    }
+
+    .addr-bar {
+      flex: 1;
+      background: #fff;
+      border: 1.5px solid;
+      border-top-color: #606060;
+      border-left-color: #606060;
+      border-bottom-color: #fff;
+      border-right-color: #fff;
+      padding: 2px 6px;
+      font-size: 12px;
+      font-family: Tahoma, sans-serif;
+      outline: none;
+    }
+
+    .browser-body {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    /* sidebar */
+    .sidebar {
+      width: 190px;
+      flex-shrink: 0;
+      background: #e8e8f0;
+      border-right: 2px solid #808080;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.25s;
+    }
+
+    .sb-title {
+      background: linear-gradient(90deg, #000080, #1a4ab0);
+      color: #fff;
+      font-weight: bold;
+      font-size: 12px;
+      padding: 5px 10px;
+      text-align: center;
+      letter-spacing: 1px;
+      border-bottom: 1px solid #000050;
+    }
+
+    .sb-section {
+      padding: 7px 10px 4px;
+    }
+
+    .sb-label {
+      font-size: 10px;
+      font-weight: bold;
+      color: #000080;
+      display: block;
+      margin-bottom: 4px;
+      padding-bottom: 2px;
+      border-bottom: 1px dotted #a0a0c0;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .sb-link {
+      display: block;
+      font-size: 12px;
+      color: #0000cc;
+      text-decoration: underline;
+      padding: 2px 3px;
+      cursor: pointer;
+      line-height: 1.5;
+    }
+
+    .sb-link:hover {
+      color: #cc0000;
+      background: #dde;
+    }
+
+    .sb-link.active {
+      color: #cc0000;
+      font-weight: bold;
+      background: #f0e8e8;
+    }
+
+    .sb-divider {
+      border: none;
+      border-top: 1px solid #b0b0c0;
+      margin: 4px 8px;
+    }
+
+    .counter-box {
+      background: #000;
+      color: #00ff00;
+      font-family: 'Courier Prime', monospace;
+      font-size: 15px;
+      text-align: center;
+      padding: 4px;
+      margin: 8px 10px 0;
+      border: 2px inset #808080;
+      letter-spacing: 4px;
+    }
+
+    .counter-lbl {
+      font-size: 10px;
+      color: #666;
+      text-align: center;
+      padding: 3px 0 6px;
+    }
+
+    .uc-badge {
+      margin: 4px 10px 6px;
+      background: #000;
+      text-align: center;
+      padding: 3px;
+      font-size: 10px;
+      font-weight: bold;
+      color: #ffff00;
+      border: 1px solid #ffff00;
+      letter-spacing: 2px;
+    }
+
+    .best-viewed {
+      margin: 4px 10px 10px;
+      background: #fff8dc;
+      border: 1px solid #c0a000;
+      padding: 5px 7px;
+      font-size: 10px;
+      color: #4a3000;
+      line-height: 1.5;
+    }
+
+    .content-area {
+      flex: 1;
+      overflow-y: auto;
+      background: #fff;
+      min-width: 0;
+    }
+
+    /* page */
+    .page {
+      padding: 18px 24px 32px;
+      width: 100%;
+    }
+
+    .edit-note {
+      background: #fff8c4;
+      border: 1px solid #ddb000;
+      border-left: 4px solid #ddb000;
+      padding: 7px 12px;
+      font-size: 13px;
+      color: #5a3e00;
+      margin-bottom: 16px;
+      line-height: 1.5;
+    }
+
+    .edit-note a {
+      color: #0000cc;
+    }
+
+    /* infobox */
+    .infobox {
+      float: right;
+      background: #f8f8f0;
+      border: 1px solid #a2a9b1;
+      margin: 0 0 16px 24px;
+      width: 260px;
+      font-size: 13px;
+      clear: right;
+    }
+
+    .infobox-title {
+      background: linear-gradient(180deg, #cee0f2, #bdd4ea);
+      text-align: center;
+      font-weight: bold;
+      font-size: 14px;
+      padding: 6px;
+      border-bottom: 1px solid #a2a9b1;
+    }
+
+    .infobox-img {
+      width: 100%;
+      height: 170px;
+      object-fit: cover;
+      display: block;
+      border-bottom: 1px solid #a2a9b1;
+      cursor: pointer;
+    }
+
+    .infobox table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .infobox td {
+      padding: 4px 8px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+      vertical-align: top;
+      line-height: 1.4;
+    }
+
+    .infobox td:first-child {
+      color: #555;
+      white-space: nowrap;
+      width: 100px;
+      font-size: 12px;
+    }
+
+    /* typography */
+    .page-title {
+      font-size: 28px;
+      font-family: Georgia, 'Times New Roman', serif;
+      color: #000;
+      border-bottom: 3px double #a2a9b1;
+      margin-bottom: 14px;
+      padding-bottom: 7px;
+      font-weight: bold;
+      line-height: 1.2;
+    }
+
+    .toc {
+      background: #f8f8ff;
+      border: 1px solid #a0a0c0;
+      padding: 10px 16px;
+      display: inline-block;
+      margin-bottom: 16px;
+      min-width: 240px;
+    }
+
+    .toc-title {
+      font-weight: bold;
+      font-size: 13px;
+      text-align: center;
+      margin-bottom: 6px;
+      border-bottom: 1px solid #a0a0c0;
+      padding-bottom: 4px;
+    }
+
+    .toc ol {
+      margin: 0;
+      padding-left: 20px;
+    }
+
+    .toc li {
+      font-size: 12.5px;
+      padding: 2px 0;
+      line-height: 1.6;
+    }
+
+    .toc li ol {
+      padding-left: 16px;
+    }
+
+    .toc a {
+      color: #0000cc;
+      text-decoration: underline;
+    }
+
+    .toc a:hover {
+      color: #cc0000;
+    }
+
+    .section-head {
+      font-size: 22px;
+      font-family: Georgia, serif;
+      color: #000;
+      border-bottom: 1px solid #a2a9b1;
+      margin: 24px 0 8px;
+      padding-bottom: 4px;
+      font-weight: bold;
+    }
+
+    .sub-head {
+      font-size: 16px;
+      font-family: Georgia, serif;
+      color: #000;
+      border-bottom: 1px dotted #ccc;
+      margin: 16px 0 7px;
+      padding-bottom: 2px;
+      font-weight: bold;
+    }
+
+    .sub2-head {
+      font-size: 14px;
+      font-family: Georgia, serif;
+      color: #222;
+      margin: 12px 0 5px;
+      font-weight: bold;
+      font-style: italic;
+    }
+
+    .para {
+      font-size: 14px;
+      line-height: 1.85;
+      color: #111;
+      margin: 0 0 12px;
+    }
+
+    .para a {
+      color: #0000cc;
+      text-decoration: underline;
+    }
+
+    .para b {
+      color: #000;
+    }
+
+    .para i {
+      font-style: italic;
+    }
+
+    .clearfix::after {
+      content: '';
+      display: table;
+      clear: both;
+    }
+
+    .ul-plain {
+      padding-left: 22px;
+      margin: 6px 0 12px;
+    }
+
+    .ul-plain li {
+      font-size: 13.5px;
+      line-height: 1.85;
+    }
+
+    .ul-cols {
+      column-count: 2;
+      column-gap: 24px;
+      padding-left: 22px;
+      margin: 6px 0 12px;
+    }
+
+    .ul-cols li {
+      font-size: 13.5px;
+      line-height: 1.85;
+      break-inside: avoid;
+    }
+
+    .ul-3cols {
+      column-count: 3;
+      column-gap: 20px;
+      padding-left: 22px;
+      margin: 6px 0 12px;
+    }
+
+    .ul-3cols li {
+      font-size: 13px;
+      line-height: 1.75;
+      break-inside: avoid;
+    }
+
+    .music-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+      gap: 2px 20px;
+      margin: 6px 0 14px;
+      padding-left: 22px;
+    }
+
+    .music-grid li {
+      font-size: 13px;
+      line-height: 1.75;
+    }
+
+    /* checklist */
+    .checklist {
+      background: #f8f8f0;
+      border: 1px solid #a2a9b1;
+      padding: 12px 14px 10px;
+      margin: 10px 0 14px;
+    }
+
+    .checklist li {
+      font-size: 13.5px;
+      line-height: 2;
+      list-style: none;
+      padding-left: 4px;
+    }
+
+    .checklist li::before {
+      content: "\25A1  ";
+      color: #000080;
+      font-weight: bold;
+    }
+
+    /* subgenre cards */
+    .subgenre-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 10px;
+      margin: 10px 0 14px;
+    }
+
+    .sg-card {
+      border: 1px solid #a2a9b1;
+      background: #f4f4fc;
+      padding: 10px 12px;
+    }
+
+    .sg-card h4 {
+      font-size: 13px;
+      font-weight: bold;
+      color: #000080;
+      margin-bottom: 5px;
+      font-family: Georgia, serif;
+    }
+
+    .sg-card p {
+      font-size: 12px;
+      line-height: 1.6;
+      color: #333;
+    }
+
+    /* timeline */
+    .timeline {
+      border-left: 3px solid #a2a9b1;
+      margin: 8px 0 14px 12px;
+      padding-left: 16px;
+    }
+
+    .tl-item {
+      margin-bottom: 12px;
+      position: relative;
+    }
+
+    .tl-item::before {
+      content: '';
+      position: absolute;
+      left: -21px;
+      top: 5px;
+      width: 9px;
+      height: 9px;
+      background: #000080;
+      border: 2px solid #a2a9b1;
+    }
+
+    .tl-year {
+      font-size: 13px;
+      font-weight: bold;
+      color: #000080;
+      font-family: Georgia, serif;
+    }
+
+    .tl-text {
+      font-size: 13px;
+      line-height: 1.7;
+      color: #111;
+    }
+
+    /* pull quote */
+    .pull-quote {
+      border-left: 4px solid #000080;
+      background: #f0f0f8;
+      padding: 10px 14px;
+      margin: 12px 0 16px;
+      font-style: italic;
+      font-size: 14px;
+      color: #2a2a5a;
+      line-height: 1.7;
+    }
+
+    /* gallery */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 10px;
+      margin: 12px 0;
+    }
+
+    .gallery-item {
+      border: 1px solid #a2a9b1;
+      background: #f0f0f0;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .gallery-item:hover {
+      border: 2px solid #000080;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 110px;
+      object-fit: cover;
+      display: block;
+      transition: opacity 0.2s;
+    }
+
+    .gallery-item img.loading {
+      opacity: 0.4;
+    }
+
+    .gallery-caption {
+      font-size: 11px;
+      padding: 4px 5px;
+      color: #333;
+      text-align: center;
+    }
+
+    /* cat bar */
+    .cat-bar {
+      background: #f0f0f0;
+      border: 1px solid #a2a9b1;
+      padding: 7px 12px;
+      font-size: 13px;
+      color: #333;
+      margin-top: 24px;
+    }
+
+    .cat-bar a {
+      color: #0000cc;
+      text-decoration: underline;
+      margin: 0 6px 0 0;
+    }
+
+    /* see also box */
+    .see-also {
+      background: #f8f8ff;
+      border: 1px solid #a0a0c0;
+      padding: 10px 14px;
+      margin: 14px 0;
+    }
+
+    .see-also h4 {
+      font-size: 13px;
+      font-weight: bold;
+      color: #000080;
+      margin-bottom: 6px;
+      border-bottom: 1px dotted #a0a0c0;
+      padding-bottom: 3px;
+    }
+
+    .see-also ul {
+      padding-left: 18px;
+    }
+
+    .see-also li {
+      font-size: 13px;
+      line-height: 1.75;
+    }
+
+    .see-also a {
+      color: #0000cc;
+      text-decoration: underline;
+    }
+
+    /* lightbox */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.92);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+
+    .lightbox.open {
+      display: flex;
+    }
+
+    .lightbox img {
+      max-width: 88vw;
+      max-height: 80vh;
+      border: 3px solid #fff;
+      display: block;
+    }
+
+    .lb-cap {
+      color: #eee;
+      font-size: 13px;
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    .lb-close {
+      position: absolute;
+      top: 14px;
+      right: 18px;
+      color: #fff;
+      font-size: 14px;
+      cursor: pointer;
+      background: #000080;
+      border: 2px solid #fff;
+      padding: 3px 12px;
+      font-family: Tahoma, sans-serif;
+      font-weight: bold;
+    }
+
+    .lb-loading {
+      color: #aaa;
+      font-size: 13px;
+      margin-top: 8px;
+    }
+
+    .lb-nav {
+      display: flex;
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .lb-btn {
+      background: #c0c0c0;
+      border: 2px solid;
+      border-top-color: #fff;
+      border-left-color: #fff;
+      border-bottom-color: #808080;
+      border-right-color: #808080;
+      padding: 4px 18px;
+      font-size: 13px;
+      cursor: pointer;
+      font-weight: bold;
+      font-family: Tahoma, sans-serif;
+    }
+
+    /* status */
+    .status-bar {
+      background: #d4d0c8;
+      border-top: 1px solid #808080;
+      padding: 2px 10px;
+      font-size: 11px;
+      display: flex;
+      gap: 16px;
+      flex-shrink: 0;
+      align-items: center;
+    }
+
+    .status-panel {
+      background: #c0c0c0;
+      border: 1px solid;
+      border-top-color: #606060;
+      border-left-color: #606060;
+      border-bottom-color: #fff;
+      border-right-color: #fff;
+      padding: 1px 8px;
+      font-size: 11px;
+    }
+
+    .blink {
+      animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink {
+      50% {
+        opacity: 0;
+      }
+    }
+
+    /* ── MOBILE STYLES ─────────────────────────────────────────────── */
+    @media (max-width:768px) {
+
+      html,
+      body {
+        overflow: auto;
+      }
+
+      .ie-frame {
+        height: auto;
+        min-height: 100vh;
+      }
+
+      /* hide desktop chrome elements */
+      .toolbar {
+        display: none;
+      }
+
+      .menu-bar {
+        display: none;
+      }
+
+      .title-bar {
+        padding: 8px 10px;
+        font-size: 13px;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+
+      /* mobile top nav bar */
+      .mobile-topbar {
+        display: flex;
+        align-items: center;
+        background: #000080;
+        color: #fff;
+        padding: 0;
+        border-bottom: 2px solid #606060;
+        flex-shrink: 0;
+      }
+
+      .mobile-menu-btn {
+        background: none;
+        border: none;
+        color: #fff;
+        font-size: 20px;
+        padding: 8px 12px;
+        cursor: pointer;
+        font-family: Tahoma, sans-serif;
+        flex-shrink: 0;
+      }
+
+      .mobile-site-label {
+        font-size: 13px;
+        font-weight: bold;
+        letter-spacing: 1px;
+        flex: 1;
+        text-align: center;
+        color: #fff;
+      }
+
+      .mobile-home-btn {
+        font-size: 12px;
+        color: #aaccff;
+        text-decoration: underline;
+        padding: 8px 12px;
+        cursor: pointer;
+        background: none;
+        border: none;
+      }
+
+      /* sidebar becomes a drawer */
+      .browser-body {
+        flex-direction: column;
+        overflow: visible;
+      }
+
+      .sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 2px solid #808080;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+        flex-shrink: 0;
+      }
+
+      .sidebar.open {
+        max-height: 600px;
+        overflow-y: auto;
+      }
+
+      /* content */
+      .content-area {
+        overflow-y: visible;
+        background: #fff;
+      }
+
+      /* page */
+      .page {
+        padding: 12px 14px 24px;
+      }
+
+      /* infobox goes below title on mobile */
+      .infobox {
+        float: none;
+        width: 100%;
+        margin: 0 0 14px 0;
+      }
+
+      .infobox-img {
+        height: 200px;
+      }
+
+      /* typography scale-down */
+      .page-title {
+        font-size: 22px;
+      }
+
+      .section-head {
+        font-size: 18px;
+      }
+
+      .sub-head {
+        font-size: 14px;
+      }
+
+      .para {
+        font-size: 13.5px;
+        line-height: 1.75;
+      }
+
+      .ul-plain li,
+      .ul-cols li,
+      .ul-3cols li {
+        font-size: 13px;
+      }
+
+      .ul-cols {
+        column-count: 1;
+      }
+
+      .ul-3cols {
+        column-count: 2;
+      }
+
+      .music-grid {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      }
+
+      /* TOC */
+      .toc {
+        display: block;
+        width: 100%;
+      }
+
+      /* gallery */
+      .gallery-grid {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 6px;
+      }
+
+      .gallery-item img {
+        height: 90px;
+      }
+
+      /* subgenre grid */
+      .subgenre-grid {
+        grid-template-columns: 1fr;
+      }
+
+      /* lightbox bigger on mobile */
+      .lightbox img {
+        max-width: 95vw;
+        max-height: 70vh;
+      }
+
+      .lb-close {
+        top: 8px;
+        right: 8px;
+      }
+
+      /* status bar simplified */
+      .status-bar .status-panel:not(:first-child) {
+        display: none;
+      }
+
+      .status-bar .status-panel:last-child {
+        display: none;
+      }
+    }
+
+    /* hide mobile bar on desktop */
+    .mobile-topbar {
+      display: none;
+    }
+
+    @media (max-width:768px) {
+      .mobile-topbar {
+        display: flex;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="ie-frame">
+    <!-- Desktop title bar -->
+    <div class="title-bar">
+      <span>&#128194;&nbsp; Lostalgia Wiki - Frutiger Aero - Microsoft Internet Explorer</span>
+      <div class="title-bar-btns">
+        <div class="win-btn">&#8212;</div>
+        <div class="win-btn">&#9633;</div>
+        <div class="win-btn" style="color:#c00;">&#10005;</div>
+      </div>
+    </div>
+    <!-- Desktop menu/toolbar -->
+    <div class="menu-bar">
+      <span>File</span><span>Edit</span><span>View</span><span>Favorites</span><span>Tools</span><span>Help</span>
+    </div>
+    <div class="toolbar">
+      <button class="tb-btn" onclick="history.back()">&#8592; Back</button>
+      <button class="tb-btn" onclick="history.forward()">Forward &#8594;</button>
+      <button class="tb-btn" onclick="location.reload()">&#8635; Refresh</button>
+      <button class="tb-btn" onclick="location.href='lostalgia_index.html'">&#127968; Home</button>
+      <span style="font-size:12px;">Address:</span>
+      <input class="addr-bar" value="http://www.lostalgia.net/wiki/Frutiger_Aero" readonly />
+      <button class="tb-btn">Go</button>
+    </div>
+    <!-- Mobile top bar -->
+    <div class="mobile-topbar">
+      <button class="mobile-menu-btn" id="mobileMenuBtn">&#9776;</button>
+      <span class="mobile-site-label">LOSTALGIA.NET</span>
+      <button class="mobile-home-btn" onclick="location.href='lostalgia_index.html'">Home</button>
+    </div>
+    <!-- Body -->
+    <div class="browser-body">
+      <div class="sidebar">
+        <div class="sb-title">LOSTALGIA.NET</div>
+              <div class="sb-section">
+        <span class="sb-label">Navigation</span>
+        <a class="sb-link" href="lostalgia_index.html">Main Page</a>
+        <a class="sb-link" href="lostalgia_index.html#recent-changes">Recent Changes</a>
+        <a class="sb-link" href="javascript:randomArticle()">Random Article</a>
+        <a class="sb-link" href="lostalgia_index.html#help-section">Help</a>
+      </div>
+        <hr class="sb-divider">
+                <div class="sb-section">
+          <span class="sb-label">Eras</span>
+          <a class="sb-link" class="sb-link active" href="frutiger_aero.html">Frutiger Aero</a>
+          <a class="sb-link" href="gen_x_soft_club.html">Gen X Soft Club</a>
+          <a class="sb-link" href="global_village_coffeehouse.html">Global Village Coffeehouse</a>
+          <a class="sb-link" href="bright_tertiaries.html">Bright Tertiaries</a>
+          <a class="sb-link" href="silicon_dreams.html">Silicon Dreams</a>
+          <a class="sb-link" href="mizuiro.html">Mizuiro</a>
+          <a class="sb-link" href="fotonight_web.html">Fotonight Web</a>
+          <a class="sb-link" href="signalwave.html">Signalwave</a>
+          <a class="sb-link" href="cryptidcore.html">Cryptidcore</a>
+          <a class="sb-link" href="liminal_space.html">Liminal Space</a>
+          <a class="sb-link" href="surf_crush.html">Surf Crush</a>
+          <a class="sb-link" href="vectordelia.html">Vectordelia</a>
+          <a class="sb-link" href="y2k.html">Y2k</a>
+          <a class="sb-link" href="vaporwave.html">Vaporwave</a>
+          <a class="sb-link" href="dreamcore.html">Dreamcore</a>
+          <a class="sb-link" href="cottagecore.html">Cottagecore</a>
+          <a class="sb-link" href="cyberpunk.html">Cyberpunk</a>
+          <a class="sb-link" href="dark_academia.html">Dark Academia</a>
+          <a class="sb-link" href="weirdcore.html">Weirdcore</a>
+          <a class="sb-link" href="seapunk.html">Seapunk</a>
+          <a class="sb-link" href="mcbling.html">Mcbling</a>
+          <a class="sb-link" href="indie_sleaze.html">Indie Sleaze</a>
+          <a class="sb-link" href="old_web.html">Old Web</a>
+          <a class="sb-link" href="coquette.html">Coquette</a>
+          <a class="sb-link" href="kidcore.html">Kidcore</a>
+          <a class="sb-link" href="old_money.html">Old Money</a>
+          <a class="sb-link" href="scene.html">Scene</a>
+          <a class="sb-link" href="mallgoth.html">Mallgoth</a>
+          <a class="sb-link" href="sanriocore.html">Sanriocore</a>
+          <a class="sb-link" href="glitchcore.html">Glitchcore</a>
+          <a class="sb-link" href="steampunk.html">Steampunk</a>
+          <a class="sb-link" href="cybercore.html">Cybercore</a>
+          <a class="sb-link" href="poolcore.html">Poolcore</a>
+          <a class="sb-link" href="utopian_scholastic.html">Utopian Scholastic</a>
+          <a class="sb-link" href="lofi_art.html">Lofi Art</a>
+          <a class="sb-link" href="frutiger_metro.html">Frutiger Metro</a>
+          <a class="sb-link" href="barbiecore.html">Barbiecore</a>
+          <a class="sb-link" href="naturecore.html">Naturecore</a>
+          <a class="sb-link" href="fairycore.html">Fairycore</a>
+          <a class="sb-link" href="gorpcore.html">Gorpcore</a>
+          <a class="sb-link" href="decora.html">Decora</a>
+          <a class="sb-link" href="solarpunk.html">Solarpunk</a>
+          <a class="sb-link" href="angelcore.html">Angelcore</a>
+          <a class="sb-link" href="goblincore.html">Goblincore</a>
+          <a class="sb-link" href="indie_kid.html">Indie Kid</a>
+          <a class="sb-link" href="cybergoth.html">Cybergoth</a>
+          <a class="sb-link" href="soft_grunge.html">Soft Grunge</a>
+          <a class="sb-link" href="normcore.html">Normcore</a>
+          </div>
+        <hr class="sb-divider">
+                <div class="sb-section">
+          <span class="sb-label">Eras</span>
+          <a class="sb-link active" href="frutiger_aero.html">Frutiger Aero</a>
+          <a class="sb-link" href="gen_x_soft_club.html">Gen X Soft Club</a>
+          <a class="sb-link" href="global_village_coffeehouse.html">Global Village Coffeehouse</a>
+          <a class="sb-link" href="bright_tertiaries.html">Bright Tertiaries</a>
+          <a class="sb-link" href="silicon_dreams.html">Silicon Dreams</a>
+          <a class="sb-link" href="mizuiro.html">Mizuiro</a>
+          <a class="sb-link" href="fotonight_web.html">Fotonight Web</a>
+          <a class="sb-link" href="signalwave.html">Signalwave</a>
+          <a class="sb-link" href="cryptidcore.html">Cryptidcore</a>
+          <a class="sb-link" href="liminal_space.html">Liminal Space</a>
+          <a class="sb-link" href="surf_crush.html">Surf Crush</a>
+          <a class="sb-link" href="vectordelia.html">Vectordelia</a>
+          <a class="sb-link" href="y2k.html">Y2K</a>
+          <a class="sb-link" href="vaporwave.html">Vaporwave</a>
+          <a class="sb-link" href="dreamcore.html">Dreamcore</a>
+          <a class="sb-link" href="cottagecore.html">Cottagecore</a>
+          <a class="sb-link" href="cyberpunk.html">Cyberpunk</a>
+          <a class="sb-link" href="dark_academia.html">Dark Academia</a>
+          <a class="sb-link" href="weirdcore.html">Weirdcore</a>
+        </div>
+        <div class="counter-box" id="counter">0000000</div>
+        <div class="counter-lbl">visitors since 1999</div>
+        <div class="uc-badge">UNDER CONSTRUCTION</div>
+        <div class="best-viewed">Best viewed in<br>Internet Explorer 6.0<br>at 1024&#215;768 resolution</div>
+      </div>
+      <div class="content-area">
+
+        <div class="page clearfix">
+          
+
+          <div class="infobox">
+            <div class="infobox-title">Frutiger Aero</div>
+            <img class="infobox-img" src="https://i.ibb.co/847jrPLh/001.webp" alt="Frutiger Aero"
+              onclick="openLightbox(0)" title="Click to enlarge" loading="lazy" />
+            <table>
+              <tr>
+                <td>Also known as</td>
+                <td>Web 2.0 Gloss</td>
+              </tr>
+              <tr>
+                <td>Period</td>
+                <td><b>2004 &ndash; 2013</b></td>
+              </tr>
+              <tr>
+                <td>Origin</td>
+                <td>Global (tech/corporate)</td>
+              </tr>
+              <tr>
+                <td>Preceded by</td>
+                <td>Y2K Futurism</td>
+              </tr>
+              <tr>
+                <td>Concurrent with</td>
+                <td>Vectordelia, Recession Pop</td>
+              </tr>
+              <tr>
+                <td>Succeeded by</td>
+                <td>Flat Design</td>
+              </tr>
+              <tr>
+                <td>Named by</td>
+                <td>Sofi Xian, CARI (2017)</td>
+              </tr>
+              <tr>
+                <td>Key traits</td>
+                <td>Skeuomorphism, glass, nature, bokeh</td>
+              </tr>
+            </table>
+          </div>
+
+          <h1 class="page-title">Frutiger Aero</h1>
+
+          <div class="toc">
+            <div class="toc-title">Contents</div>
+            <ol>
+              <li><a href="#whatis">What is it?</a></li>
+              <li><a href="#name">The name</a></li>
+              <li><a href="#history">History</a>
+                <ol>
+                  <li><a href="#primitive">Primitive stages (2000&ndash;2004)</a></li>
+                  <li><a href="#mainstream">Mainstream adoption (2004&ndash;2007)</a></li>
+                  <li><a href="#peak">Peak years (2007&ndash;2012)</a></li>
+                  <li><a href="#decline">The decline (2012&ndash;2013)</a></li>
+                  <li><a href="#revival">The revival (2022&ndash;present)</a></li>
+                </ol>
+              </li>
+              <li><a href="#look">The look: a field guide</a></li>
+              <li><a href="#subgenres">Subgenres</a></li>
+              <li><a href="#tech">Technology list</a></li>
+              <li><a href="#sound">The sound</a></li>
+              <li><a href="#why">Why it matters</a></li>
+              <li><a href="#checklist">Quick-reference checklist</a></li>
+              <li><a href="#gallery">Gallery</a></li>
+            </ol>
+          </div>
+
+          <h2 class="section-head" id="whatis">What is it?</h2>
+          <p class="para">You know those Windows Vista wallpapers? The ones with the gorgeous curling aurora against a
+            deep blue sky? Or the Windows XP &ldquo;Bliss&rdquo; background ,  that impossibly green hill under an
+            impossibly blue sky ,  which turns out to be a real photograph of Sonoma County, California? Or the Wii
+            menu, with its soft chimes and that gently pulsing blue light? Or the original iPhone home screen, where
+            every icon looked like a little jewel ,  glossy, three-dimensional, practically edible?</p>
+          <p class="para">All of that is <b>Frutiger Aero</b>. It is the look of the 2000s, in the same way that neon
+            Memphis squiggles are the look of the &rsquo;80s and grunge flannel is the look of the early &rsquo;90s. It
+            was everywhere from about 2004 to 2013, so ubiquitous that nobody bothered to name it at the time. It was
+            just&hellip; how things looked. How the future looked, or at least how a certain optimistic version of the
+            future was imagined.</p>
+          <p class="para">The name was coined in 2017 by <b>Sofi Xian</b> of the Consumer Aesthetics Research Institute
+            (CARI). By then, the aesthetic had already faded from the mainstream ,  but naming it turned out to be
+            the first step in bringing it back.</p>
+
+          <h2 class="section-head" id="name">The name: a two-part origin story</h2>
+          <h3 class="sub-head">Frutiger</h3>
+          <p class="para"><b>Adrian Frutiger</b> (1928&ndash;2015) was a Swiss typeface designer who spent his career
+            making fonts that were clean, readable, and human. His most famous typefaces ,  Frutiger, Univers,
+            Avenir ,  were designed for maximum legibility in demanding environments: airports, hospitals, signage
+            systems. The Frutiger family was created for Charles de Gaulle Airport in Paris and became the visual
+            standard for transportation infrastructure worldwide.</p>
+          <p class="para">In the 2000s, Frutiger&rsquo;s humanist sans-serif philosophy directly inspired
+            Microsoft&rsquo;s Segoe UI font (used in Windows Vista and beyond) and a whole generation of clean, friendly
+            digital typography. His sensibility ,  his &ldquo;humanist&rdquo; approach to letterforms ,  was
+            baked into the DNA of the entire aesthetic.</p>
+          <h3 class="sub-head">Aero</h3>
+          <p class="para">This half comes from <b>Windows Aero</b>, the visual design language introduced in Windows
+            Vista. &ldquo;Aero&rdquo; was a backronym: <i>Authentic, Energetic, Reflective, and Open.</i> In practice,
+            it meant translucent window borders you could see the desktop through, glassy icons that caught virtual
+            light, and an interface that felt genuinely futuristic without being alienating. Windows Vista had its
+            problems ,  but visually, it was extraordinary.</p>
+          <div class="pull-quote">&ldquo;The future, but friendly.&rdquo; Clean human typography plus translucent glassy
+            interfaces plus optimistic nature imagery.</div>
+
+          <h2 class="section-head" id="history">History: from Longhorn to Flat Design</h2>
+
+          <h3 class="sub-head" id="primitive">Primitive stages (2000&ndash;2004)</h3>
+          <p class="para">The earliest signs appear right at the millennium, in two parallel developments. At Microsoft,
+            engineers were beginning work on &ldquo;Longhorn&rdquo; ,  the codename for what would become Windows
+            Vista. The Aero interface, with its glass-like translucent elements, was taking shape alongside Windows
+            XP&rsquo;s iconic &ldquo;Bliss&rdquo; wallpaper ,  a real photograph of rolling green hills under a
+            perfect blue sky brought to hundreds of millions of screens.</p>
+          <p class="para">At Apple, Mac OS X launched in 2001 with the Aqua interface ,  round, colorful, glossy,
+            friendly. The Aqua name itself was telling: the design evoked water, translucency, light refraction, the
+            feeling of something real and physical made digital.</p>
+
+          <h3 class="sub-head" id="mainstream">Mainstream adoption (2004&ndash;2007)</h3>
+          <p class="para">The proper Frutiger Aero era begins in earnest around 2004. The Nintendo DS arrived with
+            bubbly menus. Apple launched the iPod &ldquo;Silhouette&rdquo; campaign, establishing vivid saturated
+            backdrops and joyful forms as a visual vocabulary. The Sony PSP arrived with the XrossMediaBar interface
+            ,  floating icons that looked like something from a stylish science fiction film.</p>
+          <p class="para">Then the seventh generation of consoles arrived: the Xbox 360 (with its Blades dashboard), the
+            PlayStation 3, and the Nintendo Wii. The Wii in particular is perhaps the most perfectly Aero object ever
+            made: its white-and-chrome design, bubbly menus, cheerful channel icons, and ambient menu music all felt
+            like a small piece of the future that was actually nice to live in.</p>
+
+          <h3 class="sub-head" id="peak">Peak years (2007&ndash;2012)</h3>
+          <p class="para">In 2007, three things dropped that together define the era perfectly. <b>Windows Vista</b>
+            went on sale ,  the Aero Glass interface with translucent taskbars, glassy window borders that caught
+            virtual light. <b>Mac OS X Leopard</b> arrived with its 3D Dock, reflective surfaces, and the purple
+            &ldquo;Aurora&rdquo; default desktop. And <b>Steve Jobs</b> walked on stage at MacWorld to introduce the
+            iPhone: skeuomorphic heaven, every icon a tiny physical object.</p>
+          <p class="para">During these years, the aesthetic saturated consumer culture ,  airline advertising, mall
+            interiors, stock photography (those blades of grass! those water droplets! those fish!), car concept
+            designs, and an enormous range of products from iDogs to water-filled computer mice.</p>
+
+          <h3 class="sub-head" id="decline">The decline (2012&ndash;2013)</h3>
+          <p class="para">The end came relatively quickly. In 2012, Windows 8 debuted with the Metro design language
+            ,  flat, colorful tiles, no gradients, no glass, no depth. The Wii U launched the same year as the last
+            major gaming console to fully embrace Frutiger Aero. Then in 2013, Apple released iOS 7: under Jony
+            Ive&rsquo;s new design leadership, skeuomorphism was completely abandoned. Flat, thin, minimal. No more
+            felt, no more leather, no more glossy jewel-like icons.</p>
+          <div class="pull-quote">&ldquo;It felt like someone had turned off the lights.&rdquo;</div>
+
+          <h3 class="sub-head" id="revival">The revival (2022&ndash;present)</h3>
+          <p class="para">The revival came on TikTok in late 2022. The hashtag accumulated over <b>30 million uses</b>.
+            The r/FrutigerAero subreddit passed 100,000 members. A dedicated archive site launched as a labor-of-love
+            tribute. The nostalgia had layers: for millennials, it was the look of their teenage years. For Gen Z, it
+            was a nostalgia for an era they barely lived through ,  an aesthetic that felt cleaner and more hopeful
+            than the flat, algorithm-optimized internet they&rsquo;d grown up with.</p>
+          <p class="para">People kept using the phrase &ldquo;the future they promised us&rdquo; ,  shorthand for
+            the feeling that the 2000s had offered a vision of technology as friendly, optimistic, and in harmony with
+            nature, and that vision had somehow failed to arrive. Apple&rsquo;s Liquid Glass design language, announced
+            in 2025, was widely noted as a direct heir to Frutiger Aero&rsquo;s translucent, physically-inspired
+            aesthetics.</p>
+
+          <h2 class="section-head" id="look">The look: a field guide</h2>
+          <div class="subgenre-grid">
+            <div class="sg-card">
+              <h4>Glossy everything</h4>
+              <p>Buttons that look like polished plastic or glass. Icons with a highlight at the top, as if light is
+                falling on them. If it looks like you could poke it and it would feel like something, it&rsquo;s
+                probably Frutiger Aero.</p>
+            </div>
+            <div class="sg-card">
+              <h4>Skeuomorphism</h4>
+              <p>Digital interfaces resembling physical counterparts. A calendar that looks like a paper calendar. A
+                bookshelf in iBooks that looks like actual wood. Design to ease digital newbies into unfamiliar
+                territory by making everything look familiar.</p>
+            </div>
+            <div class="sg-card">
+              <h4>Nature + technology</h4>
+              <p>A gleaming glass skyscraper next to a perfect green meadow. A holographic globe floating above flowers.
+                Technology that coexists with nature in some utopian arrangement. The visual language of 2000s
+                eco-optimism.</p>
+            </div>
+            <div class="sg-card">
+              <h4>Bokeh &amp; soft light</h4>
+              <p>Those beautiful blurred background light circles when depth of field is shallow. Adopted as a visual
+                motif everywhere ,  advertising, wallpapers, interface backgrounds. Suggests warmth, depth, and a
+                world beyond the frame.</p>
+            </div>
+            <div class="sg-card">
+              <h4>Aurora borealis</h4>
+              <p>Northern lights imagery was enormously popular ,  it bridged the natural and technological. An
+                aurora looks like a computer-generated light show even when entirely real. Windows Vista&rsquo;s default
+                login background was an aurora.</p>
+            </div>
+            <div class="sg-card">
+              <h4>Bubbles &amp; water</h4>
+              <p>Clear, spherical, reflective bubbles were everywhere. The PS Vita&rsquo;s home screen ,  a field
+                of floating, touchable bubbles ,  was one of the purest expressions of this motif in the
+                aesthetic&rsquo;s history.</p>
+            </div>
+            <div class="sg-card">
+              <h4>Tropical fish</h4>
+              <p>Fish in crystal-clear water, seen from below with light filtering down, became a genuine icon. It
+                appeared on Palmolive dish soap, on screensavers, on wallpapers. The sub-aesthetic is now officially
+                named Helvetica Aqua Aero.</p>
+            </div>
+            <div class="sg-card">
+              <h4>The color palette</h4>
+              <p>Blues, greens, whites, with occasional purples, teals, and warm yellows. The palette of a sky-reflected
+                lake. Of a utopian future where the air is clean and the wifi is fast.</p>
+            </div>
+          </div>
+
+          <h2 class="section-head" id="subgenres">Subgenres (the Frutiger Family)</h2>
+          <div class="subgenre-grid">
+            <div class="sg-card">
+              <h4>Frutiger Eco</h4>
+              <p>Environmental and sustainability imagery ,  wind turbines against glowing skies, green
+                architecture, happy animals in clean habitats. Basically the visual language of a 2007 sustainability
+                report.</p>
+            </div>
+            <div class="sg-card">
+              <h4>Dark Aero (Mata Nero)</h4>
+              <p>Flips the palette toward blacks and dark blues while keeping glass and gloss elements. Think
+                PlayStation 3 menus, or high-end tech advertising. Same depth, different mood ,  midnight rather
+                than midday.</p>
+            </div>
+            <div class="sg-card">
+              <h4>Technozen</h4>
+              <p>The Japanese cousin: cleaner, cuter, slightly more kawaii. Nintendo DS menus, Wii home screens, certain
+                Sony aesthetics. A cozy sterility that&rsquo;s distinctly Japanese tech design.</p>
+            </div>
+            <div class="sg-card">
+              <h4>Helvetica Aqua Aero</h4>
+              <p>The fish and water sub-branch: aquariums, oceans, clear water, aquatic life. The intersection of
+                Frutiger Aero and the beach. Palmolive. Softsoap. The Windows 7 fish wallpaper.</p>
+            </div>
+            <div class="sg-card">
+              <h4>Frutiger Aurora</h4>
+              <p>Specifically the northern-lights imagery: dynamic colored curtains of light against dark skies, used in
+                everything from desktop wallpapers to TV channel idents to the Windows Vista login screen.</p>
+            </div>
+            <div class="sg-card">
+              <h4>Four Colors</h4>
+              <p>Electric lime, sky blue, hot pink, and neon orange. Emerged from Apple&rsquo;s iPod Silhouette
+                campaign. Popular in Japan, where the four colors were associated with the four seasons.</p>
+            </div>
+            <div class="sg-card">
+              <h4>DORFic</h4>
+              <p>Abstract tech minimalism ,  Daylight, Orange, futurism, graphic. Popular mid-2000s to mid-2010s.
+                Think Sony Ericsson advertising and daylight-toned clean compositions.</p>
+            </div>
+          </div>
+
+          <h2 class="section-head" id="tech">Technology list</h2>
+          <p class="para">Canonical Frutiger Aero hardware and software ,  the greatest hits of the era:</p>
+          <div class="timeline">
+            <div class="tl-item">
+              <div class="tl-year">2004</div>
+              <div class="tl-text">Nintendo DS, Sony PSP (Japan), iPod Silhouette campaign, Xbox 360 announced</div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-year">2005&ndash;2006</div>
+              <div class="tl-text">Xbox 360 launch (Blades Dashboard), PSP worldwide, PlayStation 3, Nintendo Wii,
+                Windows Vista Beta</div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-year">2007</div>
+              <div class="tl-text">Windows Vista RTM ,  the definitive platform. iPhone / iOS 1. Mac OS X Leopard.
+                The peak begins.</div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-year">2008&ndash;2009</div>
+              <div class="tl-text">Android 1.0, Nintendo DSi, Windows 7 (the refined better-received version), Samsung
+                Galaxy S</div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-year">2010&ndash;2011</div>
+              <div class="tl-text">iOS 4&ndash;5, Nintendo 3DS, PlayStation Vita (the last great Aero handheld), Samsung
+                Galaxy S II</div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-year">2012</div>
+              <div class="tl-text">Nintendo Wii U ,  the final Aero console. iOS 6. Windows 8 with Metro signals
+                the end.</div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-year">2013</div>
+              <div class="tl-text">iOS 7 ,  Flat Design takes over. Mac OS X 10.9 Mavericks. End of the mainstream
+                era.</div>
+            </div>
+          </div>
+
+          <h3 class="sub-head">Movies</h3>
+          <ul class="ul-3cols">
+            <li>Robots (2005)</li>
+            <li>Sky High (2005)</li>
+            <li>Chicken Little (2005)</li>
+            <li>Meet the Robinsons (2007)</li>
+            <li>Bee Movie (2007)</li>
+            <li>WALL-E (2008)</li>
+            <li>Ponyo (2008)</li>
+            <li>Avatar (2009)</li>
+            <li>Astro Boy (2009)</li>
+            <li>Despicable Me (2010)</li>
+            <li>Rio (2011)</li>
+            <li>The Lorax (2012)</li>
+            <li>Your Name (2016)</li>
+            <li>Tomorrowland (2015)</li>
+            <li>Free Guy (2021)</li>
+          </ul>
+
+          <h3 class="sub-head">Video games</h3>
+          <ul class="ul-3cols">
+            <li>Nintendogs (2005)</li>
+            <li>&ldquo;Wii&rdquo; series (2006&ndash;2011)</li>
+            <li>Portal (2007)</li>
+            <li>Super Mario Galaxy (2007)</li>
+            <li>Mirror&rsquo;s Edge (2008)</li>
+            <li>Spore (2008)</li>
+            <li>Flower (2009)</li>
+            <li>The Sims 3 (2009)</li>
+            <li>PlayStation Home (2008)</li>
+            <li>Super Mario Galaxy 2 (2010)</li>
+            <li>Portal 2 (2011)</li>
+            <li>Pikmin 3 (2013)</li>
+          </ul>
+
+          <h2 class="section-head" id="sound">The sound of Frutiger Aero</h2>
+          <p class="para">Frutiger Aero had a sound as much as a look. The Wii menu&rsquo;s ambient theme ,  those
+            soft, plinking, slightly aquatic tones ,  is probably the most instantly recognizable. The Windows
+            Vista startup sound (composed by Robert Fripp), with its mysterious shimmering texture, is another
+            candidate.</p>
+          <p class="para">More broadly: airy, synthetic, hopeful electronic music. <b>Owl City&rsquo;s</b> early albums
+            (<i>Ocean Eyes</i>, 2009) are frequently cited as the definitive Frutiger Aero sonic experience. Jan
+            Cyrka&rsquo;s &ldquo;Golden Sky&rdquo; (used in the famous &ldquo;A Day Made of Glass&rdquo; concept videos)
+            is another touchstone. Nokia and Sony Ericsson ringtones from the era ,  brief, glassy, synthesized
+            melodies ,  are deeply evocative for anyone who owned a mid-2000s phone.</p>
+          <p class="para">There are, genuinely, 32-hour Frutiger Aero ambient music playlists on YouTube. People listen
+            to Wii menu music for eight hours while working. This is a fact about the world we live in, and it&rsquo;s
+            actually kind of beautiful.</p>
+
+          <h2 class="section-head" id="why">Why it matters (and why people miss it)</h2>
+          <p class="para">Frutiger Aero was, at its core, an expression of a specific kind of optimism: the belief that
+            technology was going to make life better, that the digital and natural worlds could coexist harmoniously,
+            and that the future was going to be bright and clean and accessible to everyone.</p>
+          <p class="para">It was the design language of a moment when home computers were still a wonder, when the
+            internet felt expansive rather than suffocating, when a shiny new phone felt like a miracle rather than a
+            tether. The interfaces were tactile because physical interaction with technology was still new and exciting.
+          </p>
+          <p class="para">The current aesthetic ,  flat design, Corporate Memphis, the algorithmic sameness of
+            every app and website ,  feels, by comparison, designed to be processed rather than enjoyed. Optimized
+            rather than felt. <b>Frutiger Aero looked like a future people actually wanted to live in. That&rsquo;s why
+              people miss it.</b></p>
+
+          <h2 class="section-head" id="checklist">Quick-reference checklist: is it Frutiger Aero?</h2>
+          <ul class="checklist">
+            <li>Glossy, reflective surfaces on digital elements?</li>
+            <li>Translucent or glass-like interface components?</li>
+            <li>Nature imagery (grass, water, fish, bubbles, sky)?</li>
+            <li>Bokeh or soft light effects?</li>
+            <li>Aurora borealis or northern lights imagery?</li>
+            <li>Rounded, 3D-looking icons with highlights?</li>
+            <li>Clean, humanist sans-serif typography (Segoe UI, Frutiger)?</li>
+            <li>Blues, greens, and whites as the primary palette?</li>
+            <li>Overall vibe: &ldquo;this operating system wants to take you on a gentle nature walk&rdquo;?</li>
+          </ul>
+          <p class="para"><i>Four or more? Frutiger Aero confirmed. Adjust your nostalgia levels accordingly.</i></p>
+
+          <div class="see-also">
+            <h4>See also</h4>
+            <ul>
+              <li><a href="gen_x_soft_club.html">Gen X Soft Club</a> ,  contemporary alternative aesthetic</li>
+              <li><a href="#">Y2K Futurism</a> ,  predecessor aesthetic</li>
+              <li><a href="#">Flat Design</a> ,  successor and antagonist</li>
+              <li><a href="#">Corporate Memphis</a> ,  successor&rsquo;s successor</li>
+              <li><a href="https://www.reddit.com/r/FrutigerAero/" target="_blank">r/FrutigerAero</a> ,  active
+                community</li>
+              <li><a href="https://cari.institute/aesthetics/frutiger-aero" target="_blank">CARI ,  Consumer
+                  Aesthetics Research Institute</a></li>
+            </ul>
+          </div>
+
+          <h2 class="section-head" id="gallery">Gallery</h2>
+          <p class="para">Click any image to enlarge. Images load on demand for performance.</p>
+          <div class="gallery-grid" id="galleryGrid"></div>
+
+          <div class="cat-bar">
+            <b>Categories:</b>
+            <a href="#">Design Aesthetics</a><a href="#">2000s</a><a href="#">2010s</a>
+            <a href="#">Futuristic</a><a href="#">Blue</a><a href="#">Green</a>
+            <a href="#">Corporate</a><a href="#">Frutiger Family</a><a href="#">CARI</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="status-bar">
+      <span class="status-panel" id="statusText">Done</span>
+      <span class="status-panel">Internet zone</span>
+      <span class="status-panel" style="margin-left:auto;">Lostalgia Wiki v1.0 &nbsp;|&nbsp; lostalgia.net</span>
+    </div>
+  </div>
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <button class="lb-close" onclick="closeLightbox()">&#10005; Close</button>
+    <img id="lbImg" src="" alt="" style="display:none;" />
+    <div class="lb-loading" id="lbLoading"></div>
+    <div class="lb-cap" id="lbCap"></div>
+    <div class="lb-nav">
+      <button class="lb-btn" onclick="lbStep(-1)">&#8592; Prev</button>
+      <button class="lb-btn" onclick="lbStep(1)">Next &#8594;</button>
+    </div>
+  </div>
+  <script>
+    const IMGS_RAW = [["001", "https://i.ibb.co/847jrPLh/001.webp"], ["002", "https://i.ibb.co/v6S8fKhc/002.webp"], ["003", "https://i.ibb.co/4nxP0G74/003.webp"], ["004", "https://i.ibb.co/PvyBGbvH/004.webp"], ["005", "https://i.ibb.co/wNrVc1fT/005.webp"], ["006", "https://i.ibb.co/ycP5R5S9/006.webp"], ["007", "https://i.ibb.co/nq9nb9PW/007.webp"], ["008", "https://i.ibb.co/nNvgqJ6s/008.webp"], ["009", "https://i.ibb.co/MxTxwyg7/009.webp"], ["010", "https://i.ibb.co/Mkg45bgd/010.webp"], ["011", "https://i.ibb.co/Jwn2zpbm/011.webp"], ["012", "https://i.ibb.co/Kp5yBtgf/012.webp"], ["013", "https://i.ibb.co/FbzTLFzQ/013.webp"], ["014", "https://i.ibb.co/v6c2NXj8/014.webp"], ["015", "https://i.ibb.co/XrCShZxZ/015.webp"], ["016", "https://i.ibb.co/hxWBBxqr/016.webp"], ["017", "https://i.ibb.co/v29XQ99/017.webp"], ["018", "https://i.ibb.co/zTTjjNx5/018.webp"], ["019", "https://i.ibb.co/9HBtf99y/019.webp"], ["020", "https://i.ibb.co/1YDWWn4S/020.webp"], ["021", "https://i.ibb.co/nq7Wf3Nt/021.webp"], ["022", "https://i.ibb.co/zVbMwwzx/022.webp"], ["023", "https://i.ibb.co/C5HWR38z/023.webp"], ["024", "https://i.ibb.co/b5mM4HQ3/024.webp"], ["025", "https://i.ibb.co/RT2Gsnyx/025.webp"], ["026", "https://i.ibb.co/XfzB4YMT/026.webp"], ["027", "https://i.ibb.co/Kpw14Jsb/027.webp"], ["028", "https://i.ibb.co/wZ28vnyY/028.webp"], ["029", "https://i.ibb.co/1t7dtNjs/029.webp"], ["030", "https://i.ibb.co/0jVQqF5v/030.webp"], ["031", "https://i.ibb.co/kVbf9yyr/031.webp"], ["032", "https://i.ibb.co/wNs5f1fV/032.webp"], ["033", "https://i.ibb.co/LhNjzjBK/033.webp"], ["034", "https://i.ibb.co/Zpxkbxqb/034.webp"], ["035", "https://i.ibb.co/qFd0kPyX/035.webp"], ["036", "https://i.ibb.co/MDhvT8ZQ/036.webp"], ["037", "https://i.ibb.co/KBz8Dw5/037.webp"], ["038", "https://i.ibb.co/jcQRnCR/038.webp"], ["039", "https://i.ibb.co/VWgBqLtM/039.webp"], ["040", "https://i.ibb.co/VcHM8qsX/040.webp"]];
+
+    // image data: key -> full url
+    const imgKeys = IMGS_RAW.map(r => r[0]);
+    const IMGS = {};
+    IMGS_RAW.forEach(r => { IMGS[r[0]] = r[1]; });
+
+    // counter
+    let count = 0; const target = 83412;
+    const counterEl = document.getElementById('counter');
+    const step = Math.ceil(target / 50);
+    const tick = setInterval(() => { count = Math.min(count + step, target); counterEl.textContent = String(count).padStart(7, '0'); if (count >= target) clearInterval(tick); }, 25);
+
+    // toc scroll
+    document.querySelectorAll('.toc a').forEach(a => {
+      a.addEventListener('click', e => {
+        e.preventDefault();
+        const id = a.getAttribute('href').replace('#', '');
+        const el = document.getElementById(id);
+        const ca = document.querySelector('.content-area');
+        if (el && ca) { ca.scrollTo({ top: el.offsetTop - 10, behavior: 'smooth' }); }
+        else if (el) { el.scrollIntoView({ behavior: 'smooth' }); }
+        setStatus('Navigating...'); setTimeout(() => setStatus('Done'), 700);
+      });
+    });
+
+    function setStatus(t) { const el = document.getElementById('statusText'); if (el) el.textContent = t; }
+
+    // mobile drawer toggle
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const sidebar = document.querySelector('.sidebar');
+    if (mobileMenuBtn && sidebar) {
+      mobileMenuBtn.addEventListener('click', () => {
+        sidebar.classList.toggle('open');
+        mobileMenuBtn.textContent = sidebar.classList.contains('open') ? '\u2715' : '\u2630';
+      });
+    }
+
+    // gallery: lazy load thumbnails, open full-res in lightbox
+    const gallery = document.getElementById('galleryGrid');
+    if (gallery) {
+      imgKeys.forEach((key, i) => {
+        const item = document.createElement('div');
+        item.className = 'gallery-item';
+        item.onclick = () => openLightbox(i);
+        const img = document.createElement('img');
+        img.className = 'loading';
+        img.alt = 'Image ' + key;
+        img.loading = 'lazy';
+        // use small thumb by appending ibb size param trick ,  just load normal url lazily
+        img.src = IMGS[key];
+        img.onload = () => img.classList.remove('loading');
+        const cap = document.createElement('div');
+        cap.className = 'gallery-caption';
+        cap.textContent = key;
+        item.appendChild(img); item.appendChild(cap);
+        gallery.appendChild(item);
+      });
+    }
+
+    // lightbox: load full-res on demand
+    let lbIndex = 0;
+    function openLightbox(i) {
+      lbIndex = i;
+      const lbImg = document.getElementById('lbImg');
+      const lbLoad = document.getElementById('lbLoading');
+      lbImg.style.display = 'none';
+      if (lbLoad) lbLoad.textContent = 'Loading...';
+      lbImg.src = IMGS[imgKeys[i]];
+      lbImg.onload = () => { lbImg.style.display = 'block'; if (lbLoad) lbLoad.textContent = ''; };
+      document.getElementById('lbCap').textContent = imgKeys[i] + '  \u2014  ' + (i + 1) + ' / ' + imgKeys.length;
+      document.getElementById('lightbox').classList.add('open');
+      setStatus('Image: ' + imgKeys[i]);
+    }
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('open');
+      setStatus('Done');
+    }
+    function lbStep(dir) {
+      lbIndex = (lbIndex + dir + imgKeys.length) % imgKeys.length;
+      const lbImg = document.getElementById('lbImg');
+      const lbLoad = document.getElementById('lbLoading');
+      lbImg.style.display = 'none';
+      if (lbLoad) lbLoad.textContent = 'Loading...';
+      lbImg.src = IMGS[imgKeys[lbIndex]];
+      lbImg.onload = () => { lbImg.style.display = 'block'; if (lbLoad) lbLoad.textContent = ''; };
+      document.getElementById('lbCap').textContent = imgKeys[lbIndex] + '  \u2014  ' + (lbIndex + 1) + ' / ' + imgKeys.length;
+    }
+    document.getElementById('lightbox').addEventListener('click', e => { if (e.target === document.getElementById('lightbox')) closeLightbox(); });
+    document.addEventListener('keydown', e => {
+      if (!document.getElementById('lightbox').classList.contains('open')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowRight') lbStep(1);
+      if (e.key === 'ArrowLeft') lbStep(-1);
+    });
+
+  function randomArticle(){
+  const articles=['frutiger_aero.html','gen_x_soft_club.html','global_village_coffeehouse.html','bright_tertiaries.html','silicon_dreams.html','mizuiro.html','fotonight_web.html','signalwave.html','cryptidcore.html','liminal_space.html','surf_crush.html'];
+  location.href=articles[Math.floor(Math.random()*articles.length)];
+}
+</script>
+</body>
+
+</html>

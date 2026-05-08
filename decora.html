@@ -1,0 +1,1292 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <meta name="description" content="Lostalgia Wiki - Decora">
+  <title>Lostalgia Wiki - Decora</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap');
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      background: #c0c0c0;
+      font-family: Tahoma, 'Segoe UI', Arial, sans-serif;
+      overflow: hidden;
+    }
+
+    /* ── DESKTOP: IE CHROME ── */
+    .ie-frame {
+      display: flex;
+      flex-direction: column;
+      width: 100vw;
+      height: 100vh;
+    }
+
+    .title-bar {
+      background: linear-gradient(90deg, #000080 0%, #1a8ad4 60%, #1084d0 100%);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 4px 6px;
+      color: #fff;
+      font-size: 12px;
+      font-weight: bold;
+      user-select: none;
+      flex-shrink: 0;
+    }
+
+    .title-bar-btns {
+      display: flex;
+      gap: 2px;
+    }
+
+    .win-btn {
+      background: #c0c0c0;
+      border: 1.5px solid;
+      border-top-color: #fff;
+      border-left-color: #fff;
+      border-bottom-color: #606060;
+      border-right-color: #606060;
+      width: 18px;
+      height: 16px;
+      font-size: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: #000;
+      font-weight: bold;
+    }
+
+    .menu-bar {
+      background: #d4d0c8;
+      border-bottom: 1px solid #808080;
+      padding: 2px 6px;
+      display: flex;
+      flex-shrink: 0;
+    }
+
+    .menu-bar span {
+      padding: 2px 10px;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    .menu-bar span:hover {
+      background: #000080;
+      color: #fff;
+    }
+
+    .toolbar {
+      background: #d4d0c8;
+      border-bottom: 2px solid #808080;
+      padding: 4px 8px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      flex-shrink: 0;
+    }
+
+    .tb-btn {
+      background: linear-gradient(180deg, #e8e4dc, #c8c4bc);
+      border: 1.5px solid;
+      border-top-color: #fff;
+      border-left-color: #fff;
+      border-bottom-color: #606060;
+      border-right-color: #606060;
+      padding: 3px 10px;
+      font-size: 12px;
+      cursor: pointer;
+      font-family: Tahoma, sans-serif;
+      white-space: nowrap;
+    }
+
+    .addr-bar {
+      flex: 1;
+      background: #fff;
+      border: 1.5px solid;
+      border-top-color: #606060;
+      border-left-color: #606060;
+      border-bottom-color: #fff;
+      border-right-color: #fff;
+      padding: 2px 6px;
+      font-size: 12px;
+      font-family: Tahoma, sans-serif;
+      outline: none;
+    }
+
+    .browser-body {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    /* sidebar */
+    .sidebar {
+      width: 190px;
+      flex-shrink: 0;
+      background: #e8e8f0;
+      border-right: 2px solid #808080;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.25s;
+    }
+
+    .sb-title {
+      background: linear-gradient(90deg, #000080, #1a4ab0);
+      color: #fff;
+      font-weight: bold;
+      font-size: 12px;
+      padding: 5px 10px;
+      text-align: center;
+      letter-spacing: 1px;
+      border-bottom: 1px solid #000050;
+    }
+
+    .sb-section {
+      padding: 7px 10px 4px;
+    }
+
+    .sb-label {
+      font-size: 10px;
+      font-weight: bold;
+      color: #000080;
+      display: block;
+      margin-bottom: 4px;
+      padding-bottom: 2px;
+      border-bottom: 1px dotted #a0a0c0;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .sb-link {
+      display: block;
+      font-size: 12px;
+      color: #0000cc;
+      text-decoration: underline;
+      padding: 2px 3px;
+      cursor: pointer;
+      line-height: 1.5;
+    }
+
+    .sb-link:hover {
+      color: #cc0000;
+      background: #dde;
+    }
+
+    .sb-link.active {
+      color: #cc0000;
+      font-weight: bold;
+      background: #f0e8e8;
+    }
+
+    .sb-divider {
+      border: none;
+      border-top: 1px solid #b0b0c0;
+      margin: 4px 8px;
+    }
+
+    .counter-box {
+      background: #000;
+      color: #00ff00;
+      font-family: 'Courier Prime', monospace;
+      font-size: 15px;
+      text-align: center;
+      padding: 4px;
+      margin: 8px 10px 0;
+      border: 2px inset #808080;
+      letter-spacing: 4px;
+    }
+
+    .counter-lbl {
+      font-size: 10px;
+      color: #666;
+      text-align: center;
+      padding: 3px 0 6px;
+    }
+
+    .uc-badge {
+      margin: 4px 10px 6px;
+      background: #000;
+      text-align: center;
+      padding: 3px;
+      font-size: 10px;
+      font-weight: bold;
+      color: #ffff00;
+      border: 1px solid #ffff00;
+      letter-spacing: 2px;
+    }
+
+    .best-viewed {
+      margin: 4px 10px 10px;
+      background: #fff8dc;
+      border: 1px solid #c0a000;
+      padding: 5px 7px;
+      font-size: 10px;
+      color: #4a3000;
+      line-height: 1.5;
+    }
+
+    .content-area {
+      flex: 1;
+      overflow-y: auto;
+      background: #fff;
+      min-width: 0;
+    }
+
+    /* page */
+    .page {
+      padding: 18px 24px 32px;
+      width: 100%;
+    }
+
+    .edit-note {
+      background: #fff8c4;
+      border: 1px solid #ddb000;
+      border-left: 4px solid #ddb000;
+      padding: 7px 12px;
+      font-size: 13px;
+      color: #5a3e00;
+      margin-bottom: 16px;
+      line-height: 1.5;
+    }
+
+    .edit-note a {
+      color: #0000cc;
+    }
+
+    /* infobox */
+    .infobox {
+      float: right;
+      background: #f8f8f0;
+      border: 1px solid #a2a9b1;
+      margin: 0 0 16px 24px;
+      width: 260px;
+      font-size: 13px;
+      clear: right;
+    }
+
+    .infobox-title {
+      background: linear-gradient(180deg, #cee0f2, #bdd4ea);
+      text-align: center;
+      font-weight: bold;
+      font-size: 14px;
+      padding: 6px;
+      border-bottom: 1px solid #a2a9b1;
+    }
+
+    .infobox-img {
+      width: 100%;
+      height: 170px;
+      object-fit: cover;
+      display: block;
+      border-bottom: 1px solid #a2a9b1;
+      cursor: pointer;
+    }
+
+    .infobox table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .infobox td {
+      padding: 4px 8px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+      vertical-align: top;
+      line-height: 1.4;
+    }
+
+    .infobox td:first-child {
+      color: #555;
+      white-space: nowrap;
+      width: 100px;
+      font-size: 12px;
+    }
+
+    /* typography */
+    .page-title {
+      font-size: 28px;
+      font-family: Georgia, 'Times New Roman', serif;
+      color: #000;
+      border-bottom: 3px double #a2a9b1;
+      margin-bottom: 14px;
+      padding-bottom: 7px;
+      font-weight: bold;
+      line-height: 1.2;
+    }
+
+    .toc {
+      background: #f8f8ff;
+      border: 1px solid #a0a0c0;
+      padding: 10px 16px;
+      display: inline-block;
+      margin-bottom: 16px;
+      min-width: 240px;
+    }
+
+    .toc-title {
+      font-weight: bold;
+      font-size: 13px;
+      text-align: center;
+      margin-bottom: 6px;
+      border-bottom: 1px solid #a0a0c0;
+      padding-bottom: 4px;
+    }
+
+    .toc ol {
+      margin: 0;
+      padding-left: 20px;
+    }
+
+    .toc li {
+      font-size: 12.5px;
+      padding: 2px 0;
+      line-height: 1.6;
+    }
+
+    .toc li ol {
+      padding-left: 16px;
+    }
+
+    .toc a {
+      color: #0000cc;
+      text-decoration: underline;
+    }
+
+    .toc a:hover {
+      color: #cc0000;
+    }
+
+    .section-head {
+      font-size: 22px;
+      font-family: Georgia, serif;
+      color: #000;
+      border-bottom: 1px solid #a2a9b1;
+      margin: 24px 0 8px;
+      padding-bottom: 4px;
+      font-weight: bold;
+    }
+
+    .sub-head {
+      font-size: 16px;
+      font-family: Georgia, serif;
+      color: #000;
+      border-bottom: 1px dotted #ccc;
+      margin: 16px 0 7px;
+      padding-bottom: 2px;
+      font-weight: bold;
+    }
+
+    .sub2-head {
+      font-size: 14px;
+      font-family: Georgia, serif;
+      color: #222;
+      margin: 12px 0 5px;
+      font-weight: bold;
+      font-style: italic;
+    }
+
+    .para {
+      font-size: 14px;
+      line-height: 1.85;
+      color: #111;
+      margin: 0 0 12px;
+    }
+
+    .para a {
+      color: #0000cc;
+      text-decoration: underline;
+    }
+
+    .para b {
+      color: #000;
+    }
+
+    .para i {
+      font-style: italic;
+    }
+
+    .clearfix::after {
+      content: '';
+      display: table;
+      clear: both;
+    }
+
+    .ul-plain {
+      padding-left: 22px;
+      margin: 6px 0 12px;
+    }
+
+    .ul-plain li {
+      font-size: 13.5px;
+      line-height: 1.85;
+    }
+
+    .ul-cols {
+      column-count: 2;
+      column-gap: 24px;
+      padding-left: 22px;
+      margin: 6px 0 12px;
+    }
+
+    .ul-cols li {
+      font-size: 13.5px;
+      line-height: 1.85;
+      break-inside: avoid;
+    }
+
+    .ul-3cols {
+      column-count: 3;
+      column-gap: 20px;
+      padding-left: 22px;
+      margin: 6px 0 12px;
+    }
+
+    .ul-3cols li {
+      font-size: 13px;
+      line-height: 1.75;
+      break-inside: avoid;
+    }
+
+    .music-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+      gap: 2px 20px;
+      margin: 6px 0 14px;
+      padding-left: 22px;
+    }
+
+    .music-grid li {
+      font-size: 13px;
+      line-height: 1.75;
+    }
+
+    /* checklist */
+    .checklist {
+      background: #f8f8f0;
+      border: 1px solid #a2a9b1;
+      padding: 12px 14px 10px;
+      margin: 10px 0 14px;
+    }
+
+    .checklist li {
+      font-size: 13.5px;
+      line-height: 2;
+      list-style: none;
+      padding-left: 4px;
+    }
+
+    .checklist li::before {
+      content: "\25A1  ";
+      color: #000080;
+      font-weight: bold;
+    }
+
+    /* subgenre cards */
+    .subgenre-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 10px;
+      margin: 10px 0 14px;
+    }
+
+    .sg-card {
+      border: 1px solid #a2a9b1;
+      background: #f4f4fc;
+      padding: 10px 12px;
+    }
+
+    .sg-card h4 {
+      font-size: 13px;
+      font-weight: bold;
+      color: #000080;
+      margin-bottom: 5px;
+      font-family: Georgia, serif;
+    }
+
+    .sg-card p {
+      font-size: 12px;
+      line-height: 1.6;
+      color: #333;
+    }
+
+    /* timeline */
+    .timeline {
+      border-left: 3px solid #a2a9b1;
+      margin: 8px 0 14px 12px;
+      padding-left: 16px;
+    }
+
+    .tl-item {
+      margin-bottom: 12px;
+      position: relative;
+    }
+
+    .tl-item::before {
+      content: '';
+      position: absolute;
+      left: -21px;
+      top: 5px;
+      width: 9px;
+      height: 9px;
+      background: #000080;
+      border: 2px solid #a2a9b1;
+    }
+
+    .tl-year {
+      font-size: 13px;
+      font-weight: bold;
+      color: #000080;
+      font-family: Georgia, serif;
+    }
+
+    .tl-text {
+      font-size: 13px;
+      line-height: 1.7;
+      color: #111;
+    }
+
+    /* pull quote */
+    .pull-quote {
+      border-left: 4px solid #000080;
+      background: #f0f0f8;
+      padding: 10px 14px;
+      margin: 12px 0 16px;
+      font-style: italic;
+      font-size: 14px;
+      color: #2a2a5a;
+      line-height: 1.7;
+    }
+
+    /* gallery */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 10px;
+      margin: 12px 0;
+    }
+
+    .gallery-item {
+      border: 1px solid #a2a9b1;
+      background: #f0f0f0;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .gallery-item:hover {
+      border: 2px solid #000080;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 110px;
+      object-fit: cover;
+      display: block;
+      transition: opacity 0.2s;
+    }
+
+    .gallery-item img.loading {
+      opacity: 0.4;
+    }
+
+    .gallery-caption {
+      font-size: 11px;
+      padding: 4px 5px;
+      color: #333;
+      text-align: center;
+    }
+
+    /* cat bar */
+    .cat-bar {
+      background: #f0f0f0;
+      border: 1px solid #a2a9b1;
+      padding: 7px 12px;
+      font-size: 13px;
+      color: #333;
+      margin-top: 24px;
+    }
+
+    .cat-bar a {
+      color: #0000cc;
+      text-decoration: underline;
+      margin: 0 6px 0 0;
+    }
+
+    /* see also box */
+    .see-also {
+      background: #f8f8ff;
+      border: 1px solid #a0a0c0;
+      padding: 10px 14px;
+      margin: 14px 0;
+    }
+
+    .see-also h4 {
+      font-size: 13px;
+      font-weight: bold;
+      color: #000080;
+      margin-bottom: 6px;
+      border-bottom: 1px dotted #a0a0c0;
+      padding-bottom: 3px;
+    }
+
+    .see-also ul {
+      padding-left: 18px;
+    }
+
+    .see-also li {
+      font-size: 13px;
+      line-height: 1.75;
+    }
+
+    .see-also a {
+      color: #0000cc;
+      text-decoration: underline;
+    }
+
+    /* lightbox */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.92);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+
+    .lightbox.open {
+      display: flex;
+    }
+
+    .lightbox img {
+      max-width: 88vw;
+      max-height: 80vh;
+      border: 3px solid #fff;
+      display: block;
+    }
+
+    .lb-cap {
+      color: #eee;
+      font-size: 13px;
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    .lb-close {
+      position: absolute;
+      top: 14px;
+      right: 18px;
+      color: #fff;
+      font-size: 14px;
+      cursor: pointer;
+      background: #000080;
+      border: 2px solid #fff;
+      padding: 3px 12px;
+      font-family: Tahoma, sans-serif;
+      font-weight: bold;
+    }
+
+    .lb-loading {
+      color: #aaa;
+      font-size: 13px;
+      margin-top: 8px;
+    }
+
+    .lb-nav {
+      display: flex;
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .lb-btn {
+      background: #c0c0c0;
+      border: 2px solid;
+      border-top-color: #fff;
+      border-left-color: #fff;
+      border-bottom-color: #808080;
+      border-right-color: #808080;
+      padding: 4px 18px;
+      font-size: 13px;
+      cursor: pointer;
+      font-weight: bold;
+      font-family: Tahoma, sans-serif;
+    }
+
+    /* status */
+    .status-bar {
+      background: #d4d0c8;
+      border-top: 1px solid #808080;
+      padding: 2px 10px;
+      font-size: 11px;
+      display: flex;
+      gap: 16px;
+      flex-shrink: 0;
+      align-items: center;
+    }
+
+    .status-panel {
+      background: #c0c0c0;
+      border: 1px solid;
+      border-top-color: #606060;
+      border-left-color: #606060;
+      border-bottom-color: #fff;
+      border-right-color: #fff;
+      padding: 1px 8px;
+      font-size: 11px;
+    }
+
+    .blink {
+      animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink {
+      50% {
+        opacity: 0;
+      }
+    }
+
+    /* ── MOBILE STYLES ─────────────────────────────────────────────── */
+    @media (max-width:768px) {
+
+      html,
+      body {
+        overflow: auto;
+      }
+
+      .ie-frame {
+        height: auto;
+        min-height: 100vh;
+      }
+
+      /* hide desktop chrome elements */
+      .toolbar {
+        display: none;
+      }
+
+      .menu-bar {
+        display: none;
+      }
+
+      .title-bar {
+        padding: 8px 10px;
+        font-size: 13px;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+
+      /* mobile top nav bar */
+      .mobile-topbar {
+        display: flex;
+        align-items: center;
+        background: #000080;
+        color: #fff;
+        padding: 0;
+        border-bottom: 2px solid #606060;
+        flex-shrink: 0;
+      }
+
+      .mobile-menu-btn {
+        background: none;
+        border: none;
+        color: #fff;
+        font-size: 20px;
+        padding: 8px 12px;
+        cursor: pointer;
+        font-family: Tahoma, sans-serif;
+        flex-shrink: 0;
+      }
+
+      .mobile-site-label {
+        font-size: 13px;
+        font-weight: bold;
+        letter-spacing: 1px;
+        flex: 1;
+        text-align: center;
+        color: #fff;
+      }
+
+      .mobile-home-btn {
+        font-size: 12px;
+        color: #aaccff;
+        text-decoration: underline;
+        padding: 8px 12px;
+        cursor: pointer;
+        background: none;
+        border: none;
+      }
+
+      /* sidebar becomes a drawer */
+      .browser-body {
+        flex-direction: column;
+        overflow: visible;
+      }
+
+      .sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 2px solid #808080;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+        flex-shrink: 0;
+      }
+
+      .sidebar.open {
+        max-height: 600px;
+        overflow-y: auto;
+      }
+
+      /* content */
+      .content-area {
+        overflow-y: visible;
+        background: #fff;
+      }
+
+      /* page */
+      .page {
+        padding: 12px 14px 24px;
+      }
+
+      /* infobox goes below title on mobile */
+      .infobox {
+        float: none;
+        width: 100%;
+        margin: 0 0 14px 0;
+      }
+
+      .infobox-img {
+        height: 200px;
+      }
+
+      /* typography scale-down */
+      .page-title {
+        font-size: 22px;
+      }
+
+      .section-head {
+        font-size: 18px;
+      }
+
+      .sub-head {
+        font-size: 14px;
+      }
+
+      .para {
+        font-size: 13.5px;
+        line-height: 1.75;
+      }
+
+      .ul-plain li,
+      .ul-cols li,
+      .ul-3cols li {
+        font-size: 13px;
+      }
+
+      .ul-cols {
+        column-count: 1;
+      }
+
+      .ul-3cols {
+        column-count: 2;
+      }
+
+      .music-grid {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      }
+
+      /* TOC */
+      .toc {
+        display: block;
+        width: 100%;
+      }
+
+      /* gallery */
+      .gallery-grid {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 6px;
+      }
+
+      .gallery-item img {
+        height: 90px;
+      }
+
+      /* subgenre grid */
+      .subgenre-grid {
+        grid-template-columns: 1fr;
+      }
+
+      /* lightbox bigger on mobile */
+      .lightbox img {
+        max-width: 95vw;
+        max-height: 70vh;
+      }
+
+      .lb-close {
+        top: 8px;
+        right: 8px;
+      }
+
+      /* status bar simplified */
+      .status-bar .status-panel:not(:first-child) {
+        display: none;
+      }
+
+      .status-bar .status-panel:last-child {
+        display: none;
+      }
+    }
+
+    /* hide mobile bar on desktop */
+    .mobile-topbar {
+      display: none;
+    }
+
+    @media (max-width:768px) {
+      .mobile-topbar {
+        display: flex;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="ie-frame">
+    <div class="title-bar">
+      <span>&#128194;&nbsp; Lostalgia Wiki - Decora - Microsoft Internet Explorer</span>
+      <div class="title-bar-btns">
+        <div class="win-btn">&#8212;</div>
+        <div class="win-btn">&#9633;</div>
+        <div class="win-btn" style="color:#c00;">&#10005;</div>
+      </div>
+    </div>
+    <div class="menu-bar">
+      <span>File</span><span>Edit</span><span>View</span><span>Favorites</span><span>Tools</span><span>Help</span>
+    </div>
+    <div class="toolbar">
+      <button class="tb-btn" onclick="history.back()">&#8592; Back</button>
+      <button class="tb-btn" onclick="history.forward()">Forward &#8594;</button>
+      <button class="tb-btn" onclick="location.reload()">&#8635; Refresh</button>
+      <button class="tb-btn" onclick="location.href='lostalgia_index.html'">&#127968; Home</button>
+      <span style="font-size:12px;">Address:</span>
+      <input class="addr-bar" value="http://www.lostalgia.net/wiki/Liminal_Space" readonly />
+      <button class="tb-btn">Go</button>
+    </div>
+    <div class="mobile-topbar">
+      <button class="mobile-menu-btn" id="mobileMenuBtn">&#9776;</button>
+      <span class="mobile-site-label">LOSTALGIA.NET</span>
+      <button class="mobile-home-btn" onclick="location.href='lostalgia_index.html'">Home</button>
+    </div>
+    <div class="browser-body">
+      <div class="sidebar">
+        <div class="sb-title">LOSTALGIA.NET</div>
+        <div class="sb-section">
+          <span class="sb-label">Navigation</span>
+          <a class="sb-link" href="lostalgia_index.html">Main Page</a>
+          <a class="sb-link" href="lostalgia_index.html#recent-changes">Recent Changes</a>
+          <a class="sb-link" href="javascript:randomArticle()">Random Article</a>
+          <a class="sb-link" href="lostalgia_index.html#help-section">Help</a>
+        </div>
+        <hr class="sb-divider">
+        <div class="sb-section">
+          <span class="sb-label">Eras</span>
+          <a class="sb-link" href="frutiger_aero.html">Frutiger Aero</a>
+          <a class="sb-link" href="gen_x_soft_club.html">Gen X Soft Club</a>
+          <a class="sb-link" href="global_village_coffeehouse.html">Global Village Coffeehouse</a>
+          <a class="sb-link" href="bright_tertiaries.html">Bright Tertiaries</a>
+          <a class="sb-link" href="silicon_dreams.html">Silicon Dreams</a>
+          <a class="sb-link" href="mizuiro.html">Mizuiro</a>
+          <a class="sb-link" href="fotonight_web.html">Fotonight Web</a>
+          <a class="sb-link" href="signalwave.html">Signalwave</a>
+          <a class="sb-link" href="cryptidcore.html">Cryptidcore</a>
+          <a class="sb-link" href="liminal_space.html">Liminal Space</a>
+          <a class="sb-link" href="surf_crush.html">Surf Crush</a>
+          <a class="sb-link" href="vectordelia.html">Vectordelia</a>
+          <a class="sb-link" href="y2k.html">Y2k</a>
+          <a class="sb-link" href="vaporwave.html">Vaporwave</a>
+          <a class="sb-link" href="dreamcore.html">Dreamcore</a>
+          <a class="sb-link" href="cottagecore.html">Cottagecore</a>
+          <a class="sb-link" href="cyberpunk.html">Cyberpunk</a>
+          <a class="sb-link" href="dark_academia.html">Dark Academia</a>
+          <a class="sb-link" href="weirdcore.html">Weirdcore</a>
+          <a class="sb-link" href="seapunk.html">Seapunk</a>
+          <a class="sb-link" href="mcbling.html">Mcbling</a>
+          <a class="sb-link" href="indie_sleaze.html">Indie Sleaze</a>
+          <a class="sb-link" href="old_web.html">Old Web</a>
+          <a class="sb-link" href="coquette.html">Coquette</a>
+          <a class="sb-link" href="kidcore.html">Kidcore</a>
+          <a class="sb-link" href="old_money.html">Old Money</a>
+          <a class="sb-link" href="scene.html">Scene</a>
+          <a class="sb-link" href="mallgoth.html">Mallgoth</a>
+          <a class="sb-link" href="sanriocore.html">Sanriocore</a>
+          <a class="sb-link" href="glitchcore.html">Glitchcore</a>
+          <a class="sb-link" href="steampunk.html">Steampunk</a>
+          <a class="sb-link" href="cybercore.html">Cybercore</a>
+          <a class="sb-link" href="poolcore.html">Poolcore</a>
+          <a class="sb-link" href="utopian_scholastic.html">Utopian Scholastic</a>
+          <a class="sb-link" href="lofi_art.html">Lofi Art</a>
+          <a class="sb-link" href="frutiger_metro.html">Frutiger Metro</a>
+          <a class="sb-link" href="barbiecore.html">Barbiecore</a>
+          <a class="sb-link" href="naturecore.html">Naturecore</a>
+          <a class="sb-link" href="fairycore.html">Fairycore</a>
+          <a class="sb-link" href="gorpcore.html">Gorpcore</a>
+          <a class="sb-link" class="sb-link active" href="decora.html">Decora</a>
+          <a class="sb-link" href="solarpunk.html">Solarpunk</a>
+          <a class="sb-link" href="angelcore.html">Angelcore</a>
+          <a class="sb-link" href="goblincore.html">Goblincore</a>
+          <a class="sb-link" href="indie_kid.html">Indie Kid</a>
+          <a class="sb-link" href="cybergoth.html">Cybergoth</a>
+          <a class="sb-link" href="soft_grunge.html">Soft Grunge</a>
+          <a class="sb-link" href="normcore.html">Normcore</a>
+          </div>
+        <hr class="sb-divider">
+        <div class="sb-section">
+          <span class="sb-label">Eras</span>
+          <a class="sb-link" href="frutiger_aero.html">Frutiger Aero</a>
+          <a class="sb-link" href="gen_x_soft_club.html">Gen X Soft Club</a>
+          <a class="sb-link" href="global_village_coffeehouse.html">Global Village Coffeehouse</a>
+          <a class="sb-link" href="bright_tertiaries.html">Bright Tertiaries</a>
+          <a class="sb-link" href="silicon_dreams.html">Silicon Dreams</a>
+          <a class="sb-link" href="mizuiro.html">Mizuiro</a>
+          <a class="sb-link" href="fotonight_web.html">Fotonight Web</a>
+          <a class="sb-link" href="signalwave.html">Signalwave</a>
+          <a class="sb-link" href="cryptidcore.html">Cryptidcore</a>
+          <a class="sb-link active" href="liminal_space.html">Liminal Space</a>
+          <a class="sb-link" href="surf_crush.html">Surf Crush</a>
+          <a class="sb-link" href="vectordelia.html">Vectordelia</a>
+          <a class="sb-link" href="y2k.html">Y2K</a>
+          <a class="sb-link" href="vaporwave.html">Vaporwave</a>
+          <a class="sb-link" href="dreamcore.html">Dreamcore</a>
+          <a class="sb-link" href="cottagecore.html">Cottagecore</a>
+          <a class="sb-link" href="cyberpunk.html">Cyberpunk</a>
+          <a class="sb-link" href="dark_academia.html">Dark Academia</a>
+          <a class="sb-link" href="weirdcore.html">Weirdcore</a>
+        </div>
+        <div class="counter-box" id="counter">0000000</div>
+        <div class="counter-lbl">visitors since 1999</div>
+        <div class="uc-badge">UNDER CONSTRUCTION</div>
+        <div class="best-viewed">Best viewed in<br>Internet Explorer 6.0<br>at 1024&#215;768 resolution</div>
+      </div>
+      <div class="content-area">
+
+        <div class="page clearfix">
+
+
+          
+          <div class="infobox">
+            <div class="infobox-title">Decora</div>
+            <img class="infobox-img" src="https://i.ibb.co/Fkpn4p2B/950fcc7380be.webp" alt="Decora" onclick="openLightbox(0)" title="Click to enlarge" loading="lazy" />
+            <table>
+              <tr><td>Period</td><td><b>Late 1990s–mid 2000s (Harajuku)</b></td></tr>
+              <tr><td>Description</td><td>A maximalist Japanese street fashion aesthetic defined by layering excessive amounts of colorful accessories and toys.</td></tr>
+              <tr><td>Categories</td><td>Needs_work, Aesthetics_Wiki_Articles, Fashion, 2000s, Japanese, Feminine</td></tr>
+            </table>
+          </div>
+          <h1 class="page-title">Decora</h1>
+          <div class="toc">
+            <div class="toc-title">Contents</div>
+            <ol>
+              <li><a href="#whatis">What is it?</a></li>
+              <li><a href="#history">History & Origins</a></li>
+              <li><a href="#look">The look: a field guide</a></li>
+              <li><a href="#checklist">Quick-reference checklist</a></li>
+              <li><a href="#gallery">Gallery</a></li>
+            </ol>
+          </div>
+          
+<h2 class="section-head" id="whatis">What is it?</h2>
+<p class="para"><b>Decora</b> (from the Japanese word for "decoration") is one of the most iconic subcultures to emerge from Tokyo's Harajuku district. It is a radical rejection of minimalism, embracing a "toy-box" aesthetic where more is always better.</p>
+<p class="para">Visually, Decora is a chaotic, multi-layered explosion of neon colors. It is most famous for its "accessory mask"—the practice of wearing dozens of hair clips on the bangs, multiple necklaces, and layers of colorful band-aids across the face.</p>
+
+<h2 class="section-head" id="history">History & Origins</h2>
+<h3 class="sub-head">The FRUiTS Magazine Era (1997)</h3>
+<p class="para">The aesthetic was popularized by photographers like Shoichi Aoki, who documented the unique street styles of Harajuku in <i>FRUiTS</i> magazine. Decora was the visual rebellion of Japanese youth who wanted to express their childhood joy in a society that valued adult conformity.</p>
+<h3 class="sub-head">The MySpace/Tumblr Spread</h3>
+<p class="para">Decora became a global phenomenon as photos from Harajuku were shared on early internet forums. It heavily influenced the "Scene" and "Kidcore" aesthetics, providing the blueprint for the use of "kandi" jewelry and clashing primary colors as a badge of alternative identity.</p>
+
+<h2 class="section-head" id="look">The look: a field guide</h2>
+<div class="subgenre-grid">
+  <div class="sg-card">
+    <h4>Accessory Saturation</h4>
+    <p>Wearing so many hair clips, bracelets, and rings that the original hair color or skin is barely visible through the plastic.</p>
+  </div>
+  <div class="sg-card">
+    <h4>Clashing Pattern Layers</h4>
+    <p>Pairing polka dots with stripes, leopard print with stars, and wearing multiple pairs of neon-colored socks at once.</p>
+  </div>
+  <div class="sg-card">
+    <h4>Face Decoration</h4>
+    <p>Decorative stickers and patterned medical band-aids worn on the bridge of the nose as a fashion statement.</p>
+  </div>
+  <div class="sg-card">
+    <h4>Cartoon Plush-ware</h4>
+    <p>Carrying stuffed animals or wearing character-branded backpacks (Hello Kitty, Pikachu) as functional fashion.</p>
+  </div>
+</div>
+
+<h2 class="section-head" id="checklist">Quick-reference checklist</h2>
+<ul class="checklist">
+  <li>Are there more than 10 hair clips visible in the person's hair?</li>
+  <li>Is the color palette a "rainbow" of neon primary and secondary colors?</li>
+  <li>Are there multiple layers of patterned socks or leggings?</li>
+  <li>Do you see band-aids on the face or stickers on the skin?</li>
+  <li>Is the image from a 2002 Harajuku street-photography magazine?</li>
+</ul>
+<h2 class="section-head" id="gallery">Gallery</h2>
+          <p class="para">Click any image to enlarge. Images load on demand.</p>
+          <div class="gallery-grid" id="galleryGrid"></div>
+          <div class="cat-bar"><b>Categories:</b>
+            <a href="#">Internet Aesthetics</a><a href="#">2010s</a><a href="#">2020s</a>
+            <a href="#">Photography</a><a href="#">Architecture</a><a href="#">Horror</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="status-bar">
+      <span class="status-panel" id="statusText">Done</span>
+      <span class="status-panel">Internet zone</span>
+      <span class="status-panel" style="margin-left:auto;">Lostalgia Wiki v1.0 &nbsp;|&nbsp; lostalgia.net</span>
+    </div>
+  </div>
+  <div class="lightbox" id="lightbox">
+    <button class="lb-close" onclick="closeLightbox()">&#10005; Close</button>
+    <img id="lbImg" src="" alt="" style="display:none;" />
+    <div class="lb-loading" id="lbLoading"></div>
+    <div class="lb-cap" id="lbCap"></div>
+    <div class="lb-nav">
+      <button class="lb-btn" onclick="lbStep(-1)">&#8592; Prev</button>
+      <button class="lb-btn" onclick="lbStep(1)">Next &#8594;</button>
+    </div>
+  </div>
+  <script>
+    const IMGS_RAW = [
+    ["Decora 001", "https://i.ibb.co/Fkpn4p2B/950fcc7380be.webp"],
+    ["Decora 002", "https://i.ibb.co/5gcpm63g/eb151bbb5491.webp"],
+    ["Decora 003", "https://i.ibb.co/7dkSsdsk/38f1bfc97f65.webp"],
+    ["Decora 004", "https://i.ibb.co/Gvw1kxYx/be29663bbaeb.webp"],
+    ["Decora 005", "https://i.ibb.co/JwdGqNpb/766e1e0a840b.webp"],
+    ["Decora 006", "https://i.ibb.co/Cs8ZvZ8j/e3e22514c74f.webp"],
+    ["Decora 007", "https://i.ibb.co/Q7MsSKtt/b104483cccf7.webp"],
+    ["Decora 008", "https://i.ibb.co/dw8SpJZD/a05a9fe0605e.webp"],
+    ["Decora 009", "https://i.ibb.co/HTrTmWg1/e3ff58def178.webp"],
+    ["Decora 010", "https://i.ibb.co/nszzLtY3/ef77670b6b20.webp"],
+    ["Decora 011", "https://i.ibb.co/WWJyBTsY/6cf8c391917d.webp"],
+    ["Decora 012", "https://i.ibb.co/Xf2tmrWd/1a423eab61dc.webp"],
+    ["Decora 013", "https://i.ibb.co/ZzCNVxk9/ae924e58a0fa.webp"]
+];
+
+    const imgKeys = IMGS_RAW.map(r => r[0]);
+    const IMGS = {};
+    IMGS_RAW.forEach(r => { IMGS[r[0]] = r[1]; });
+
+    // counter
+    let count = 0; const target = 83412;
+    const counterEl = document.getElementById('counter');
+    const step = Math.ceil(target / 50);
+    const tick = setInterval(() => { count = Math.min(count + step, target); counterEl.textContent = String(count).padStart(7, '0'); if (count >= target) clearInterval(tick); }, 25);
+
+    // toc scroll
+    document.querySelectorAll('.toc a').forEach(a => {
+      a.addEventListener('click', e => {
+        e.preventDefault();
+        const id = a.getAttribute('href').replace('#', '');
+        const el = document.getElementById(id);
+        const ca = document.querySelector('.content-area');
+        if (el && ca) { ca.scrollTo({ top: el.offsetTop - 10, behavior: 'smooth' }); }
+        else if (el) { el.scrollIntoView({ behavior: 'smooth' }); }
+        setStatus('Navigating...'); setTimeout(() => setStatus('Done'), 700);
+      });
+    });
+
+    function setStatus(t) { const el = document.getElementById('statusText'); if (el) el.textContent = t; }
+
+    // mobile drawer toggle
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const sidebar = document.querySelector('.sidebar');
+    if (mobileMenuBtn && sidebar) {
+      mobileMenuBtn.addEventListener('click', () => {
+        sidebar.classList.toggle('open');
+        mobileMenuBtn.textContent = sidebar.classList.contains('open') ? '\\u2715' : '\\u2630';
+      });
+    }
+
+    // gallery: lazy load thumbnails, open full-res in lightbox
+    const gallery = document.getElementById('galleryGrid');
+    if (gallery) {
+      imgKeys.forEach((key, i) => {
+        const item = document.createElement('div');
+        item.className = 'gallery-item';
+        item.onclick = () => openLightbox(i);
+        const img = document.createElement('img');
+        img.className = 'loading';
+        img.alt = 'Image ' + key;
+        img.loading = 'lazy';
+        // use small thumb by appending ibb size param trick ,  just load normal url lazily
+        img.src = IMGS[key];
+        img.onload = () => img.classList.remove('loading');
+        const cap = document.createElement('div');
+        cap.className = 'gallery-caption';
+        cap.textContent = key;
+        item.appendChild(img); item.appendChild(cap);
+        gallery.appendChild(item);
+      });
+    }
+
+    // lightbox: load full-res on demand
+    let lbIndex = 0;
+    function openLightbox(i) {
+      lbIndex = i;
+      const lbImg = document.getElementById('lbImg');
+      const lbLoad = document.getElementById('lbLoading');
+      lbImg.style.display = 'none';
+      if (lbLoad) lbLoad.textContent = 'Loading...';
+      lbImg.src = IMGS[imgKeys[i]];
+      lbImg.onload = () => { lbImg.style.display = 'block'; if (lbLoad) lbLoad.textContent = ''; };
+      document.getElementById('lbCap').textContent = imgKeys[i] + '  \\u2014  ' + (i + 1) + ' / ' + imgKeys.length;
+      document.getElementById('lightbox').classList.add('open');
+      setStatus('Image: ' + imgKeys[i]);
+    }
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('open');
+      setStatus('Done');
+    }
+    function lbStep(dir) {
+      lbIndex = (lbIndex + dir + imgKeys.length) % imgKeys.length;
+      const lbImg = document.getElementById('lbImg');
+      const lbLoad = document.getElementById('lbLoading');
+      lbImg.style.display = 'none';
+      if (lbLoad) lbLoad.textContent = 'Loading...';
+      lbImg.src = IMGS[imgKeys[lbIndex]];
+      lbImg.onload = () => { lbImg.style.display = 'block'; if (lbLoad) lbLoad.textContent = ''; };
+      document.getElementById('lbCap').textContent = imgKeys[lbIndex] + '  \\u2014  ' + (lbIndex + 1) + ' / ' + imgKeys.length;
+    }
+    document.getElementById('lightbox').addEventListener('click', e => { if (e.target === document.getElementById('lightbox')) closeLightbox(); });
+    document.addEventListener('keydown', e => {
+      if (!document.getElementById('lightbox').classList.contains('open')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowRight') lbStep(1);
+      if (e.key === 'ArrowLeft') lbStep(-1);
+    });
+
+    function randomArticle() {
+      const articles = ['frutiger_aero.html', 'gen_x_soft_club.html', 'global_village_coffeehouse.html', 'bright_tertiaries.html', 'silicon_dreams.html', 'mizuiro.html', 'fotonight_web.html', 'signalwave.html', 'cryptidcore.html', 'liminal_space.html', 'surf_crush.html'];
+      location.href = articles[Math.floor(Math.random() * articles.length)];
+    }
+  </script>
+</body>
+
+</html>

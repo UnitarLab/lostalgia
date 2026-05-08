@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aesthetics Explorer</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Serif+Display:ital@0;1&family=Space+Mono&display=swap"
+    rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --surface: #12121a;
+      --surface2: #1c1c28;
+      --border: #2a2a3d;
+      --accent: #c8ff00;
+      --accent2: #ff6ef7;
+      --text: #e8e8f0;
+      --muted: #7070a0;
+      --card-radius: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Syne', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* HEADER */
+    header {
+      padding: 20px 32px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: var(--surface);
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.55rem;
+      color: var(--accent);
+      flex-shrink: 0;
+      line-height: 1;
+    }
+
+    .logo span {
+      color: var(--accent2);
+    }
+
+    .search-wrap {
+      flex: 1;
+      min-width: 200px;
+      max-width: 480px;
+      position: relative;
+    }
+
+    #search-input {
+      width: 100%;
+      background: var(--bg);
+      border: 1.5px solid var(--border);
+      color: var(--text);
+      padding: 10px 100px 10px 16px;
+      border-radius: 50px;
+      font-family: 'Space Mono', monospace;
+      font-size: .8rem;
+      outline: none;
+      transition: border-color .2s;
+    }
+
+    #search-input:focus {
+      border-color: var(--accent);
+    }
+
+    #search-input::placeholder {
+      color: var(--muted);
+    }
+
+    #search-btn {
+      position: absolute;
+      right: 5px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: var(--accent);
+      color: #000;
+      border: none;
+      border-radius: 50px;
+      padding: 7px 18px;
+      font-family: 'Syne', sans-serif;
+      font-size: .78rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background .2s;
+    }
+
+    #search-btn:hover {
+      background: var(--accent2);
+      color: #fff;
+    }
+
+    /* PILLS */
+    .pills-bar {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 14px 32px;
+      scrollbar-width: none;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface);
+    }
+
+    .pills-bar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .pill {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      padding: 6px 16px;
+      border-radius: 50px;
+      font-size: .78rem;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all .2s;
+      flex-shrink: 0;
+    }
+
+    .pill:hover,
+    .pill.active {
+      background: var(--accent);
+      color: #000;
+      border-color: var(--accent);
+    }
+
+    /* MAIN */
+    main {
+      padding: 32px;
+      max-width: 1440px;
+      margin: 0 auto;
+    }
+
+    /* GRID */
+    #grid-view.hide {
+      display: none;
+    }
+
+    .results-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .section-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.4rem;
+      color: var(--muted);
+    }
+
+    .section-title strong {
+      color: var(--text);
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--card-radius);
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform .2s, border-color .2s, box-shadow .2s;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: var(--accent);
+      box-shadow: 0 12px 36px rgba(200, 255, 0, .08);
+    }
+
+    .card-img {
+      width: 100%;
+      height: 170px;
+      object-fit: cover;
+      display: block;
+      background: var(--surface2);
+    }
+
+    .card-img-placeholder {
+      width: 100%;
+      height: 170px;
+      background: linear-gradient(135deg, var(--surface2), var(--bg));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      color: var(--border);
+    }
+
+    .card-body {
+      padding: 14px;
+    }
+
+    .card-name {
+      font-weight: 700;
+      font-size: .92rem;
+      margin-bottom: 5px;
+      line-height: 1.3;
+    }
+
+    .card-snippet {
+      font-family: 'Space Mono', monospace;
+      font-size: .7rem;
+      color: var(--muted);
+      line-height: 1.5;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    /* ARTICLE VIEW */
+    #article-view {
+      display: none;
+    }
+
+    #article-view.show {
+      display: block;
+    }
+
+    .article-topbar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+    }
+
+    .back-btn {
+      background: none;
+      border: 1.5px solid var(--border);
+      color: var(--muted);
+      padding: 8px 18px;
+      border-radius: 50px;
+      font-family: 'Syne', sans-serif;
+      font-size: .82rem;
+      cursor: pointer;
+      transition: all .2s;
+    }
+
+    .back-btn:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    #dl-btn {
+      margin-left: auto;
+      background: var(--surface2);
+      border: 1.5px solid var(--border);
+      color: var(--text);
+      padding: 8px 20px;
+      border-radius: 50px;
+      font-family: 'Syne', sans-serif;
+      font-size: .82rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all .2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    #dl-btn:hover {
+      background: var(--accent);
+      color: #000;
+      border-color: var(--accent);
+    }
+
+    #dl-btn:disabled {
+      opacity: .5;
+      cursor: wait;
+    }
+
+    /* ARTICLE LAYOUT */
+    .article-layout {
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 36px;
+      align-items: start;
+    }
+
+    @media(max-width:900px) {
+      .article-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .article-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      line-height: 1.05;
+      margin-bottom: 20px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ARTICLE BODY */
+    .article-body {
+      font-size: .94rem;
+      line-height: 1.78;
+      color: #bbbbd0;
+    }
+
+    .article-body h1,
+    .article-body h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.3rem;
+      margin: 28px 0 10px;
+      color: var(--text);
+      -webkit-text-fill-color: var(--text);
+      background: none;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 6px;
+    }
+
+    .article-body h3 {
+      font-size: 1.05rem;
+      margin: 18px 0 8px;
+      color: var(--text);
+      -webkit-text-fill-color: var(--text);
+      background: none;
+    }
+
+    .article-body p {
+      margin-bottom: 14px;
+    }
+
+    .article-body ul,
+    .article-body ol {
+      margin: 0 0 14px 22px;
+    }
+
+    .article-body li {
+      margin-bottom: 5px;
+    }
+
+    .article-body a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .article-body a:hover {
+      color: var(--accent2);
+    }
+
+    .article-body .mw-editsection,
+    .article-body .mw-editsection-bracket {
+      display: none !important;
+    }
+
+    /* Wiki inline images inside body */
+    .article-body .thumb,
+    .article-body .thumbinner,
+    .article-body figure {
+      float: none !important;
+      clear: both;
+      margin: 20px 0;
+      max-width: 100%;
+    }
+
+    .article-body .thumb img,
+    .article-body figure img,
+    .article-body .thumbimage img {
+      width: 100% !important;
+      height: auto !important;
+      max-height: 380px;
+      object-fit: cover;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      cursor: zoom-in;
+    }
+
+    .article-body .thumbcaption,
+    .article-body figcaption {
+      font-size: .74rem;
+      color: var(--muted);
+      margin-top: 6px;
+      font-style: italic;
+      font-family: 'Space Mono', monospace;
+    }
+
+    .article-body table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+      font-size: .82rem;
+    }
+
+    .article-body td,
+    .article-body th {
+      border: 1px solid var(--border);
+      padding: 8px 10px;
+      color: var(--text);
+    }
+
+    .article-body th {
+      background: var(--surface2);
+    }
+
+    /* SIDEBAR */
+    .article-sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      position: sticky;
+      top: 110px;
+    }
+
+    .sidebar-img {
+      width: 100%;
+      border-radius: 12px;
+      display: block;
+      border: 1px solid var(--border);
+      object-fit: cover;
+      max-height: 280px;
+      cursor: zoom-in;
+      transition: opacity .2s;
+    }
+
+    .sidebar-img:hover {
+      opacity: .85;
+    }
+
+    .sidebar-img-label {
+      font-size: .72rem;
+      color: var(--muted);
+      font-family: 'Space Mono', monospace;
+      margin-top: -8px;
+      margin-bottom: 4px;
+    }
+
+    /* YouTube */
+    .yt-embed-wrap {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      aspect-ratio: 16/9;
+      background: #000;
+    }
+
+    .yt-embed-wrap iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+
+    .yt-label {
+      font-size: .72rem;
+      color: var(--muted);
+      font-family: 'Space Mono', monospace;
+      margin-top: -8px;
+    }
+
+    .wiki-link-btn {
+      display: block;
+      text-align: center;
+      background: var(--surface2);
+      color: var(--muted);
+      border: 1px solid var(--border);
+      padding: 10px;
+      border-radius: 50px;
+      font-size: .78rem;
+      text-decoration: none;
+      transition: all .2s;
+    }
+
+    .wiki-link-btn:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    /* LIGHTBOX */
+    #lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, .93);
+      z-index: 999;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    #lightbox.open {
+      display: flex;
+    }
+
+    #lightbox img {
+      max-width: 92vw;
+      max-height: 88vh;
+      border-radius: 10px;
+      object-fit: contain;
+    }
+
+    #lightbox-close {
+      position: absolute;
+      top: 16px;
+      right: 22px;
+      font-size: 2.2rem;
+      color: #fff;
+      cursor: pointer;
+      background: none;
+      border: none;
+      line-height: 1;
+    }
+
+    /* STATE */
+    .state-msg {
+      text-align: center;
+      padding: 80px 20px;
+      color: var(--muted);
+      font-size: .93rem;
+    }
+
+    .state-msg .emoji {
+      font-size: 3rem;
+      display: block;
+      margin-bottom: 14px;
+    }
+
+    .state-msg strong {
+      color: var(--text);
+      display: block;
+      margin-bottom: 8px;
+      font-size: 1.05rem;
+    }
+
+    .spinner {
+      width: 38px;
+      height: 38px;
+      border: 3px solid var(--border);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin .7s linear infinite;
+      margin: 0 auto 16px;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* TOAST */
+    #dl-progress {
+      display: none;
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--surface);
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      padding: 12px 20px;
+      border-radius: 12px;
+      font-family: 'Space Mono', monospace;
+      font-size: .78rem;
+      z-index: 500;
+      min-width: 240px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, .5);
+    }
+
+    footer {
+      text-align: center;
+      padding: 24px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: .73rem;
+      font-family: 'Space Mono', monospace;
+      margin-top: 60px;
+    }
+
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="logo">Æ<span>sthetics</span></div>
+    <div class="search-wrap">
+      <input id="search-input" type="text" placeholder="Search… Vaporwave, Cottagecore, Y2K…" />
+      <button id="search-btn">GO</button>
+    </div>
+  </header>
+
+  <div class="pills-bar" id="pills-bar"></div>
+
+  <main>
+    <div id="grid-view">
+      <div class="results-header">
+        <div class="section-title" id="grid-title">Pick a style above or search</div>
+      </div>
+      <div id="cards-container">
+        <div class="state-msg">
+          <span class="emoji">🎨</span>
+          <strong>Aesthetics Explorer</strong>
+          Click any pill or search to browse 1,100+ aesthetics — with images, text &amp; YouTube videos.
+        </div>
+      </div>
+    </div>
+
+    <div id="article-view">
+      <div class="article-topbar">
+        <button class="back-btn" id="back-btn">← Back</button>
+        <button id="dl-btn">⬇ Download All Images (.zip)</button>
+      </div>
+      <div id="article-content"></div>
+    </div>
+  </main>
+
+  <footer>
+    Powered by <a href="https://aesthetics.fandom.com" target="_blank">Aesthetics Wiki (Fandom)</a> MediaWiki API
+    &nbsp;·&nbsp; All content belongs to its creators.
+  </footer>
+
+  <div id="lightbox">
+    <button id="lightbox-close">✕</button>
+    <img id="lightbox-img" src="" alt="Full size" />
+  </div>
+  <div id="dl-progress"></div>
+
+  <script>
+    const API = 'https://aesthetics.fandom.com/api.php';
+    const WIKI_BASE = 'https://aesthetics.fandom.com/wiki/';
+
+    // wsrv.nl = open image proxy, bypasses Fandom's hotlink protection completely
+    function proxy(url, w) { return `https://wsrv.nl/?url=${encodeURIComponent(url)}${w ? '&w=' + w : ''}&output=webp&n=-1`; }
+    function proxyRaw(url) { return `https://wsrv.nl/?url=${encodeURIComponent(url)}&n=-1`; }
+
+    const QUICK_AESTHETICS = [
+      'Frutiger Aero', 'Vaporwave', 'Cottagecore', 'Dark Academia',
+      'Y2K', 'Dreamcore', 'Weirdcore', 'Goblincore', 'Fairycore',
+      'Cyberpunk', 'Soft Grunge', 'Kidcore', 'Royalcore', 'Angelcore',
+      'Liminal Space', 'Retrowave', 'Retrofuturism', 'Solarpunk',
+      'Barbiecore', 'Witchcore', 'Grandmacore', 'Indie Sleaze',
+      'Moodcore', 'Neonpunk', 'Frutiger Metro'
+    ];
+
+    // DOM
+    const pillsBar = document.getElementById('pills-bar');
+    const gridView = document.getElementById('grid-view');
+    const articleView = document.getElementById('article-view');
+    const cardsContainer = document.getElementById('cards-container');
+    const gridTitle = document.getElementById('grid-title');
+    const articleContent = document.getElementById('article-content');
+    const searchInput = document.getElementById('search-input');
+    const searchBtn = document.getElementById('search-btn');
+    const backBtn = document.getElementById('back-btn');
+    const dlBtn = document.getElementById('dl-btn');
+    const dlProgress = document.getElementById('dl-progress');
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const lightboxClose = document.getElementById('lightbox-close');
+
+    // State
+    let currentImages = [];
+    let currentTitle = '';
+    let currentText = '';
+
+    // Lightbox
+    lightboxClose.addEventListener('click', () => lightbox.classList.remove('open'));
+    lightbox.addEventListener('click', e => { if (e.target === lightbox) lightbox.classList.remove('open'); });
+    function openLightbox(src) { lightboxImg.src = src; lightbox.classList.add('open'); }
+
+    // Pills
+    QUICK_AESTHETICS.forEach(name => {
+      const btn = document.createElement('button');
+      btn.className = 'pill'; btn.textContent = name;
+      btn.addEventListener('click', () => { setActivePill(btn); loadPillView(name); });
+      pillsBar.appendChild(btn);
+    });
+    function setActivePill(btn) {
+      document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+    }
+
+    // Search
+    searchBtn.addEventListener('click', doSearch);
+    searchInput.addEventListener('keydown', e => { if (e.key === 'Enter') doSearch(); });
+    async function doSearch() {
+      const q = searchInput.value.trim(); if (!q) return;
+      setActivePill(null); showGrid();
+      gridTitle.innerHTML = `Search: <strong>"${esc(q)}"</strong>`;
+      showLoading();
+      try {
+        const results = await searchPages(q);
+        if (!results.length) { showEmpty(q); return; }
+        const pages = await fetchMultipleAbstracts(results.map(r => r.title));
+        renderCards(pages);
+      } catch (err) { showError(err.message); }
+    }
+
+    // Pill → grid of main article + related
+    async function loadPillView(title) {
+      showGrid();
+      gridTitle.innerHTML = `<strong>${esc(title)}</strong> &amp; related`;
+      showLoading();
+      try {
+        const [exact, related] = await Promise.all([
+          fetchMultipleAbstracts([title]),
+          searchPages(title)
+        ]);
+        const extraTitles = related.filter(r => r.title !== title).slice(0, 11).map(r => r.title);
+        const extra = extraTitles.length ? await fetchMultipleAbstracts(extraTitles) : [];
+        const all = [...exact, ...extra];
+        if (!all.length) { showEmpty(title); return; }
+        renderCards(all);
+      } catch (err) { showError(err.message); }
+    }
+
+    // Render cards
+    function renderCards(pages) {
+      if (!pages.length) { showEmpty(''); return; }
+      cardsContainer.innerHTML = '<div class="cards-grid" id="the-grid"></div>';
+      const grid = document.getElementById('the-grid');
+      pages.forEach(page => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        const thumbSrc = page.thumbnail ? proxy(page.thumbnail, 500) : null;
+        card.innerHTML = `
+      ${thumbSrc
+            ? `<img class="card-img" src="${thumbSrc}" alt="${esc(page.title)}" loading="lazy">`
+            : `<div class="card-img-placeholder">✦</div>`}
+      <div class="card-body">
+        <div class="card-name">${esc(page.title)}</div>
+        <div class="card-snippet">${esc(page.snippet) || 'Click to explore this aesthetic.'}</div>
+      </div>`;
+        const img = card.querySelector('.card-img');
+        if (img) img.onerror = () => img.replaceWith(makePlaceholder());
+        card.addEventListener('click', () => openArticle(page.title));
+        grid.appendChild(card);
+      });
+    }
+    function makePlaceholder() {
+      const d = document.createElement('div');
+      d.className = 'card-img-placeholder'; d.textContent = '✦'; return d;
+    }
+
+    // Open full article
+    async function openArticle(title) {
+      gridView.classList.add('hide');
+      articleView.classList.add('show');
+      articleContent.innerHTML = `<div class="state-msg"><div class="spinner"></div>Loading <strong>${esc(title)}</strong>…</div>`;
+      currentImages = []; currentTitle = title; currentText = '';
+      dlBtn.disabled = true; dlBtn.textContent = '⬇ Loading…';
+      try {
+        const data = await fetchArticle(title);
+        if (!data) throw new Error('Not found');
+        currentImages = data.images;
+        currentTitle = data.title;
+        currentText = data.plainText;
+        renderArticle(data);
+        dlBtn.disabled = false;
+        dlBtn.textContent = `⬇ Download Everything (.zip)`;
+      } catch (err) {
+        articleContent.innerHTML = `<div class="state-msg"><span class="emoji">😕</span><strong>Couldn't load article</strong><br>${esc(err.message)}</div>`;
+        dlBtn.textContent = '⬇ Download Images (.zip)';
+      }
+    }
+
+    backBtn.addEventListener('click', () => {
+      articleView.classList.remove('show');
+      gridView.classList.remove('hide');
+    });
+
+    // Render article
+    function renderArticle(data) {
+      // Build sidebar HTML
+      let sidebarHtml = '';
+
+      // First 6 images in sidebar
+      data.images.slice(0, 6).forEach((src, i) => {
+        const p = proxy(src, 700);
+        sidebarHtml += `<img class="sidebar-img" src="${p}" data-raw="${src}" alt="img ${i + 1}" loading="${i < 2 ? 'eager' : 'lazy'}">`;
+      });
+
+      // YouTube embeds
+      data.youtubeIds.forEach((id, i) => {
+        sidebarHtml += `
+      <div class="yt-label">▶ Video ${i + 1}</div>
+      <div class="yt-embed-wrap">
+        <iframe src="https://www.youtube.com/embed/${id}" allowfullscreen loading="lazy"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
+        </iframe>
+      </div>`;
+      });
+
+      if (data.images.length > 6) {
+        sidebarHtml += `<div class="sidebar-img-label">+${data.images.length - 6} more images in ZIP download</div>`;
+      }
+      sidebarHtml += `<a class="wiki-link-btn" href="${WIKI_BASE}${encodeURIComponent(data.title.replace(/ /g, '_'))}" target="_blank" rel="noopener">📖 Full article on Aesthetics Wiki ↗</a>`;
+
+      articleContent.innerHTML = `
+    <div class="article-layout">
+      <div>
+        <div class="article-title">${esc(data.title)}</div>
+        <div class="article-body" id="article-body-inner">${data.html}</div>
+      </div>
+      <div class="article-sidebar">${sidebarHtml}</div>
+    </div>`;
+
+      // Fix all <img> tags inside article body — proxy them
+      document.querySelectorAll('#article-body-inner img').forEach(img => {
+        let src = img.getAttribute('src') || img.getAttribute('data-src') || '';
+        if (!src) return;
+        if (src.startsWith('//')) src = 'https:' + src;
+        else if (src.startsWith('/')) src = 'https://aesthetics.fandom.com' + src;
+        img.src = proxy(src, 800);
+        img.removeAttribute('width'); img.removeAttribute('height');
+        img.style.cursor = 'zoom-in';
+        img.onerror = () => img.style.display = 'none';
+        img.addEventListener('click', () => openLightbox(proxy(src, 1400)));
+      });
+
+      // Sidebar image lightbox + error fallback
+      document.querySelectorAll('.sidebar-img').forEach(img => {
+        img.onerror = () => img.style.display = 'none';
+        img.addEventListener('click', () => openLightbox(proxy(img.dataset.raw, 1400)));
+      });
+
+      // Internal wiki links → open in-app
+      document.querySelectorAll('#article-body-inner a[href]').forEach(a => {
+        const href = a.getAttribute('href') || '';
+        if (href.startsWith('/wiki/') && !href.includes(':')) {
+          const pt = decodeURIComponent(href.replace('/wiki/', '').replace(/_/g, ' '));
+          a.href = '#';
+          a.addEventListener('click', e => { e.preventDefault(); openArticle(pt); });
+        }
+      });
+    }
+
+    // ZIP download — images + text
+    dlBtn.addEventListener('click', downloadZip);
+    async function downloadZip() {
+      dlBtn.disabled = true;
+      const folderName = currentTitle.replace(/[^\w\s-]/g, '').trim() || 'aesthetic';
+      const zip = new JSZip();
+      const folder = zip.folder(folderName);
+
+      // Always add text file
+      if (currentText) {
+        folder.file(`${folderName}.txt`, currentText);
+      }
+
+      // Add images
+      if (currentImages.length) {
+        let done = 0;
+        showProgress(`Fetching 0 / ${currentImages.length} images…`);
+        await Promise.allSettled(currentImages.map(async (url, i) => {
+          try {
+            const res = await fetch(proxyRaw(url));
+            if (!res.ok) return;
+            const blob = await res.blob();
+            const rawExt = url.split('?')[0].split('.').pop().replace(/[^a-zA-Z]/g, '').toLowerCase() || 'jpg';
+            const ext = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'avif'].includes(rawExt) ? rawExt : 'jpg';
+            folder.file(`${String(i + 1).padStart(3, '0')}.${ext}`, blob);
+          } finally {
+            done++;
+            showProgress(`Fetching ${done} / ${currentImages.length} images…`);
+          }
+        }));
+      }
+
+      showProgress('Creating ZIP…');
+      const blob = await zip.generateAsync({ type: 'blob', compression: 'DEFLATE', compressionOptions: { level: 3 } });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = `${folderName}.zip`;
+      a.click();
+      hideProgress();
+      dlBtn.disabled = false;
+      dlBtn.textContent = `⬇ Download Everything (.zip)`;
+    }
+    function showProgress(msg) { dlProgress.style.display = 'block'; dlProgress.textContent = msg; }
+    function hideProgress() { dlProgress.style.display = 'none'; }
+
+    // API helpers
+    async function searchPages(query) {
+      const url = new URL(API);
+      url.searchParams.set('action', 'opensearch'); url.searchParams.set('search', query);
+      url.searchParams.set('limit', '12'); url.searchParams.set('namespace', '0');
+      url.searchParams.set('format', 'json'); url.searchParams.set('origin', '*');
+      const res = await fetch(url); if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const [, titles] = await res.json();
+      return (titles || []).map(t => ({ title: t }));
+    }
+
+    async function fetchMultipleAbstracts(titles) {
+      if (!titles.length) return [];
+      const url = new URL(API);
+      url.searchParams.set('action', 'query'); url.searchParams.set('titles', titles.join('|'));
+      url.searchParams.set('prop', 'extracts|pageimages'); url.searchParams.set('exintro', '1');
+      url.searchParams.set('explaintext', '1'); url.searchParams.set('exsentences', '3');
+      url.searchParams.set('piprop', 'thumbnail'); url.searchParams.set('pithumbsize', '500');
+      url.searchParams.set('format', 'json'); url.searchParams.set('origin', '*');
+      const res = await fetch(url); if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const json = await res.json();
+      return Object.values(json.query?.pages || {})
+        .filter(p => p.pageid > 0)
+        .map(p => ({ title: p.title, snippet: p.extract || '', thumbnail: p.thumbnail?.source || null }));
+    }
+
+    // Convert raw wikitext → clean readable plain text
+    function wikitextToPlain(wt) {
+      let t = wt;
+
+      // Section headings  == Heading == → \nHEADING\n------
+      t = t.replace(/^={1,6}\s*(.+?)\s*={1,6}\s*$/gm, (_, h) => `\n${h.toUpperCase()}\n${'-'.repeat(h.length)}\n`);
+
+      // Remove templates {{ ... }} (nested-safe via repeated passes)
+      for (let i = 0; i < 8; i++) t = t.replace(/\{\{[^{}]*\}\}/g, '');
+
+      // Remove [[File:...]] and [[Image:...]] embeds
+      t = t.replace(/\[\[(?:File|Image|Media):[^\]]*\]\]/gi, '');
+
+      // [[link|label]] → label,  [[link]] → link
+      t = t.replace(/\[\[([^\]|]+)\|([^\]]+)\]\]/g, '$2');
+      t = t.replace(/\[\[([^\]]+)\]\]/g, '$1');
+
+      // [url label] → label,  bare [url] → (url)
+      t = t.replace(/\[https?:\/\/\S+\s+([^\]]+)\]/g, '$1');
+      t = t.replace(/\[https?:\/\/\S+\]/g, '');
+
+      // Bold/italic '''text''' / ''text''
+      t = t.replace(/'{3}(.+?)'{3}/g, '$1');
+      t = t.replace(/'{2}(.+?)'{2}/g, '$1');
+
+      // <ref ...>...</ref> and <ref ... />
+      t = t.replace(/<ref[^>]*>[\s\S]*?<\/ref>/gi, '');
+      t = t.replace(/<ref[^>]*\/>/gi, '');
+
+      // Strip remaining HTML tags
+      t = t.replace(/<[^>]+>/g, '');
+
+      // HTML entities
+      t = t.replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&nbsp;/g, ' ').replace(/&#\d+;/g, '');
+
+      // Bullet/numbered list markers
+      t = t.replace(/^[*#:;]+\s*/gm, '  • ');
+
+      // Horizontal rules
+      t = t.replace(/^-{4,}$/gm, '\n---\n');
+
+      // Collapse 3+ blank lines → 2
+      t = t.replace(/\n{3,}/g, '\n\n');
+
+      return t.trim();
+    }
+
+    async function fetchArticle(title) {
+      // Parse article HTML + image list + external links (for YouTube)
+      // Also fetch plain text extract in parallel
+      const parseUrl = new URL(API);
+      parseUrl.searchParams.set('action', 'parse'); parseUrl.searchParams.set('page', title);
+      parseUrl.searchParams.set('prop', 'text|images|externallinks');
+      parseUrl.searchParams.set('format', 'json'); parseUrl.searchParams.set('origin', '*');
+
+      const textUrl = new URL(API);
+      textUrl.searchParams.set('action', 'query');
+      textUrl.searchParams.set('titles', title);
+      textUrl.searchParams.set('prop', 'revisions');
+      textUrl.searchParams.set('rvprop', 'content');
+      textUrl.searchParams.set('rvslots', 'main');
+      textUrl.searchParams.set('format', 'json');
+      textUrl.searchParams.set('origin', '*');
+
+      const [res, textRes] = await Promise.all([fetch(parseUrl), fetch(textUrl)]);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const json = await res.json();
+      if (json.error) throw new Error(json.error.info);
+
+      // Extract full wikitext and strip markup into readable plain text
+      let plainText = '';
+      if (textRes.ok) {
+        const tj = await textRes.json();
+        const pages = Object.values(tj.query?.pages || {});
+        if (pages.length) {
+          const wikitext = pages[0].revisions?.[0]?.slots?.main?.['*']
+            || pages[0].revisions?.[0]?.['*']
+            || '';
+          plainText = wikitextToPlain(wikitext);
+        }
+      }
+      plainText = `${json.parse.title}\n${'='.repeat(json.parse.title.length)}\nSource: ${WIKI_BASE}${encodeURIComponent(title.replace(/ /g, '_'))}\n\n${plainText}`;
+
+      const rawHtml = json.parse?.text?.['*'] || '';
+      const imageFiles = json.parse?.images || [];
+      const extLinks = json.parse?.externallinks || [];
+
+      // Extract YouTube IDs
+      const ytIds = [];
+      const ytRx = /(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([A-Za-z0-9_-]{11})/;
+      extLinks.forEach(l => { const m = l.match(ytRx); if (m && !ytIds.includes(m[1])) ytIds.push(m[1]); });
+
+      // Clean HTML
+      const tmp = document.createElement('div');
+      tmp.innerHTML = rawHtml;
+      tmp.querySelectorAll(
+        '.mw-editsection,.mw-editsection-bracket,.navbox,#toc,.toc,.ambox,.mbox,.hatnote,' +
+        'script,.noprint,.thumb .magnify,.wikia-ad,[class*="ad-slot"],[class*="fandom-community"]'
+      ).forEach(el => el.remove());
+      // Remove dimension overrides on images so our CSS controls layout
+      tmp.querySelectorAll('img').forEach(img => {
+        img.removeAttribute('width'); img.removeAttribute('height');
+        img.removeAttribute('srcset');
+      });
+      const cleanHtml = tmp.innerHTML;
+
+      // Resolve image URLs in batches of 10 (up to 40 images)
+      let imageUrls = [];
+      if (imageFiles.length) {
+        const toFetch = imageFiles.slice(0, 40);
+        const batches = [];
+        for (let i = 0; i < toFetch.length; i += 10) batches.push(toFetch.slice(i, i + 10));
+        const batchResults = await Promise.all(batches.map(async batch => {
+          const u = new URL(API);
+          u.searchParams.set('action', 'query');
+          u.searchParams.set('titles', batch.map(f => `File:${f}`).join('|'));
+          u.searchParams.set('prop', 'imageinfo'); u.searchParams.set('iiprop', 'url');
+          u.searchParams.set('iiurlwidth', '1200');
+          u.searchParams.set('format', 'json'); u.searchParams.set('origin', '*');
+          const r = await fetch(u); if (!r.ok) return [];
+          const j = await r.json();
+          return Object.values(j.query?.pages || {})
+            .map(p => p.imageinfo?.[0]?.url)
+            .filter(Boolean);
+        }));
+        imageUrls = batchResults.flat()
+          .filter(u => !u.match(/\.(svg|ogg|ogv|webm|mp4|mp3|pdf|ico)$/i))
+          .filter(u => !u.includes('Wiki-wordmark') && !u.includes('favicon') && !u.includes('Blank'));
+      }
+
+      return { title: json.parse.title, html: cleanHtml, images: imageUrls, youtubeIds: ytIds, plainText };
+    }
+
+    // Utils
+    function showGrid() { gridView.classList.remove('hide'); articleView.classList.remove('show'); }
+    function showLoading() { cardsContainer.innerHTML = `<div class="state-msg"><div class="spinner"></div>Loading…</div>`; }
+    function showEmpty(q) {
+      cardsContainer.innerHTML = `<div class="state-msg"><span class="emoji">🔍</span><strong>No results</strong>${q ? `Nothing found for "<em>${esc(q)}</em>". Try a quick pill or different spelling.` : 'Try searching.'}</div>`;
+    }
+    function showError(msg) {
+      cardsContainer.innerHTML = `<div class="state-msg"><span class="emoji">⚠️</span><strong>Something went wrong</strong>${esc(msg)}</div>`;
+    }
+    function esc(s) { return String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
+
+    // Boot
+    window.addEventListener('DOMContentLoaded', () => {
+      const first = pillsBar.querySelector('.pill');
+      if (first) { setActivePill(first); loadPillView('Frutiger Aero'); }
+    });
+  </script>
+</body>
+
+</html>

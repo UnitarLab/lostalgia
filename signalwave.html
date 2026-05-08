@@ -1,0 +1,1482 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <meta name="description" content="Lostalgia Wiki - Signalwave">
+  <title>Lostalgia Wiki - Signalwave</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap');
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      background: #c0c0c0;
+      font-family: Tahoma, 'Segoe UI', Arial, sans-serif;
+      overflow: hidden;
+    }
+
+    /* ── DESKTOP: IE CHROME ── */
+    .ie-frame {
+      display: flex;
+      flex-direction: column;
+      width: 100vw;
+      height: 100vh;
+    }
+
+    .title-bar {
+      background: linear-gradient(90deg, #000080 0%, #1a8ad4 60%, #1084d0 100%);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 4px 6px;
+      color: #fff;
+      font-size: 12px;
+      font-weight: bold;
+      user-select: none;
+      flex-shrink: 0;
+    }
+
+    .title-bar-btns {
+      display: flex;
+      gap: 2px;
+    }
+
+    .win-btn {
+      background: #c0c0c0;
+      border: 1.5px solid;
+      border-top-color: #fff;
+      border-left-color: #fff;
+      border-bottom-color: #606060;
+      border-right-color: #606060;
+      width: 18px;
+      height: 16px;
+      font-size: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: #000;
+      font-weight: bold;
+    }
+
+    .menu-bar {
+      background: #d4d0c8;
+      border-bottom: 1px solid #808080;
+      padding: 2px 6px;
+      display: flex;
+      flex-shrink: 0;
+    }
+
+    .menu-bar span {
+      padding: 2px 10px;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    .menu-bar span:hover {
+      background: #000080;
+      color: #fff;
+    }
+
+    .toolbar {
+      background: #d4d0c8;
+      border-bottom: 2px solid #808080;
+      padding: 4px 8px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      flex-shrink: 0;
+    }
+
+    .tb-btn {
+      background: linear-gradient(180deg, #e8e4dc, #c8c4bc);
+      border: 1.5px solid;
+      border-top-color: #fff;
+      border-left-color: #fff;
+      border-bottom-color: #606060;
+      border-right-color: #606060;
+      padding: 3px 10px;
+      font-size: 12px;
+      cursor: pointer;
+      font-family: Tahoma, sans-serif;
+      white-space: nowrap;
+    }
+
+    .addr-bar {
+      flex: 1;
+      background: #fff;
+      border: 1.5px solid;
+      border-top-color: #606060;
+      border-left-color: #606060;
+      border-bottom-color: #fff;
+      border-right-color: #fff;
+      padding: 2px 6px;
+      font-size: 12px;
+      font-family: Tahoma, sans-serif;
+      outline: none;
+    }
+
+    .browser-body {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    /* sidebar */
+    .sidebar {
+      width: 190px;
+      flex-shrink: 0;
+      background: #e8e8f0;
+      border-right: 2px solid #808080;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.25s;
+    }
+
+    .sb-title {
+      background: linear-gradient(90deg, #000080, #1a4ab0);
+      color: #fff;
+      font-weight: bold;
+      font-size: 12px;
+      padding: 5px 10px;
+      text-align: center;
+      letter-spacing: 1px;
+      border-bottom: 1px solid #000050;
+    }
+
+    .sb-section {
+      padding: 7px 10px 4px;
+    }
+
+    .sb-label {
+      font-size: 10px;
+      font-weight: bold;
+      color: #000080;
+      display: block;
+      margin-bottom: 4px;
+      padding-bottom: 2px;
+      border-bottom: 1px dotted #a0a0c0;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .sb-link {
+      display: block;
+      font-size: 12px;
+      color: #0000cc;
+      text-decoration: underline;
+      padding: 2px 3px;
+      cursor: pointer;
+      line-height: 1.5;
+    }
+
+    .sb-link:hover {
+      color: #cc0000;
+      background: #dde;
+    }
+
+    .sb-link.active {
+      color: #cc0000;
+      font-weight: bold;
+      background: #f0e8e8;
+    }
+
+    .sb-divider {
+      border: none;
+      border-top: 1px solid #b0b0c0;
+      margin: 4px 8px;
+    }
+
+    .counter-box {
+      background: #000;
+      color: #00ff00;
+      font-family: 'Courier Prime', monospace;
+      font-size: 15px;
+      text-align: center;
+      padding: 4px;
+      margin: 8px 10px 0;
+      border: 2px inset #808080;
+      letter-spacing: 4px;
+    }
+
+    .counter-lbl {
+      font-size: 10px;
+      color: #666;
+      text-align: center;
+      padding: 3px 0 6px;
+    }
+
+    .uc-badge {
+      margin: 4px 10px 6px;
+      background: #000;
+      text-align: center;
+      padding: 3px;
+      font-size: 10px;
+      font-weight: bold;
+      color: #ffff00;
+      border: 1px solid #ffff00;
+      letter-spacing: 2px;
+    }
+
+    .best-viewed {
+      margin: 4px 10px 10px;
+      background: #fff8dc;
+      border: 1px solid #c0a000;
+      padding: 5px 7px;
+      font-size: 10px;
+      color: #4a3000;
+      line-height: 1.5;
+    }
+
+    .content-area {
+      flex: 1;
+      overflow-y: auto;
+      background: #fff;
+      min-width: 0;
+    }
+
+    /* page */
+    .page {
+      padding: 18px 24px 32px;
+      width: 100%;
+    }
+
+    .edit-note {
+      background: #fff8c4;
+      border: 1px solid #ddb000;
+      border-left: 4px solid #ddb000;
+      padding: 7px 12px;
+      font-size: 13px;
+      color: #5a3e00;
+      margin-bottom: 16px;
+      line-height: 1.5;
+    }
+
+    .edit-note a {
+      color: #0000cc;
+    }
+
+    /* infobox */
+    .infobox {
+      float: right;
+      background: #f8f8f0;
+      border: 1px solid #a2a9b1;
+      margin: 0 0 16px 24px;
+      width: 260px;
+      font-size: 13px;
+      clear: right;
+    }
+
+    .infobox-title {
+      background: linear-gradient(180deg, #cee0f2, #bdd4ea);
+      text-align: center;
+      font-weight: bold;
+      font-size: 14px;
+      padding: 6px;
+      border-bottom: 1px solid #a2a9b1;
+    }
+
+    .infobox-img {
+      width: 100%;
+      height: 170px;
+      object-fit: cover;
+      display: block;
+      border-bottom: 1px solid #a2a9b1;
+      cursor: pointer;
+    }
+
+    .infobox table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .infobox td {
+      padding: 4px 8px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+      vertical-align: top;
+      line-height: 1.4;
+    }
+
+    .infobox td:first-child {
+      color: #555;
+      white-space: nowrap;
+      width: 100px;
+      font-size: 12px;
+    }
+
+    /* typography */
+    .page-title {
+      font-size: 28px;
+      font-family: Georgia, 'Times New Roman', serif;
+      color: #000;
+      border-bottom: 3px double #a2a9b1;
+      margin-bottom: 14px;
+      padding-bottom: 7px;
+      font-weight: bold;
+      line-height: 1.2;
+    }
+
+    .toc {
+      background: #f8f8ff;
+      border: 1px solid #a0a0c0;
+      padding: 10px 16px;
+      display: inline-block;
+      margin-bottom: 16px;
+      min-width: 240px;
+    }
+
+    .toc-title {
+      font-weight: bold;
+      font-size: 13px;
+      text-align: center;
+      margin-bottom: 6px;
+      border-bottom: 1px solid #a0a0c0;
+      padding-bottom: 4px;
+    }
+
+    .toc ol {
+      margin: 0;
+      padding-left: 20px;
+    }
+
+    .toc li {
+      font-size: 12.5px;
+      padding: 2px 0;
+      line-height: 1.6;
+    }
+
+    .toc li ol {
+      padding-left: 16px;
+    }
+
+    .toc a {
+      color: #0000cc;
+      text-decoration: underline;
+    }
+
+    .toc a:hover {
+      color: #cc0000;
+    }
+
+    .section-head {
+      font-size: 22px;
+      font-family: Georgia, serif;
+      color: #000;
+      border-bottom: 1px solid #a2a9b1;
+      margin: 24px 0 8px;
+      padding-bottom: 4px;
+      font-weight: bold;
+    }
+
+    .sub-head {
+      font-size: 16px;
+      font-family: Georgia, serif;
+      color: #000;
+      border-bottom: 1px dotted #ccc;
+      margin: 16px 0 7px;
+      padding-bottom: 2px;
+      font-weight: bold;
+    }
+
+    .sub2-head {
+      font-size: 14px;
+      font-family: Georgia, serif;
+      color: #222;
+      margin: 12px 0 5px;
+      font-weight: bold;
+      font-style: italic;
+    }
+
+    .para {
+      font-size: 14px;
+      line-height: 1.85;
+      color: #111;
+      margin: 0 0 12px;
+    }
+
+    .para a {
+      color: #0000cc;
+      text-decoration: underline;
+    }
+
+    .para b {
+      color: #000;
+    }
+
+    .para i {
+      font-style: italic;
+    }
+
+    .clearfix::after {
+      content: '';
+      display: table;
+      clear: both;
+    }
+
+    .ul-plain {
+      padding-left: 22px;
+      margin: 6px 0 12px;
+    }
+
+    .ul-plain li {
+      font-size: 13.5px;
+      line-height: 1.85;
+    }
+
+    .ul-cols {
+      column-count: 2;
+      column-gap: 24px;
+      padding-left: 22px;
+      margin: 6px 0 12px;
+    }
+
+    .ul-cols li {
+      font-size: 13.5px;
+      line-height: 1.85;
+      break-inside: avoid;
+    }
+
+    .ul-3cols {
+      column-count: 3;
+      column-gap: 20px;
+      padding-left: 22px;
+      margin: 6px 0 12px;
+    }
+
+    .ul-3cols li {
+      font-size: 13px;
+      line-height: 1.75;
+      break-inside: avoid;
+    }
+
+    .music-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+      gap: 2px 20px;
+      margin: 6px 0 14px;
+      padding-left: 22px;
+    }
+
+    .music-grid li {
+      font-size: 13px;
+      line-height: 1.75;
+    }
+
+    /* checklist */
+    .checklist {
+      background: #f8f8f0;
+      border: 1px solid #a2a9b1;
+      padding: 12px 14px 10px;
+      margin: 10px 0 14px;
+    }
+
+    .checklist li {
+      font-size: 13.5px;
+      line-height: 2;
+      list-style: none;
+      padding-left: 4px;
+    }
+
+    .checklist li::before {
+      content: "\25A1  ";
+      color: #000080;
+      font-weight: bold;
+    }
+
+    /* subgenre cards */
+    .subgenre-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 10px;
+      margin: 10px 0 14px;
+    }
+
+    .sg-card {
+      border: 1px solid #a2a9b1;
+      background: #f4f4fc;
+      padding: 10px 12px;
+    }
+
+    .sg-card h4 {
+      font-size: 13px;
+      font-weight: bold;
+      color: #000080;
+      margin-bottom: 5px;
+      font-family: Georgia, serif;
+    }
+
+    .sg-card p {
+      font-size: 12px;
+      line-height: 1.6;
+      color: #333;
+    }
+
+    /* timeline */
+    .timeline {
+      border-left: 3px solid #a2a9b1;
+      margin: 8px 0 14px 12px;
+      padding-left: 16px;
+    }
+
+    .tl-item {
+      margin-bottom: 12px;
+      position: relative;
+    }
+
+    .tl-item::before {
+      content: '';
+      position: absolute;
+      left: -21px;
+      top: 5px;
+      width: 9px;
+      height: 9px;
+      background: #000080;
+      border: 2px solid #a2a9b1;
+    }
+
+    .tl-year {
+      font-size: 13px;
+      font-weight: bold;
+      color: #000080;
+      font-family: Georgia, serif;
+    }
+
+    .tl-text {
+      font-size: 13px;
+      line-height: 1.7;
+      color: #111;
+    }
+
+    /* pull quote */
+    .pull-quote {
+      border-left: 4px solid #000080;
+      background: #f0f0f8;
+      padding: 10px 14px;
+      margin: 12px 0 16px;
+      font-style: italic;
+      font-size: 14px;
+      color: #2a2a5a;
+      line-height: 1.7;
+    }
+
+    /* gallery */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 10px;
+      margin: 12px 0;
+    }
+
+    .gallery-item {
+      border: 1px solid #a2a9b1;
+      background: #f0f0f0;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .gallery-item:hover {
+      border: 2px solid #000080;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 110px;
+      object-fit: cover;
+      display: block;
+      transition: opacity 0.2s;
+    }
+
+    .gallery-item img.loading {
+      opacity: 0.4;
+    }
+
+    .gallery-caption {
+      font-size: 11px;
+      padding: 4px 5px;
+      color: #333;
+      text-align: center;
+    }
+
+    /* cat bar */
+    .cat-bar {
+      background: #f0f0f0;
+      border: 1px solid #a2a9b1;
+      padding: 7px 12px;
+      font-size: 13px;
+      color: #333;
+      margin-top: 24px;
+    }
+
+    .cat-bar a {
+      color: #0000cc;
+      text-decoration: underline;
+      margin: 0 6px 0 0;
+    }
+
+    /* see also box */
+    .see-also {
+      background: #f8f8ff;
+      border: 1px solid #a0a0c0;
+      padding: 10px 14px;
+      margin: 14px 0;
+    }
+
+    .see-also h4 {
+      font-size: 13px;
+      font-weight: bold;
+      color: #000080;
+      margin-bottom: 6px;
+      border-bottom: 1px dotted #a0a0c0;
+      padding-bottom: 3px;
+    }
+
+    .see-also ul {
+      padding-left: 18px;
+    }
+
+    .see-also li {
+      font-size: 13px;
+      line-height: 1.75;
+    }
+
+    .see-also a {
+      color: #0000cc;
+      text-decoration: underline;
+    }
+
+    /* lightbox */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.92);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+
+    .lightbox.open {
+      display: flex;
+    }
+
+    .lightbox img {
+      max-width: 88vw;
+      max-height: 80vh;
+      border: 3px solid #fff;
+      display: block;
+    }
+
+    .lb-cap {
+      color: #eee;
+      font-size: 13px;
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    .lb-close {
+      position: absolute;
+      top: 14px;
+      right: 18px;
+      color: #fff;
+      font-size: 14px;
+      cursor: pointer;
+      background: #000080;
+      border: 2px solid #fff;
+      padding: 3px 12px;
+      font-family: Tahoma, sans-serif;
+      font-weight: bold;
+    }
+
+    .lb-loading {
+      color: #aaa;
+      font-size: 13px;
+      margin-top: 8px;
+    }
+
+    .lb-nav {
+      display: flex;
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .lb-btn {
+      background: #c0c0c0;
+      border: 2px solid;
+      border-top-color: #fff;
+      border-left-color: #fff;
+      border-bottom-color: #808080;
+      border-right-color: #808080;
+      padding: 4px 18px;
+      font-size: 13px;
+      cursor: pointer;
+      font-weight: bold;
+      font-family: Tahoma, sans-serif;
+    }
+
+    /* status */
+    .status-bar {
+      background: #d4d0c8;
+      border-top: 1px solid #808080;
+      padding: 2px 10px;
+      font-size: 11px;
+      display: flex;
+      gap: 16px;
+      flex-shrink: 0;
+      align-items: center;
+    }
+
+    .status-panel {
+      background: #c0c0c0;
+      border: 1px solid;
+      border-top-color: #606060;
+      border-left-color: #606060;
+      border-bottom-color: #fff;
+      border-right-color: #fff;
+      padding: 1px 8px;
+      font-size: 11px;
+    }
+
+    .blink {
+      animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink {
+      50% {
+        opacity: 0;
+      }
+    }
+
+    /* ── MOBILE STYLES ─────────────────────────────────────────────── */
+    @media (max-width:768px) {
+
+      html,
+      body {
+        overflow: auto;
+      }
+
+      .ie-frame {
+        height: auto;
+        min-height: 100vh;
+      }
+
+      /* hide desktop chrome elements */
+      .toolbar {
+        display: none;
+      }
+
+      .menu-bar {
+        display: none;
+      }
+
+      .title-bar {
+        padding: 8px 10px;
+        font-size: 13px;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+
+      /* mobile top nav bar */
+      .mobile-topbar {
+        display: flex;
+        align-items: center;
+        background: #000080;
+        color: #fff;
+        padding: 0;
+        border-bottom: 2px solid #606060;
+        flex-shrink: 0;
+      }
+
+      .mobile-menu-btn {
+        background: none;
+        border: none;
+        color: #fff;
+        font-size: 20px;
+        padding: 8px 12px;
+        cursor: pointer;
+        font-family: Tahoma, sans-serif;
+        flex-shrink: 0;
+      }
+
+      .mobile-site-label {
+        font-size: 13px;
+        font-weight: bold;
+        letter-spacing: 1px;
+        flex: 1;
+        text-align: center;
+        color: #fff;
+      }
+
+      .mobile-home-btn {
+        font-size: 12px;
+        color: #aaccff;
+        text-decoration: underline;
+        padding: 8px 12px;
+        cursor: pointer;
+        background: none;
+        border: none;
+      }
+
+      /* sidebar becomes a drawer */
+      .browser-body {
+        flex-direction: column;
+        overflow: visible;
+      }
+
+      .sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 2px solid #808080;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+        flex-shrink: 0;
+      }
+
+      .sidebar.open {
+        max-height: 600px;
+        overflow-y: auto;
+      }
+
+      /* content */
+      .content-area {
+        overflow-y: visible;
+        background: #fff;
+      }
+
+      /* page */
+      .page {
+        padding: 12px 14px 24px;
+      }
+
+      /* infobox goes below title on mobile */
+      .infobox {
+        float: none;
+        width: 100%;
+        margin: 0 0 14px 0;
+      }
+
+      .infobox-img {
+        height: 200px;
+      }
+
+      /* typography scale-down */
+      .page-title {
+        font-size: 22px;
+      }
+
+      .section-head {
+        font-size: 18px;
+      }
+
+      .sub-head {
+        font-size: 14px;
+      }
+
+      .para {
+        font-size: 13.5px;
+        line-height: 1.75;
+      }
+
+      .ul-plain li,
+      .ul-cols li,
+      .ul-3cols li {
+        font-size: 13px;
+      }
+
+      .ul-cols {
+        column-count: 1;
+      }
+
+      .ul-3cols {
+        column-count: 2;
+      }
+
+      .music-grid {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      }
+
+      /* TOC */
+      .toc {
+        display: block;
+        width: 100%;
+      }
+
+      /* gallery */
+      .gallery-grid {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 6px;
+      }
+
+      .gallery-item img {
+        height: 90px;
+      }
+
+      /* subgenre grid */
+      .subgenre-grid {
+        grid-template-columns: 1fr;
+      }
+
+      /* lightbox bigger on mobile */
+      .lightbox img {
+        max-width: 95vw;
+        max-height: 70vh;
+      }
+
+      .lb-close {
+        top: 8px;
+        right: 8px;
+      }
+
+      /* status bar simplified */
+      .status-bar .status-panel:not(:first-child) {
+        display: none;
+      }
+
+      .status-bar .status-panel:last-child {
+        display: none;
+      }
+    }
+
+    /* hide mobile bar on desktop */
+    .mobile-topbar {
+      display: none;
+    }
+
+    @media (max-width:768px) {
+      .mobile-topbar {
+        display: flex;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="ie-frame">
+    <div class="title-bar">
+      <span>&#128194;&nbsp; Lostalgia Wiki - Signalwave - Microsoft Internet Explorer</span>
+      <div class="title-bar-btns">
+        <div class="win-btn">&#8212;</div>
+        <div class="win-btn">&#9633;</div>
+        <div class="win-btn" style="color:#c00;">&#10005;</div>
+      </div>
+    </div>
+    <div class="menu-bar">
+      <span>File</span><span>Edit</span><span>View</span><span>Favorites</span><span>Tools</span><span>Help</span>
+    </div>
+    <div class="toolbar">
+      <button class="tb-btn" onclick="history.back()">&#8592; Back</button>
+      <button class="tb-btn" onclick="history.forward()">Forward &#8594;</button>
+      <button class="tb-btn" onclick="location.reload()">&#8635; Refresh</button>
+      <button class="tb-btn" onclick="location.href='lostalgia_index.html'">&#127968; Home</button>
+      <span style="font-size:12px;">Address:</span>
+      <input class="addr-bar" value="http://www.lostalgia.net/wiki/Signalwave" readonly />
+      <button class="tb-btn">Go</button>
+    </div>
+    <div class="mobile-topbar">
+      <button class="mobile-menu-btn" id="mobileMenuBtn">&#9776;</button>
+      <span class="mobile-site-label">LOSTALGIA.NET</span>
+      <button class="mobile-home-btn" onclick="location.href='lostalgia_index.html'">Home</button>
+    </div>
+    <div class="browser-body">
+      <div class="sidebar">
+        <div class="sb-title">LOSTALGIA.NET</div>
+              <div class="sb-section">
+        <span class="sb-label">Navigation</span>
+        <a class="sb-link" href="lostalgia_index.html">Main Page</a>
+        <a class="sb-link" href="lostalgia_index.html#recent-changes">Recent Changes</a>
+        <a class="sb-link" href="javascript:randomArticle()">Random Article</a>
+        <a class="sb-link" href="lostalgia_index.html#help-section">Help</a>
+      </div>
+        <hr class="sb-divider">
+                <div class="sb-section">
+          <span class="sb-label">Eras</span>
+          <a class="sb-link" href="frutiger_aero.html">Frutiger Aero</a>
+          <a class="sb-link" href="gen_x_soft_club.html">Gen X Soft Club</a>
+          <a class="sb-link" href="global_village_coffeehouse.html">Global Village Coffeehouse</a>
+          <a class="sb-link" href="bright_tertiaries.html">Bright Tertiaries</a>
+          <a class="sb-link" href="silicon_dreams.html">Silicon Dreams</a>
+          <a class="sb-link" href="mizuiro.html">Mizuiro</a>
+          <a class="sb-link" href="fotonight_web.html">Fotonight Web</a>
+          <a class="sb-link" class="sb-link active" href="signalwave.html">Signalwave</a>
+          <a class="sb-link" href="cryptidcore.html">Cryptidcore</a>
+          <a class="sb-link" href="liminal_space.html">Liminal Space</a>
+          <a class="sb-link" href="surf_crush.html">Surf Crush</a>
+          <a class="sb-link" href="vectordelia.html">Vectordelia</a>
+          <a class="sb-link" href="y2k.html">Y2k</a>
+          <a class="sb-link" href="vaporwave.html">Vaporwave</a>
+          <a class="sb-link" href="dreamcore.html">Dreamcore</a>
+          <a class="sb-link" href="cottagecore.html">Cottagecore</a>
+          <a class="sb-link" href="cyberpunk.html">Cyberpunk</a>
+          <a class="sb-link" href="dark_academia.html">Dark Academia</a>
+          <a class="sb-link" href="weirdcore.html">Weirdcore</a>
+          <a class="sb-link" href="seapunk.html">Seapunk</a>
+          <a class="sb-link" href="mcbling.html">Mcbling</a>
+          <a class="sb-link" href="indie_sleaze.html">Indie Sleaze</a>
+          <a class="sb-link" href="old_web.html">Old Web</a>
+          <a class="sb-link" href="coquette.html">Coquette</a>
+          <a class="sb-link" href="kidcore.html">Kidcore</a>
+          <a class="sb-link" href="old_money.html">Old Money</a>
+          <a class="sb-link" href="scene.html">Scene</a>
+          <a class="sb-link" href="mallgoth.html">Mallgoth</a>
+          <a class="sb-link" href="sanriocore.html">Sanriocore</a>
+          <a class="sb-link" href="glitchcore.html">Glitchcore</a>
+          <a class="sb-link" href="steampunk.html">Steampunk</a>
+          <a class="sb-link" href="cybercore.html">Cybercore</a>
+          <a class="sb-link" href="poolcore.html">Poolcore</a>
+          <a class="sb-link" href="utopian_scholastic.html">Utopian Scholastic</a>
+          <a class="sb-link" href="lofi_art.html">Lofi Art</a>
+          <a class="sb-link" href="frutiger_metro.html">Frutiger Metro</a>
+          <a class="sb-link" href="barbiecore.html">Barbiecore</a>
+          <a class="sb-link" href="naturecore.html">Naturecore</a>
+          <a class="sb-link" href="fairycore.html">Fairycore</a>
+          <a class="sb-link" href="gorpcore.html">Gorpcore</a>
+          <a class="sb-link" href="decora.html">Decora</a>
+          <a class="sb-link" href="solarpunk.html">Solarpunk</a>
+          <a class="sb-link" href="angelcore.html">Angelcore</a>
+          <a class="sb-link" href="goblincore.html">Goblincore</a>
+          <a class="sb-link" href="indie_kid.html">Indie Kid</a>
+          <a class="sb-link" href="cybergoth.html">Cybergoth</a>
+          <a class="sb-link" href="soft_grunge.html">Soft Grunge</a>
+          <a class="sb-link" href="normcore.html">Normcore</a>
+          </div>
+        <hr class="sb-divider">
+                <div class="sb-section">
+          <span class="sb-label">Eras</span>
+          <a class="sb-link" href="frutiger_aero.html">Frutiger Aero</a>
+          <a class="sb-link" href="gen_x_soft_club.html">Gen X Soft Club</a>
+          <a class="sb-link" href="global_village_coffeehouse.html">Global Village Coffeehouse</a>
+          <a class="sb-link" href="bright_tertiaries.html">Bright Tertiaries</a>
+          <a class="sb-link" href="silicon_dreams.html">Silicon Dreams</a>
+          <a class="sb-link" href="mizuiro.html">Mizuiro</a>
+          <a class="sb-link" href="fotonight_web.html">Fotonight Web</a>
+          <a class="sb-link active" href="signalwave.html">Signalwave</a>
+          <a class="sb-link" href="cryptidcore.html">Cryptidcore</a>
+          <a class="sb-link" href="liminal_space.html">Liminal Space</a>
+          <a class="sb-link" href="surf_crush.html">Surf Crush</a>
+          <a class="sb-link" href="vectordelia.html">Vectordelia</a>
+          <a class="sb-link" href="y2k.html">Y2K</a>
+          <a class="sb-link" href="vaporwave.html">Vaporwave</a>
+          <a class="sb-link" href="dreamcore.html">Dreamcore</a>
+          <a class="sb-link" href="cottagecore.html">Cottagecore</a>
+          <a class="sb-link" href="cyberpunk.html">Cyberpunk</a>
+          <a class="sb-link" href="dark_academia.html">Dark Academia</a>
+          <a class="sb-link" href="weirdcore.html">Weirdcore</a>
+        </div>
+        <div class="counter-box" id="counter">0000000</div>
+        <div class="counter-lbl">visitors since 1999</div>
+        <div class="uc-badge">UNDER CONSTRUCTION</div>
+        <div class="best-viewed">Best viewed in<br>Internet Explorer 6.0<br>at 1024&#215;768 resolution</div>
+      </div>
+      <div class="content-area">
+
+        <div class="page clearfix">
+          
+
+          <div class="infobox">
+            <div class="infobox-title">Signalwave</div>
+            <img class="infobox-img" src="https://i.ibb.co/MykjKssT/007.webp" alt="Signalwave" onclick="openLightbox(0)"
+              title="Click to enlarge" loading="lazy" />
+            <table>
+              <tr>
+                <td>Also known as</td>
+                <td>Broken Transmission, Weatherwave</td>
+              </tr>
+              <tr>
+                <td>Origin</td>
+                <td>Internet, early 2010s</td>
+              </tr>
+              <tr>
+                <td>Parent genre</td>
+                <td>Vaporwave</td>
+              </tr>
+              <tr>
+                <td>Key sources</td>
+                <td>TV commercials, weather channel music, radio jingles, broadcast idents</td>
+              </tr>
+              <tr>
+                <td>Key artists</td>
+                <td>Infinity Frequencies, Internet Club, 猫 &#12471; Corp., NMESH</td>
+              </tr>
+              <tr>
+                <td>Visual style</td>
+                <td>VHS screencaps of mundane broadcast TV</td>
+              </tr>
+            </table>
+          </div>
+
+          <h1 class="page-title">Signalwave</h1>
+
+          <div class="toc">
+            <div class="toc-title">Contents</div>
+            <ol>
+              <li><a href="#whatis">What is it?</a></li>
+              <li><a href="#namedebate">The name debate</a></li>
+              <li><a href="#history">History</a>
+                <ol>
+                  <li><a href="#roots">Deeper roots</a></li>
+                  <li><a href="#foundational">Foundational releases (2011&ndash;2013)</a></li>
+                </ol>
+              </li>
+              <li><a href="#sound">The sound: how Signalwave works</a></li>
+              <li><a href="#weatherwave">Weatherwave: the Weather Channel deep end</a></li>
+              <li><a href="#visual">The visual aesthetic</a></li>
+              <li><a href="#artists">Artists</a></li>
+              <li><a href="#why">What it means</a></li>
+              <li><a href="#checklist">Quick-reference checklist</a></li>
+              <li><a href="#gallery">Gallery</a></li>
+            </ol>
+          </div>
+
+          <h2 class="section-head" id="whatis">What is it?</h2>
+          <p class="para">It&rsquo;s 2:47 AM. You can&rsquo;t sleep. You&rsquo;re somewhere unfamiliar ,  a hotel
+            room, maybe, or a friend&rsquo;s couch. The TV is on with the volume low. You&rsquo;re not really watching.
+            The cable is bad and the signal keeps fragmenting: a weather report half-showing, then a fragment of a car
+            commercial from the mid-1980s, then what might be a local news jingle, then static, then a woman in a blazer
+            mid-sentence about something you&rsquo;ll never hear the end of.</p>
+          <p class="para">Then a station you don&rsquo;t recognize: just a scrolling forecast and some keyboard music
+            that doesn&rsquo;t feel like it was composed so much as left running. It&rsquo;s not unpleasant. It&rsquo;s
+            somehow perfect for 2:47 AM. You fall asleep to it.</p>
+          <p class="para">That&rsquo;s <b>Signalwave</b> ,  or at least, that&rsquo;s the emotional experience
+            it&rsquo;s designed to reproduce.</p>
+          <p class="para">Signalwave (also known as <b>Broken Transmission</b>) is an underground subgenre of Vaporwave
+            that emerged in the early 2010s. Where Vaporwave proper is built around slowed-down, heavily processed
+            samples of 1980s smooth jazz and corporate pop, Signalwave goes further back into the broadcast signal
+            itself: TV commercials, radio jingles, news bumpers, weather channel music, station sign-off screens. The
+            fragments are looped, distorted, and layered to create something that sounds less like music and more like a
+            transmission fading in and out ,  like finding a signal from a station that went off the air before you
+            were old enough to watch it.</p>
+
+          <h2 class="section-head" id="namedebate">The name debate: Signalwave vs Broken Transmission</h2>
+          <p class="para"><b>&ldquo;Broken Transmission&rdquo;</b> is the more descriptive term, emphasizing the
+            fractured, interrupted quality of the music. It came into use around 2014&ndash;2015 on imageboards and
+            forums.</p>
+          <p class="para"><b>&ldquo;Signalwave&rdquo;</b> is more evocative and ultimately more widely adopted. It
+            implies the signal-as-medium aspect: these are broadcasts, transmissions, signals traveling through air and
+            cable, being received imperfectly by a listener at some unknown distance in time.
+            <b>&ldquo;Weatherwave&rdquo;</b> occasionally appears as a sub-term specifically for the branch drawing
+            exclusively from weather channel broadcasts.</p>
+
+          <h2 class="section-head" id="history">History: from Plunderphonics to the late-night internet</h2>
+
+          <h3 class="sub-head" id="roots">Deeper roots</h3>
+          <p class="para">To understand Signalwave, you need two things: <b>Vaporwave</b> (its parent genre) and
+            <b>Plunderphonics</b> (the more distant ancestor). Plunderphonics is the practice of creating new music by
+            sampling and manipulating existing recordings ,  coined as a term by Canadian composer John Oswald in
+            1985, but practiced since the invention of magnetic tape. What it produces is something in an uncanny middle
+            space: recognizable but wrong, familiar but estranged.</p>
+          <p class="para">Vaporwave, emerging around 2010&ndash;2012, brought Plunderphonics to the internet era with a
+            specific emotional target: nostalgia for 1980s&ndash;1990s corporate culture, rendered strange through
+            slowdown, reverb, and context removal. Signalwave is what happens when Vaporwave&rsquo;s sample selection
+            moves from smooth jazz toward broadcast media ,  from a nice elevator music track to a thirty-second
+            local news jingle. The emotional register shifts from &ldquo;melancholy cool corporate nostalgia&rdquo; to
+            &ldquo;liminal, eerie late-night TV static.&rdquo;</p>
+
+          <h3 class="sub-head" id="foundational">Foundational releases (2011&ndash;2013)</h3>
+          <div class="timeline">
+            <div class="tl-item">
+              <div class="tl-year">2011</div>
+              <div class="tl-text">Midnight Television ,  one of the earliest projects working in this space. The
+                project name is almost the genre&rsquo;s mission statement.</div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-year">2011</div>
+              <div class="tl-text">Fuji Grid TV ,  Prism Genesis (Vektroid alias): chaotic collage of TV
+                commercials, jingles, and broadcast fragments. Provided the &ldquo;broken transmission&rdquo; template.
+              </div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-year">2012</div>
+              <div class="tl-text">Internet Club , 
+                &#9633;&#19990;&#30028;&#12363;&#12425;&#35299;&#25918;&#12373;&#12428;&#9633; (&ldquo;Freed from the
+                World&rdquo;): extremely short loops, less than half a second, repeated until hypnotic or maddening.
+                Many listeners find it unlistenable; others find it captivating.</div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-year">2012</div>
+              <div class="tl-text">Infinity Frequencies ,  Computer Death: established a world of liminal digital
+                spaces, the sound of finding your way into the backend of a network that&rsquo;s slowly failing. Defined
+                &ldquo;computer gaze.&rdquo;</div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-year">2013&ndash;2014</div>
+              <div class="tl-text">The term &ldquo;Signalwave&rdquo; settles into common use. The genre has artists,
+                albums, and a community.</div>
+            </div>
+          </div>
+
+          <h2 class="section-head" id="sound">The sound: how Signalwave works</h2>
+          <h3 class="sub-head">Source material</h3>
+          <ul class="ul-plain">
+            <li>Television commercials ,  especially local and regional ones from the 1970s&ndash;1990s</li>
+            <li>Radio jingles for products that no longer exist, in markets you&rsquo;ll never visit</li>
+            <li>News bumpers and broadcast idents ,  the musical signatures that play before a newscast</li>
+            <li>Weather channel background music ,  functional synthesizer music that played under weather
+              forecasts</li>
+            <li>Public service announcements</li>
+            <li>Station sign-off screens ,  the broadcasts that played late at night when a channel went off the
+              air</li>
+          </ul>
+          <h3 class="sub-head">Manipulation techniques</h3>
+          <ul class="ul-plain">
+            <li><b>Short looping</b> ,  the primary technique: take 2&ndash;5 seconds of a sample and loop it until
+              hypnotic or maddening or both</li>
+            <li><b>Slowing</b> ,  reducing playback speed, making voices lower and dreamier</li>
+            <li><b>Distortion</b> ,  adding hiss, static, tape warble; the physical degradation of old recording
+              media</li>
+            <li><b>Fragmentation</b> ,  cutting samples into even shorter pieces and re-arranging them</li>
+            <li><b>Minimal arrangement</b> ,  unlike most Vaporwave, Signalwave rarely builds toward anything</li>
+          </ul>
+          <h3 class="sub-head">What Signalwave doesn&rsquo;t do</h3>
+          <p class="para">It doesn&rsquo;t build. There are rarely verse-chorus-verse structures, rarely climaxes or
+            resolutions. It doesn&rsquo;t beautify its sources ,  Vaporwave often makes samples sound better;
+            Signalwave keeps them damaged. Tracks are typically very short ,  often one to two minutes. An
+            &ldquo;album&rdquo; might be thirty short looped pieces with no particular relationship between them except
+            that they all feel like they came from the same broken television.</p>
+
+          <h2 class="section-head" id="weatherwave">Weatherwave: the Weather Channel deep end</h2>
+          <p class="para">Within Signalwave exists a sub-tributary dedicated exclusively to weather broadcast audio:
+            <b>Weatherwave</b>. The Weather Channel launched in 1982 and became, for a specific generation of American
+            television viewers, a uniquely hypnotic and strange experience. In its early years, the channel would
+            broadcast local forecasts accompanied by synthesizer music specifically designed to be unobtrusive and
+            neutral. This music ,  produced by a small number of composers and played on repeat ,  is one of
+            the great underappreciated bodies of American ambient music.</p>
+          <p class="para">The Calgary-based artist <b>&#22825;&#27668;&#20104;&#22577;</b> (Weather Forecast) became the
+            primary pioneer of Weatherwave, using recordings from weather radio stations to create music that captures
+            the specific quality of that experience: watching a scrolling forecast at 3 AM, the synthesizer looping, the
+            numbers rolling past for cities you&rsquo;ve never been to. There are also artists who create original
+            compositions in the spirit of weather channel music rather than sampling it directly.</p>
+
+          <h2 class="section-head" id="visual">The visual aesthetic</h2>
+          <p class="para">Signalwave has a visual language perfectly matched to its sound, and it is one of the simplest
+            in any music genre.</p>
+          <div class="pull-quote">The rule: album art is a single screencap from a VHS recording of old broadcast
+            television. That&rsquo;s it.</div>
+          <p class="para">The image is typically low-resolution, with VHS degradation artifacts ,  horizontal
+            tearing, color bleeding, scan lines, the slightly washed-out quality of analog video tape. The subject
+            matter is deliberately mundane: a news anchor at a desk, a commercial set featuring a product that no longer
+            exists, a weather map from 1991, a station identification card, a late-night sign-off screen.</p>
+          <p class="para">These images are not trying to be beautiful. They&rsquo;re trying to be <i>found</i>. They
+            look like a screenshot you took from a tape you found in a box in a parent&rsquo;s basement , 
+            something that wasn&rsquo;t meant to be preserved, that has survived by accident and now seems to carry more
+            weight than anything it was designed for.</p>
+
+          <h2 class="section-head" id="artists">Artists</h2>
+          <div class="subgenre-grid">
+            <div class="sg-card">
+              <h4>Infinity Frequencies</h4>
+              <p>The most critically celebrated practitioner. The Computer Trilogy (Computer Death, Computer Decay,
+                etc.) built an interconnected world of digital melancholy. Described as exploring &ldquo;the uncanny
+                valley of digital spaces.&rdquo;</p>
+            </div>
+            <div class="sg-card">
+              <h4>&#22825;&#27668;&#20104;&#22577; (Weather Forecast)</h4>
+              <p>The Weatherwave specialist. A Calgary-based project releasing music that sounds like The Weather
+                Channel playing in an empty room at the edge of receivable signal.</p>
+            </div>
+            <div class="sg-card">
+              <h4>Internet Club</h4>
+              <p>An influential early presence. The early work , 
+                &#9633;&#19990;&#30028;&#12363;&#12425;&#35299;&#25918;&#12373;&#12428;&#9633; (2012) ,  remains
+                definitive.</p>
+            </div>
+            <div class="sg-card">
+              <h4>NMESH</h4>
+              <p>A more compositionally sophisticated artist using lo-fi broadcast samples as texture within more
+                structured pieces. Dream Sequins&reg; (2014) is considered a genre classic.</p>
+            </div>
+            <div class="sg-card">
+              <h4>&#29483; &#12471; Corp. (Cat System Corp.)</h4>
+              <p>Produced &ldquo;News at 11,&rdquo; one of the genre&rsquo;s most celebrated documents ,  built
+                around news broadcast samples that many listeners describe as genuinely affecting.</p>
+            </div>
+            <div class="sg-card">
+              <h4>Vektroid (as Fuji Grid TV)</h4>
+              <p>The progenitor figure. Prism Genesis remains a reference point for the genre&rsquo;s &ldquo;broken
+                transmission&rdquo; aesthetic.</p>
+            </div>
+          </div>
+
+          <h2 class="section-head" id="why">What it means: nostalgia for media you never watched</h2>
+          <p class="para">One of the most interesting things about Signalwave is its capacity to generate nostalgia for
+            media the listener never personally experienced. A 22-year-old in 2025 wasn&rsquo;t alive during the
+            original Weather Channel&rsquo;s synthesizer-music-under-local-forecasts era. And yet the music can produce,
+            in that listener, something that functions exactly like nostalgia ,  a melancholy longing for a time
+            and place they never inhabited.</p>
+          <p class="para">This is sometimes called <b>&ldquo;hauntological&rdquo;</b> experience, after Jacques
+            Derrida&rsquo;s concept of hauntology: the sense of being haunted by futures that didn&rsquo;t arrive or
+            pasts that can&rsquo;t be fully recovered. The cultural critic <b>Mark Fisher</b> wrote extensively about
+            this quality in music ,  the way certain sounds seem to evoke not specific memories but &ldquo;memories
+            of memories.&rdquo;</p>
+          <p class="para">Signalwave says: the carpet store jingle is as much &ldquo;culture&rdquo; as anything else
+            that played on that channel. The incidental transmission <i>is</i> the thing itself. And that&rsquo;s oddly
+            moving, once you sit with it.</p>
+
+          <h2 class="section-head" id="checklist">Quick-reference checklist: is it Signalwave?</h2>
+          <ul class="checklist">
+            <li>Built primarily from samples of old broadcast media (TV, radio)?</li>
+            <li>Source material feels incidental rather than culturally significant?</li>
+            <li>Loops are short and repeated with minimal variation?</li>
+            <li>Audio quality is deliberately degraded ,  static, hiss, tape warble?</li>
+            <li>Tracks are very short (under two minutes)?</li>
+            <li>No conventional verse-chorus structure ,  more texture than song?</li>
+            <li>Album art is a mundane VHS screencap?</li>
+            <li>Overall vibe: &ldquo;I found this playing on a channel that shouldn&rsquo;t exist&rdquo;?</li>
+          </ul>
+          <p class="para"><i>Four or more? You&rsquo;re in broken transmission territory. Put on headphones, find a dark
+              room, and let the signal find you.</i></p>
+
+          <div class="see-also">
+            <h4>See also</h4>
+            <ul>
+              <li><a href="#">Vaporwave</a> ,  parent genre</li>
+              <li><a href="silicon_dreams.html">Silicon Dreams</a> ,  related visual aesthetic</li>
+              <li><a href="#">Mallsoft</a> ,  related Vaporwave subgenre</li>
+              <li><a href="#">Brian Eno ,  Music for Airports</a> ,  philosophical ancestor</li>
+            </ul>
+          </div>
+
+          <h2 class="section-head" id="gallery">Gallery</h2>
+          <p class="para">Click any image to enlarge. Images load on demand.</p>
+          <div class="gallery-grid" id="galleryGrid"></div>
+          <div class="cat-bar"><b>Categories:</b>
+            <a href="#">Internet Aesthetics</a><a href="#">2010s</a>
+            <a href="#">Vaporwave</a><a href="#">Wave Suffix</a><a href="#">Music Genres</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="status-bar">
+      <span class="status-panel" id="statusText">Done</span>
+      <span class="status-panel">Internet zone</span>
+      <span class="status-panel" style="margin-left:auto;">Lostalgia Wiki v1.0 &nbsp;|&nbsp; lostalgia.net</span>
+    </div>
+  </div>
+  <div class="lightbox" id="lightbox">
+    <button class="lb-close" onclick="closeLightbox()">&#10005; Close</button>
+    <img id="lbImg" src="" alt="" style="display:none;" />
+    <div class="lb-loading" id="lbLoading"></div>
+    <div class="lb-cap" id="lbCap"></div>
+    <div class="lb-nav">
+      <button class="lb-btn" onclick="lbStep(-1)">&#8592; Prev</button>
+      <button class="lb-btn" onclick="lbStep(1)">Next &#8594;</button>
+    </div>
+  </div>
+  <script>
+    const IMGS_RAW = [["007", "https://i.ibb.co/MykjKssT/007.webp"], ["008", "https://i.ibb.co/7xPX052X/008.webp"], ["009", "https://i.ibb.co/0pXMJDwN/009.webp"], ["010", "https://i.ibb.co/HD9Xrvpb/010.webp"], ["011", "https://i.ibb.co/NggJGXz7/011.webp"], ["012", "https://i.ibb.co/JFKhdjGk/012.webp"], ["013", "https://i.ibb.co/27rmKQmV/013.webp"], ["014", "https://i.ibb.co/cXR1mmTW/014.webp"], ["015", "https://i.ibb.co/Xf40CkMW/015.webp"], ["016", "https://i.ibb.co/fYyLqrDc/016.webp"], ["017", "https://i.ibb.co/KzWqdK2w/017.webp"], ["018", "https://i.ibb.co/FbZYb0YB/018.webp"], ["019", "https://i.ibb.co/v4B12dqv/019.webp"], ["020", "https://i.ibb.co/Dgvvqx56/020.webp"], ["021", "https://i.ibb.co/vvfSKfch/021.webp"], ["001", "https://i.ibb.co/VWMYWT7r/001.webp"], ["002", "https://i.ibb.co/tw4dLKTJ/002.webp"], ["003", "https://i.ibb.co/Wvrt0yWk/003.webp"], ["004", "https://i.ibb.co/HLXxHfcV/004.webp"], ["005", "https://i.ibb.co/JwVtgqMV/005.webp"], ["006", "https://i.ibb.co/FkpmKvMS/006.webp"]];
+
+    // image data: key -> full url
+    const imgKeys = IMGS_RAW.map(r => r[0]);
+    const IMGS = {};
+    IMGS_RAW.forEach(r => { IMGS[r[0]] = r[1]; });
+
+    // counter
+    let count = 0; const target = 83412;
+    const counterEl = document.getElementById('counter');
+    const step = Math.ceil(target / 50);
+    const tick = setInterval(() => { count = Math.min(count + step, target); counterEl.textContent = String(count).padStart(7, '0'); if (count >= target) clearInterval(tick); }, 25);
+
+    // toc scroll
+    document.querySelectorAll('.toc a').forEach(a => {
+      a.addEventListener('click', e => {
+        e.preventDefault();
+        const id = a.getAttribute('href').replace('#', '');
+        const el = document.getElementById(id);
+        const ca = document.querySelector('.content-area');
+        if (el && ca) { ca.scrollTo({ top: el.offsetTop - 10, behavior: 'smooth' }); }
+        else if (el) { el.scrollIntoView({ behavior: 'smooth' }); }
+        setStatus('Navigating...'); setTimeout(() => setStatus('Done'), 700);
+      });
+    });
+
+    function setStatus(t) { const el = document.getElementById('statusText'); if (el) el.textContent = t; }
+
+    // mobile drawer toggle
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const sidebar = document.querySelector('.sidebar');
+    if (mobileMenuBtn && sidebar) {
+      mobileMenuBtn.addEventListener('click', () => {
+        sidebar.classList.toggle('open');
+        mobileMenuBtn.textContent = sidebar.classList.contains('open') ? '\\u2715' : '\\u2630';
+      });
+    }
+
+    // gallery: lazy load thumbnails, open full-res in lightbox
+    const gallery = document.getElementById('galleryGrid');
+    if (gallery) {
+      imgKeys.forEach((key, i) => {
+        const item = document.createElement('div');
+        item.className = 'gallery-item';
+        item.onclick = () => openLightbox(i);
+        const img = document.createElement('img');
+        img.className = 'loading';
+        img.alt = 'Image ' + key;
+        img.loading = 'lazy';
+        // use small thumb by appending ibb size param trick ,  just load normal url lazily
+        img.src = IMGS[key];
+        img.onload = () => img.classList.remove('loading');
+        const cap = document.createElement('div');
+        cap.className = 'gallery-caption';
+        cap.textContent = key;
+        item.appendChild(img); item.appendChild(cap);
+        gallery.appendChild(item);
+      });
+    }
+
+    // lightbox: load full-res on demand
+    let lbIndex = 0;
+    function openLightbox(i) {
+      lbIndex = i;
+      const lbImg = document.getElementById('lbImg');
+      const lbLoad = document.getElementById('lbLoading');
+      lbImg.style.display = 'none';
+      if (lbLoad) lbLoad.textContent = 'Loading...';
+      lbImg.src = IMGS[imgKeys[i]];
+      lbImg.onload = () => { lbImg.style.display = 'block'; if (lbLoad) lbLoad.textContent = ''; };
+      document.getElementById('lbCap').textContent = imgKeys[i] + '  \\u2014  ' + (i + 1) + ' / ' + imgKeys.length;
+      document.getElementById('lightbox').classList.add('open');
+      setStatus('Image: ' + imgKeys[i]);
+    }
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('open');
+      setStatus('Done');
+    }
+    function lbStep(dir) {
+      lbIndex = (lbIndex + dir + imgKeys.length) % imgKeys.length;
+      const lbImg = document.getElementById('lbImg');
+      const lbLoad = document.getElementById('lbLoading');
+      lbImg.style.display = 'none';
+      if (lbLoad) lbLoad.textContent = 'Loading...';
+      lbImg.src = IMGS[imgKeys[lbIndex]];
+      lbImg.onload = () => { lbImg.style.display = 'block'; if (lbLoad) lbLoad.textContent = ''; };
+      document.getElementById('lbCap').textContent = imgKeys[lbIndex] + '  \\u2014  ' + (lbIndex + 1) + ' / ' + imgKeys.length;
+    }
+    document.getElementById('lightbox').addEventListener('click', e => { if (e.target === document.getElementById('lightbox')) closeLightbox(); });
+    document.addEventListener('keydown', e => {
+      if (!document.getElementById('lightbox').classList.contains('open')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowRight') lbStep(1);
+      if (e.key === 'ArrowLeft') lbStep(-1);
+    });
+
+  function randomArticle(){
+  const articles=['frutiger_aero.html','gen_x_soft_club.html','global_village_coffeehouse.html','bright_tertiaries.html','silicon_dreams.html','mizuiro.html','fotonight_web.html','signalwave.html','cryptidcore.html','liminal_space.html','surf_crush.html'];
+  location.href=articles[Math.floor(Math.random()*articles.length)];
+}
+</script>
+</body>
+
+</html>

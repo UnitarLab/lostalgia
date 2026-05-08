@@ -1,8 +1,7 @@
 # Main Entry Point
 index.html
 
-# Aesthetics Pages
-*.html
+# Aesthetics Pages are NOT ignored (included by default)
 
 # Utility/Automation Scripts (Unrelated to theme/app)
 add_*.js
@@ -17,6 +16,8 @@ deep_lore.js
 create_*.js
 debug_*.js
 search_*.js
+fixer2.js
+rebuild.js
 
 # Temporary files
 *.tmp

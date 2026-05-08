@@ -1,0 +1,1491 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <meta name="description" content="Lostalgia Wiki - Silicon Dreams">
+  <title>Lostalgia Wiki - Silicon Dreams</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap');
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      background: #c0c0c0;
+      font-family: Tahoma, 'Segoe UI', Arial, sans-serif;
+      overflow: hidden;
+    }
+
+    /* ── DESKTOP: IE CHROME ── */
+    .ie-frame {
+      display: flex;
+      flex-direction: column;
+      width: 100vw;
+      height: 100vh;
+    }
+
+    .title-bar {
+      background: linear-gradient(90deg, #000080 0%, #1a8ad4 60%, #1084d0 100%);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 4px 6px;
+      color: #fff;
+      font-size: 12px;
+      font-weight: bold;
+      user-select: none;
+      flex-shrink: 0;
+    }
+
+    .title-bar-btns {
+      display: flex;
+      gap: 2px;
+    }
+
+    .win-btn {
+      background: #c0c0c0;
+      border: 1.5px solid;
+      border-top-color: #fff;
+      border-left-color: #fff;
+      border-bottom-color: #606060;
+      border-right-color: #606060;
+      width: 18px;
+      height: 16px;
+      font-size: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: #000;
+      font-weight: bold;
+    }
+
+    .menu-bar {
+      background: #d4d0c8;
+      border-bottom: 1px solid #808080;
+      padding: 2px 6px;
+      display: flex;
+      flex-shrink: 0;
+    }
+
+    .menu-bar span {
+      padding: 2px 10px;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    .menu-bar span:hover {
+      background: #000080;
+      color: #fff;
+    }
+
+    .toolbar {
+      background: #d4d0c8;
+      border-bottom: 2px solid #808080;
+      padding: 4px 8px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      flex-shrink: 0;
+    }
+
+    .tb-btn {
+      background: linear-gradient(180deg, #e8e4dc, #c8c4bc);
+      border: 1.5px solid;
+      border-top-color: #fff;
+      border-left-color: #fff;
+      border-bottom-color: #606060;
+      border-right-color: #606060;
+      padding: 3px 10px;
+      font-size: 12px;
+      cursor: pointer;
+      font-family: Tahoma, sans-serif;
+      white-space: nowrap;
+    }
+
+    .addr-bar {
+      flex: 1;
+      background: #fff;
+      border: 1.5px solid;
+      border-top-color: #606060;
+      border-left-color: #606060;
+      border-bottom-color: #fff;
+      border-right-color: #fff;
+      padding: 2px 6px;
+      font-size: 12px;
+      font-family: Tahoma, sans-serif;
+      outline: none;
+    }
+
+    .browser-body {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    /* sidebar */
+    .sidebar {
+      width: 190px;
+      flex-shrink: 0;
+      background: #e8e8f0;
+      border-right: 2px solid #808080;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.25s;
+    }
+
+    .sb-title {
+      background: linear-gradient(90deg, #000080, #1a4ab0);
+      color: #fff;
+      font-weight: bold;
+      font-size: 12px;
+      padding: 5px 10px;
+      text-align: center;
+      letter-spacing: 1px;
+      border-bottom: 1px solid #000050;
+    }
+
+    .sb-section {
+      padding: 7px 10px 4px;
+    }
+
+    .sb-label {
+      font-size: 10px;
+      font-weight: bold;
+      color: #000080;
+      display: block;
+      margin-bottom: 4px;
+      padding-bottom: 2px;
+      border-bottom: 1px dotted #a0a0c0;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .sb-link {
+      display: block;
+      font-size: 12px;
+      color: #0000cc;
+      text-decoration: underline;
+      padding: 2px 3px;
+      cursor: pointer;
+      line-height: 1.5;
+    }
+
+    .sb-link:hover {
+      color: #cc0000;
+      background: #dde;
+    }
+
+    .sb-link.active {
+      color: #cc0000;
+      font-weight: bold;
+      background: #f0e8e8;
+    }
+
+    .sb-divider {
+      border: none;
+      border-top: 1px solid #b0b0c0;
+      margin: 4px 8px;
+    }
+
+    .counter-box {
+      background: #000;
+      color: #00ff00;
+      font-family: 'Courier Prime', monospace;
+      font-size: 15px;
+      text-align: center;
+      padding: 4px;
+      margin: 8px 10px 0;
+      border: 2px inset #808080;
+      letter-spacing: 4px;
+    }
+
+    .counter-lbl {
+      font-size: 10px;
+      color: #666;
+      text-align: center;
+      padding: 3px 0 6px;
+    }
+
+    .uc-badge {
+      margin: 4px 10px 6px;
+      background: #000;
+      text-align: center;
+      padding: 3px;
+      font-size: 10px;
+      font-weight: bold;
+      color: #ffff00;
+      border: 1px solid #ffff00;
+      letter-spacing: 2px;
+    }
+
+    .best-viewed {
+      margin: 4px 10px 10px;
+      background: #fff8dc;
+      border: 1px solid #c0a000;
+      padding: 5px 7px;
+      font-size: 10px;
+      color: #4a3000;
+      line-height: 1.5;
+    }
+
+    .content-area {
+      flex: 1;
+      overflow-y: auto;
+      background: #fff;
+      min-width: 0;
+    }
+
+    /* page */
+    .page {
+      padding: 18px 24px 32px;
+      width: 100%;
+    }
+
+    .edit-note {
+      background: #fff8c4;
+      border: 1px solid #ddb000;
+      border-left: 4px solid #ddb000;
+      padding: 7px 12px;
+      font-size: 13px;
+      color: #5a3e00;
+      margin-bottom: 16px;
+      line-height: 1.5;
+    }
+
+    .edit-note a {
+      color: #0000cc;
+    }
+
+    /* infobox */
+    .infobox {
+      float: right;
+      background: #f8f8f0;
+      border: 1px solid #a2a9b1;
+      margin: 0 0 16px 24px;
+      width: 260px;
+      font-size: 13px;
+      clear: right;
+    }
+
+    .infobox-title {
+      background: linear-gradient(180deg, #cee0f2, #bdd4ea);
+      text-align: center;
+      font-weight: bold;
+      font-size: 14px;
+      padding: 6px;
+      border-bottom: 1px solid #a2a9b1;
+    }
+
+    .infobox-img {
+      width: 100%;
+      height: 170px;
+      object-fit: cover;
+      display: block;
+      border-bottom: 1px solid #a2a9b1;
+      cursor: pointer;
+    }
+
+    .infobox table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .infobox td {
+      padding: 4px 8px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+      vertical-align: top;
+      line-height: 1.4;
+    }
+
+    .infobox td:first-child {
+      color: #555;
+      white-space: nowrap;
+      width: 100px;
+      font-size: 12px;
+    }
+
+    /* typography */
+    .page-title {
+      font-size: 28px;
+      font-family: Georgia, 'Times New Roman', serif;
+      color: #000;
+      border-bottom: 3px double #a2a9b1;
+      margin-bottom: 14px;
+      padding-bottom: 7px;
+      font-weight: bold;
+      line-height: 1.2;
+    }
+
+    .toc {
+      background: #f8f8ff;
+      border: 1px solid #a0a0c0;
+      padding: 10px 16px;
+      display: inline-block;
+      margin-bottom: 16px;
+      min-width: 240px;
+    }
+
+    .toc-title {
+      font-weight: bold;
+      font-size: 13px;
+      text-align: center;
+      margin-bottom: 6px;
+      border-bottom: 1px solid #a0a0c0;
+      padding-bottom: 4px;
+    }
+
+    .toc ol {
+      margin: 0;
+      padding-left: 20px;
+    }
+
+    .toc li {
+      font-size: 12.5px;
+      padding: 2px 0;
+      line-height: 1.6;
+    }
+
+    .toc li ol {
+      padding-left: 16px;
+    }
+
+    .toc a {
+      color: #0000cc;
+      text-decoration: underline;
+    }
+
+    .toc a:hover {
+      color: #cc0000;
+    }
+
+    .section-head {
+      font-size: 22px;
+      font-family: Georgia, serif;
+      color: #000;
+      border-bottom: 1px solid #a2a9b1;
+      margin: 24px 0 8px;
+      padding-bottom: 4px;
+      font-weight: bold;
+    }
+
+    .sub-head {
+      font-size: 16px;
+      font-family: Georgia, serif;
+      color: #000;
+      border-bottom: 1px dotted #ccc;
+      margin: 16px 0 7px;
+      padding-bottom: 2px;
+      font-weight: bold;
+    }
+
+    .sub2-head {
+      font-size: 14px;
+      font-family: Georgia, serif;
+      color: #222;
+      margin: 12px 0 5px;
+      font-weight: bold;
+      font-style: italic;
+    }
+
+    .para {
+      font-size: 14px;
+      line-height: 1.85;
+      color: #111;
+      margin: 0 0 12px;
+    }
+
+    .para a {
+      color: #0000cc;
+      text-decoration: underline;
+    }
+
+    .para b {
+      color: #000;
+    }
+
+    .para i {
+      font-style: italic;
+    }
+
+    .clearfix::after {
+      content: '';
+      display: table;
+      clear: both;
+    }
+
+    .ul-plain {
+      padding-left: 22px;
+      margin: 6px 0 12px;
+    }
+
+    .ul-plain li {
+      font-size: 13.5px;
+      line-height: 1.85;
+    }
+
+    .ul-cols {
+      column-count: 2;
+      column-gap: 24px;
+      padding-left: 22px;
+      margin: 6px 0 12px;
+    }
+
+    .ul-cols li {
+      font-size: 13.5px;
+      line-height: 1.85;
+      break-inside: avoid;
+    }
+
+    .ul-3cols {
+      column-count: 3;
+      column-gap: 20px;
+      padding-left: 22px;
+      margin: 6px 0 12px;
+    }
+
+    .ul-3cols li {
+      font-size: 13px;
+      line-height: 1.75;
+      break-inside: avoid;
+    }
+
+    .music-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+      gap: 2px 20px;
+      margin: 6px 0 14px;
+      padding-left: 22px;
+    }
+
+    .music-grid li {
+      font-size: 13px;
+      line-height: 1.75;
+    }
+
+    /* checklist */
+    .checklist {
+      background: #f8f8f0;
+      border: 1px solid #a2a9b1;
+      padding: 12px 14px 10px;
+      margin: 10px 0 14px;
+    }
+
+    .checklist li {
+      font-size: 13.5px;
+      line-height: 2;
+      list-style: none;
+      padding-left: 4px;
+    }
+
+    .checklist li::before {
+      content: "\25A1  ";
+      color: #000080;
+      font-weight: bold;
+    }
+
+    /* subgenre cards */
+    .subgenre-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 10px;
+      margin: 10px 0 14px;
+    }
+
+    .sg-card {
+      border: 1px solid #a2a9b1;
+      background: #f4f4fc;
+      padding: 10px 12px;
+    }
+
+    .sg-card h4 {
+      font-size: 13px;
+      font-weight: bold;
+      color: #000080;
+      margin-bottom: 5px;
+      font-family: Georgia, serif;
+    }
+
+    .sg-card p {
+      font-size: 12px;
+      line-height: 1.6;
+      color: #333;
+    }
+
+    /* timeline */
+    .timeline {
+      border-left: 3px solid #a2a9b1;
+      margin: 8px 0 14px 12px;
+      padding-left: 16px;
+    }
+
+    .tl-item {
+      margin-bottom: 12px;
+      position: relative;
+    }
+
+    .tl-item::before {
+      content: '';
+      position: absolute;
+      left: -21px;
+      top: 5px;
+      width: 9px;
+      height: 9px;
+      background: #000080;
+      border: 2px solid #a2a9b1;
+    }
+
+    .tl-year {
+      font-size: 13px;
+      font-weight: bold;
+      color: #000080;
+      font-family: Georgia, serif;
+    }
+
+    .tl-text {
+      font-size: 13px;
+      line-height: 1.7;
+      color: #111;
+    }
+
+    /* pull quote */
+    .pull-quote {
+      border-left: 4px solid #000080;
+      background: #f0f0f8;
+      padding: 10px 14px;
+      margin: 12px 0 16px;
+      font-style: italic;
+      font-size: 14px;
+      color: #2a2a5a;
+      line-height: 1.7;
+    }
+
+    /* gallery */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 10px;
+      margin: 12px 0;
+    }
+
+    .gallery-item {
+      border: 1px solid #a2a9b1;
+      background: #f0f0f0;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .gallery-item:hover {
+      border: 2px solid #000080;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 110px;
+      object-fit: cover;
+      display: block;
+      transition: opacity 0.2s;
+    }
+
+    .gallery-item img.loading {
+      opacity: 0.4;
+    }
+
+    .gallery-caption {
+      font-size: 11px;
+      padding: 4px 5px;
+      color: #333;
+      text-align: center;
+    }
+
+    /* cat bar */
+    .cat-bar {
+      background: #f0f0f0;
+      border: 1px solid #a2a9b1;
+      padding: 7px 12px;
+      font-size: 13px;
+      color: #333;
+      margin-top: 24px;
+    }
+
+    .cat-bar a {
+      color: #0000cc;
+      text-decoration: underline;
+      margin: 0 6px 0 0;
+    }
+
+    /* see also box */
+    .see-also {
+      background: #f8f8ff;
+      border: 1px solid #a0a0c0;
+      padding: 10px 14px;
+      margin: 14px 0;
+    }
+
+    .see-also h4 {
+      font-size: 13px;
+      font-weight: bold;
+      color: #000080;
+      margin-bottom: 6px;
+      border-bottom: 1px dotted #a0a0c0;
+      padding-bottom: 3px;
+    }
+
+    .see-also ul {
+      padding-left: 18px;
+    }
+
+    .see-also li {
+      font-size: 13px;
+      line-height: 1.75;
+    }
+
+    .see-also a {
+      color: #0000cc;
+      text-decoration: underline;
+    }
+
+    /* lightbox */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.92);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+
+    .lightbox.open {
+      display: flex;
+    }
+
+    .lightbox img {
+      max-width: 88vw;
+      max-height: 80vh;
+      border: 3px solid #fff;
+      display: block;
+    }
+
+    .lb-cap {
+      color: #eee;
+      font-size: 13px;
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    .lb-close {
+      position: absolute;
+      top: 14px;
+      right: 18px;
+      color: #fff;
+      font-size: 14px;
+      cursor: pointer;
+      background: #000080;
+      border: 2px solid #fff;
+      padding: 3px 12px;
+      font-family: Tahoma, sans-serif;
+      font-weight: bold;
+    }
+
+    .lb-loading {
+      color: #aaa;
+      font-size: 13px;
+      margin-top: 8px;
+    }
+
+    .lb-nav {
+      display: flex;
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .lb-btn {
+      background: #c0c0c0;
+      border: 2px solid;
+      border-top-color: #fff;
+      border-left-color: #fff;
+      border-bottom-color: #808080;
+      border-right-color: #808080;
+      padding: 4px 18px;
+      font-size: 13px;
+      cursor: pointer;
+      font-weight: bold;
+      font-family: Tahoma, sans-serif;
+    }
+
+    /* status */
+    .status-bar {
+      background: #d4d0c8;
+      border-top: 1px solid #808080;
+      padding: 2px 10px;
+      font-size: 11px;
+      display: flex;
+      gap: 16px;
+      flex-shrink: 0;
+      align-items: center;
+    }
+
+    .status-panel {
+      background: #c0c0c0;
+      border: 1px solid;
+      border-top-color: #606060;
+      border-left-color: #606060;
+      border-bottom-color: #fff;
+      border-right-color: #fff;
+      padding: 1px 8px;
+      font-size: 11px;
+    }
+
+    .blink {
+      animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink {
+      50% {
+        opacity: 0;
+      }
+    }
+
+    /* ── MOBILE STYLES ─────────────────────────────────────────────── */
+    @media (max-width:768px) {
+
+      html,
+      body {
+        overflow: auto;
+      }
+
+      .ie-frame {
+        height: auto;
+        min-height: 100vh;
+      }
+
+      /* hide desktop chrome elements */
+      .toolbar {
+        display: none;
+      }
+
+      .menu-bar {
+        display: none;
+      }
+
+      .title-bar {
+        padding: 8px 10px;
+        font-size: 13px;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+
+      /* mobile top nav bar */
+      .mobile-topbar {
+        display: flex;
+        align-items: center;
+        background: #000080;
+        color: #fff;
+        padding: 0;
+        border-bottom: 2px solid #606060;
+        flex-shrink: 0;
+      }
+
+      .mobile-menu-btn {
+        background: none;
+        border: none;
+        color: #fff;
+        font-size: 20px;
+        padding: 8px 12px;
+        cursor: pointer;
+        font-family: Tahoma, sans-serif;
+        flex-shrink: 0;
+      }
+
+      .mobile-site-label {
+        font-size: 13px;
+        font-weight: bold;
+        letter-spacing: 1px;
+        flex: 1;
+        text-align: center;
+        color: #fff;
+      }
+
+      .mobile-home-btn {
+        font-size: 12px;
+        color: #aaccff;
+        text-decoration: underline;
+        padding: 8px 12px;
+        cursor: pointer;
+        background: none;
+        border: none;
+      }
+
+      /* sidebar becomes a drawer */
+      .browser-body {
+        flex-direction: column;
+        overflow: visible;
+      }
+
+      .sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 2px solid #808080;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+        flex-shrink: 0;
+      }
+
+      .sidebar.open {
+        max-height: 600px;
+        overflow-y: auto;
+      }
+
+      /* content */
+      .content-area {
+        overflow-y: visible;
+        background: #fff;
+      }
+
+      /* page */
+      .page {
+        padding: 12px 14px 24px;
+      }
+
+      /* infobox goes below title on mobile */
+      .infobox {
+        float: none;
+        width: 100%;
+        margin: 0 0 14px 0;
+      }
+
+      .infobox-img {
+        height: 200px;
+      }
+
+      /* typography scale-down */
+      .page-title {
+        font-size: 22px;
+      }
+
+      .section-head {
+        font-size: 18px;
+      }
+
+      .sub-head {
+        font-size: 14px;
+      }
+
+      .para {
+        font-size: 13.5px;
+        line-height: 1.75;
+      }
+
+      .ul-plain li,
+      .ul-cols li,
+      .ul-3cols li {
+        font-size: 13px;
+      }
+
+      .ul-cols {
+        column-count: 1;
+      }
+
+      .ul-3cols {
+        column-count: 2;
+      }
+
+      .music-grid {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      }
+
+      /* TOC */
+      .toc {
+        display: block;
+        width: 100%;
+      }
+
+      /* gallery */
+      .gallery-grid {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 6px;
+      }
+
+      .gallery-item img {
+        height: 90px;
+      }
+
+      /* subgenre grid */
+      .subgenre-grid {
+        grid-template-columns: 1fr;
+      }
+
+      /* lightbox bigger on mobile */
+      .lightbox img {
+        max-width: 95vw;
+        max-height: 70vh;
+      }
+
+      .lb-close {
+        top: 8px;
+        right: 8px;
+      }
+
+      /* status bar simplified */
+      .status-bar .status-panel:not(:first-child) {
+        display: none;
+      }
+
+      .status-bar .status-panel:last-child {
+        display: none;
+      }
+    }
+
+    /* hide mobile bar on desktop */
+    .mobile-topbar {
+      display: none;
+    }
+
+    @media (max-width:768px) {
+      .mobile-topbar {
+        display: flex;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="ie-frame">
+    <div class="title-bar">
+      <span>&#128194;&nbsp; Lostalgia Wiki - Silicon Dreams - Microsoft Internet Explorer</span>
+      <div class="title-bar-btns">
+        <div class="win-btn">&#8212;</div>
+        <div class="win-btn">&#9633;</div>
+        <div class="win-btn" style="color:#c00;">&#10005;</div>
+      </div>
+    </div>
+    <div class="menu-bar">
+      <span>File</span><span>Edit</span><span>View</span><span>Favorites</span><span>Tools</span><span>Help</span>
+    </div>
+    <div class="toolbar">
+      <button class="tb-btn" onclick="history.back()">&#8592; Back</button>
+      <button class="tb-btn" onclick="history.forward()">Forward &#8594;</button>
+      <button class="tb-btn" onclick="location.reload()">&#8635; Refresh</button>
+      <button class="tb-btn" onclick="location.href='lostalgia_index.html'">&#127968; Home</button>
+      <span style="font-size:12px;">Address:</span>
+      <input class="addr-bar" value="http://www.lostalgia.net/wiki/Silicon_Dreams" readonly />
+      <button class="tb-btn">Go</button>
+    </div>
+    <div class="mobile-topbar">
+      <button class="mobile-menu-btn" id="mobileMenuBtn">&#9776;</button>
+      <span class="mobile-site-label">LOSTALGIA.NET</span>
+      <button class="mobile-home-btn" onclick="location.href='lostalgia_index.html'">Home</button>
+    </div>
+    <div class="browser-body">
+      <div class="sidebar">
+        <div class="sb-title">LOSTALGIA.NET</div>
+              <div class="sb-section">
+        <span class="sb-label">Navigation</span>
+        <a class="sb-link" href="lostalgia_index.html">Main Page</a>
+        <a class="sb-link" href="lostalgia_index.html#recent-changes">Recent Changes</a>
+        <a class="sb-link" href="javascript:randomArticle()">Random Article</a>
+        <a class="sb-link" href="lostalgia_index.html#help-section">Help</a>
+      </div>
+        <hr class="sb-divider">
+                <div class="sb-section">
+          <span class="sb-label">Eras</span>
+          <a class="sb-link" href="frutiger_aero.html">Frutiger Aero</a>
+          <a class="sb-link" href="gen_x_soft_club.html">Gen X Soft Club</a>
+          <a class="sb-link" href="global_village_coffeehouse.html">Global Village Coffeehouse</a>
+          <a class="sb-link" href="bright_tertiaries.html">Bright Tertiaries</a>
+          <a class="sb-link" class="sb-link active" href="silicon_dreams.html">Silicon Dreams</a>
+          <a class="sb-link" href="mizuiro.html">Mizuiro</a>
+          <a class="sb-link" href="fotonight_web.html">Fotonight Web</a>
+          <a class="sb-link" href="signalwave.html">Signalwave</a>
+          <a class="sb-link" href="cryptidcore.html">Cryptidcore</a>
+          <a class="sb-link" href="liminal_space.html">Liminal Space</a>
+          <a class="sb-link" href="surf_crush.html">Surf Crush</a>
+          <a class="sb-link" href="vectordelia.html">Vectordelia</a>
+          <a class="sb-link" href="y2k.html">Y2k</a>
+          <a class="sb-link" href="vaporwave.html">Vaporwave</a>
+          <a class="sb-link" href="dreamcore.html">Dreamcore</a>
+          <a class="sb-link" href="cottagecore.html">Cottagecore</a>
+          <a class="sb-link" href="cyberpunk.html">Cyberpunk</a>
+          <a class="sb-link" href="dark_academia.html">Dark Academia</a>
+          <a class="sb-link" href="weirdcore.html">Weirdcore</a>
+          <a class="sb-link" href="seapunk.html">Seapunk</a>
+          <a class="sb-link" href="mcbling.html">Mcbling</a>
+          <a class="sb-link" href="indie_sleaze.html">Indie Sleaze</a>
+          <a class="sb-link" href="old_web.html">Old Web</a>
+          <a class="sb-link" href="coquette.html">Coquette</a>
+          <a class="sb-link" href="kidcore.html">Kidcore</a>
+          <a class="sb-link" href="old_money.html">Old Money</a>
+          <a class="sb-link" href="scene.html">Scene</a>
+          <a class="sb-link" href="mallgoth.html">Mallgoth</a>
+          <a class="sb-link" href="sanriocore.html">Sanriocore</a>
+          <a class="sb-link" href="glitchcore.html">Glitchcore</a>
+          <a class="sb-link" href="steampunk.html">Steampunk</a>
+          <a class="sb-link" href="cybercore.html">Cybercore</a>
+          <a class="sb-link" href="poolcore.html">Poolcore</a>
+          <a class="sb-link" href="utopian_scholastic.html">Utopian Scholastic</a>
+          <a class="sb-link" href="lofi_art.html">Lofi Art</a>
+          <a class="sb-link" href="frutiger_metro.html">Frutiger Metro</a>
+          <a class="sb-link" href="barbiecore.html">Barbiecore</a>
+          <a class="sb-link" href="naturecore.html">Naturecore</a>
+          <a class="sb-link" href="fairycore.html">Fairycore</a>
+          <a class="sb-link" href="gorpcore.html">Gorpcore</a>
+          <a class="sb-link" href="decora.html">Decora</a>
+          <a class="sb-link" href="solarpunk.html">Solarpunk</a>
+          <a class="sb-link" href="angelcore.html">Angelcore</a>
+          <a class="sb-link" href="goblincore.html">Goblincore</a>
+          <a class="sb-link" href="indie_kid.html">Indie Kid</a>
+          <a class="sb-link" href="cybergoth.html">Cybergoth</a>
+          <a class="sb-link" href="soft_grunge.html">Soft Grunge</a>
+          <a class="sb-link" href="normcore.html">Normcore</a>
+          </div>
+        <hr class="sb-divider">
+                <div class="sb-section">
+          <span class="sb-label">Eras</span>
+          <a class="sb-link" href="frutiger_aero.html">Frutiger Aero</a>
+          <a class="sb-link" href="gen_x_soft_club.html">Gen X Soft Club</a>
+          <a class="sb-link" href="global_village_coffeehouse.html">Global Village Coffeehouse</a>
+          <a class="sb-link" href="bright_tertiaries.html">Bright Tertiaries</a>
+          <a class="sb-link active" href="silicon_dreams.html">Silicon Dreams</a>
+          <a class="sb-link" href="mizuiro.html">Mizuiro</a>
+          <a class="sb-link" href="fotonight_web.html">Fotonight Web</a>
+          <a class="sb-link" href="signalwave.html">Signalwave</a>
+          <a class="sb-link" href="cryptidcore.html">Cryptidcore</a>
+          <a class="sb-link" href="liminal_space.html">Liminal Space</a>
+          <a class="sb-link" href="surf_crush.html">Surf Crush</a>
+          <a class="sb-link" href="vectordelia.html">Vectordelia</a>
+          <a class="sb-link" href="y2k.html">Y2K</a>
+          <a class="sb-link" href="vaporwave.html">Vaporwave</a>
+          <a class="sb-link" href="dreamcore.html">Dreamcore</a>
+          <a class="sb-link" href="cottagecore.html">Cottagecore</a>
+          <a class="sb-link" href="cyberpunk.html">Cyberpunk</a>
+          <a class="sb-link" href="dark_academia.html">Dark Academia</a>
+          <a class="sb-link" href="weirdcore.html">Weirdcore</a>
+        </div>
+        <div class="counter-box" id="counter">0000000</div>
+        <div class="counter-lbl">visitors since 1999</div>
+        <div class="uc-badge">UNDER CONSTRUCTION</div>
+        <div class="best-viewed">Best viewed in<br>Internet Explorer 6.0<br>at 1024&#215;768 resolution</div>
+      </div>
+      <div class="content-area">
+
+        <div class="page clearfix">
+          
+
+          <div class="infobox">
+            <div class="infobox-title">Silicon Dreams</div>
+            <img class="infobox-img" src="https://i.ibb.co/Q3nZVkMm/001.webp" alt="Silicon Dreams"
+              onclick="openLightbox(0)" title="Click to enlarge" loading="lazy" />
+            <table>
+              <tr>
+                <td>Also known as</td>
+                <td>Old CGI, Retro CGI</td>
+              </tr>
+              <tr>
+                <td>Period</td>
+                <td><b>Mid-1980s &ndash; Early 2000s</b></td>
+              </tr>
+              <tr>
+                <td>Peak</td>
+                <td>1990s</td>
+              </tr>
+              <tr>
+                <td>Origin</td>
+                <td>Professional CGI studios, Silicon Graphics Inc.</td>
+              </tr>
+              <tr>
+                <td>Named by</td>
+                <td>Karl Kraft / CARI</td>
+              </tr>
+              <tr>
+                <td>Key traits</td>
+                <td>Sparse polygons, alien landscapes, chrome surfaces, gradient skies</td>
+              </tr>
+              <tr>
+                <td>Successor</td>
+                <td>Photorealistic CGI, Y2K Futurism</td>
+              </tr>
+            </table>
+          </div>
+
+          <h1 class="page-title">Silicon Dreams</h1>
+
+          <div class="toc">
+            <div class="toc-title">Contents</div>
+            <ol>
+              <li><a href="#whatis">What is it?</a></li>
+              <li><a href="#name">The name: Silicon Graphics</a></li>
+              <li><a href="#history">History</a>
+                <ol>
+                  <li><a href="#firstsparks">First sparks (1960s&ndash;1970s)</a></li>
+                  <li><a href="#eighties">The 1980s: the aesthetic crystallizes</a></li>
+                  <li><a href="#nineties">The 1990s: mainstream arrival</a></li>
+                </ol>
+              </li>
+              <li><a href="#look">The look: a field guide</a></li>
+              <li><a href="#technology">The technology</a></li>
+              <li><a href="#canon">Key works: a canon</a></li>
+              <li><a href="#music">The music connection</a></li>
+              <li><a href="#decline">Decline and revival</a></li>
+              <li><a href="#checklist">Quick-reference checklist</a></li>
+              <li><a href="#gallery">Gallery</a></li>
+            </ol>
+          </div>
+
+          <h2 class="section-head" id="whatis">What is it?</h2>
+          <p class="para">Picture a landscape that has no name. It&rsquo;s a barren, smooth plane stretching to the
+            horizon under a sky that&rsquo;s just a gradient ,  dark at the top, lighter at the bottom. There might
+            be a large ringed planet hanging improbably close, its sphere rendered with a few hundred polygons, its
+            rings perfectly flat. There are some floating spheres. Maybe a chrome torus slowly rotating for no
+            particular reason. The lighting is harsh and comes from one direction. The shadows are too crisp. The
+            textures look like someone wrapped a JPEG around a slightly rounded rectangle.</p>
+          <p class="para">It&rsquo;s beautiful. It&rsquo;s deeply strange. And it&rsquo;s recognizable to anyone who
+            spent time near a computer between about 1985 and 2002, because it was everywhere: on TV bumpers, in
+            advertising, on CD covers of children&rsquo;s software, in the boot animations of operating systems, in the
+            cutscenes of early video games.</p>
+          <p class="para">That&rsquo;s <b>Silicon Dreams</b> ,  the surreal, uncanny, and strangely beautiful
+            aesthetic of early computer-generated imagery from the mid-1980s through the early 2000s, before CGI learned
+            to be photorealistic and stopped being interesting. The name comes from the Silicon Dreams Facebook group
+            run by <b>Karl Kraft</b>, assembled years before the broader internet caught on, and also nods toward
+            <b>Silicon Graphics Incorporated</b> (SGI) ,  the company that made the workstations responsible for
+            much of the era&rsquo;s most iconic imagery.</p>
+
+          <h2 class="section-head" id="name">The name: Silicon Graphics and the machines behind the dreams</h2>
+          <p class="para">Silicon Graphics Incorporated, founded in 1982, made the most powerful 3D graphics
+            workstations of the era. An SGI workstation in the late 1980s or early 1990s cost anywhere from $10,000 to
+            $250,000. These were not home computers ,  they lived in production studios, university research labs,
+            and military contractors.</p>
+          <p class="para">This scarcity had an enormous effect on what got made. Every polygon, every texture, every
+            render pass had a cost. When you can only afford sparse geometry and simple textures, you don&rsquo;t fill
+            your frames with detail. You make compositions of floating objects against pure backgrounds. You let the
+            mathematical beauty of smooth surfaces and clean shadows speak for itself. And you create something that
+            doesn&rsquo;t look like the real world ,  because making it look like the real world was impossible,
+            and trying would only expose the limitations. Instead, Silicon Dreams imagery looks like a <i>different</i>
+            world entirely: cleaner, stranger, more geometric.</p>
+
+          <h2 class="section-head" id="history">History: from university labs to Trapper Keepers</h2>
+
+          <h3 class="sub-head" id="firstsparks">First sparks (1960s&ndash;1970s)</h3>
+          <p class="para">CGI&rsquo;s roots go back to the late 1950s and 1960s, when researchers at MIT were
+            experimenting with using computers to generate visual output at all. Ivan Sutherland&rsquo;s
+            <b>Sketchpad</b> system (1963) is often cited as the first interactive computer graphics program. The 1970s
+            brought the first tentative steps toward 3D: the <b>&ldquo;Computer Animated Hand&rdquo;</b> (1972), created
+            by Ed Catmull (later a founder of Pixar) at the University of Utah, is considered the first 3D computer
+            animation ever made.</p>
+
+          <h3 class="sub-head" id="eighties">The 1980s: the aesthetic crystallizes</h3>
+          <p class="para">The early-to-mid 1980s are where Silicon Dreams as a recognizable aesthetic really begins.
+            Silicon Graphics shipped its first workstations in 1982. Pixar was founded in 1986. ILM was doing CGI work
+            for major films. And TV advertising began incorporating CGI because it looked futuristic in a way that
+            practical effects couldn&rsquo;t match.</p>
+          <p class="para">The demo reel culture of the era deserves special mention. Studios like Pacific Data Images
+            and Robert Abel &amp; Associates produced annual demo reels ,  showcases intended to attract clients.
+            These reels are essentially Silicon Dreams compilations: floating objects, abstract landscapes, technical
+            demonstrations of software capability.</p>
+
+          <h3 class="sub-head" id="nineties">The 1990s: mainstream arrival and the golden age</h3>
+          <p class="para">The watershed moment was <b>Toy Story</b> (1995). Pixar&rsquo;s first feature-length CGI film
+            proved that computer animation could carry a major commercial release ,  and showed the limitations in
+            the most charming way: the human characters look slightly eerie, the textures simplified, Woody&rsquo;s face
+            carrying that specific uncanny quality that became the decade&rsquo;s defining characteristic.</p>
+          <p class="para">But Toy Story was the high end. Across the decade, Silicon Dreams was appearing everywhere:
+          </p>
+          <ul class="ul-plain">
+            <li><b>Television bumpers</b> ,  the chrome spinning logos of network TV in the early 1990s</li>
+            <li><b>Advertising</b> ,  cars floating in space, products rendered in chrome against pure white</li>
+            <li><b>Video games</b> ,  the blocky-yet-majestic landscapes of Super Mario 64, the pre-rendered
+              backgrounds of Final Fantasy VII, the alien corridors of Doom and Myst</li>
+            <li><b>Trapper Keepers</b> ,  the Mead ring-binder organizer carried by every American student,
+              delivering Silicon Dreams imagery to millions of school desks</li>
+            <li><b>Bryce 3D</b> ,  the landscape rendering software that let anyone with a PC generate Silicon
+              Dreams vistas</li>
+          </ul>
+
+          <h2 class="section-head" id="look">The look: a field guide</h2>
+          <div class="subgenre-grid">
+            <div class="sg-card">
+              <h4>Sparse geometry</h4>
+              <p>There are never enough polygons. Objects have angular silhouettes, curved surfaces are approximated by
+                flat-sided polyhedra, and if you look closely at a sphere, you can count the segments. This is not a bug
+                ,  it&rsquo;s the aesthetic.</p>
+            </div>
+            <div class="sg-card">
+              <h4>Alien landscapes</h4>
+              <p>Mountains too perfectly triangular, valleys with no organic irregularity, plains extending too flatly.
+                Silicon Dreams environments look like mathematical functions translated into terrain ,  which is
+                often exactly what they are.</p>
+            </div>
+            <div class="sg-card">
+              <h4>Large celestial objects</h4>
+              <p>Enormous planets, moons, or ringed bodies hanging in the sky, often taking up a quarter of the frame.
+                Aesthetically perfect ,  big, smooth, quietly spectacular. Catastrophically close in reality.</p>
+            </div>
+            <div class="sg-card">
+              <h4>Chrome and metallic surfaces</h4>
+              <p>The reflective chrome sphere is possibly the single most iconic Silicon Dreams object. Technically
+                demonstrative (we can do reflections!) and visually striking. Chrome tori, cylinders, blobs ,  all
+                present throughout the era.</p>
+            </div>
+            <div class="sg-card">
+              <h4>Gradient skies</h4>
+              <p>Backgrounds are rarely complex ,  typically a simple gradient from one color to another, or a
+                solid color. This gives compositions a clean, abstract quality that feels simultaneously minimal and
+                otherworldly.</p>
+            </div>
+            <div class="sg-card">
+              <h4>The uncanny valley</h4>
+              <p>When Silicon Dreams imagery tried to render anything organic ,  a human face, an animal, a plant
+                ,  it produced results simultaneously recognizable and deeply wrong. This uncanny quality is now
+                one of the aesthetic&rsquo;s most prized characteristics.</p>
+            </div>
+            <div class="sg-card">
+              <h4>Checked and grid patterns</h4>
+              <p>The classic infinite checkered plane, extending to the horizon, was a staple of both technical
+                demonstrations and aesthetic compositions. It showed that a surface existed without requiring any
+                complex texture.</p>
+            </div>
+            <div class="sg-card">
+              <h4>Bold, saturated colors</h4>
+              <p>Electric blues, magentas, neon greens, deep purples ,  colors that nature doesn&rsquo;t offer.
+                Partly technological (early rendering handled saturated colors better than subtle ones) and partly
+                aesthetic preference.</p>
+            </div>
+          </div>
+
+          <h2 class="section-head" id="technology">The technology behind the dreams</h2>
+          <p class="para">The hardware used varied enormously:</p>
+          <ul class="ul-plain">
+            <li><b>Professional end:</b> Silicon Graphics Iris and Indigo workstations, running Alias (later
+              Alias|Wavefront, then Maya) and Softimage. Pixar&rsquo;s own RenderMan software. Tens of thousands of
+              dollars.</li>
+            <li><b>Semi-professional:</b> High-end Macintosh computers running 3D Studio or Electric Image. Amiga
+              computers, which had exceptional graphics capabilities for their price ,  widely used by small
+              studios.</li>
+            <li><b>Consumer end:</b> By the mid-1990s, Bryce, Ray Dream Designer, and Caligari TrueSpace made 3D
+              rendering accessible to anyone with a reasonably capable PC.</li>
+            <li><b>Gaming hardware:</b> The SNES&rsquo;s Mode 7 scaling, the Nintendo 64&rsquo;s polygon rendering, the
+              PlayStation&rsquo;s notoriously wobbly textures ,  each created its own Silicon Dreams aesthetic
+              through real-time 3D.</li>
+          </ul>
+
+          <h2 class="section-head" id="canon">Key works: a canon</h2>
+          <h3 class="sub-head">Film</h3>
+          <ul class="ul-cols">
+            <li>TRON (1982)</li>
+            <li>The Mind&rsquo;s Eye series (1990&ndash;1996)</li>
+            <li>Toy Story (1995)</li>
+            <li>Antz (1998)</li>
+            <li>A Bug&rsquo;s Life (1998)</li>
+          </ul>
+          <h3 class="sub-head">Television</h3>
+          <ul class="ul-cols">
+            <li>ReBoot (1994&ndash;2001)</li>
+            <li>Beast Wars: Transformers (1996&ndash;1999)</li>
+            <li>VeggieTales (1993&ndash;present)</li>
+            <li>The Simpsons &ldquo;Homer&sup3;&rdquo; (1995)</li>
+          </ul>
+          <h3 class="sub-head">Video games</h3>
+          <ul class="ul-3cols">
+            <li>Myst (1993)</li>
+            <li>Star Fox (1993)</li>
+            <li>Donkey Kong Country (1994&ndash;1996)</li>
+            <li>Super Mario 64 (1996)</li>
+            <li>Final Fantasy VII (1997)</li>
+            <li>LSD: Dream Emulator (1998)</li>
+          </ul>
+
+          <h2 class="section-head" id="music">The music connection</h2>
+          <p class="para">Silicon Dreams had a natural sonic companion in the new age and ambient electronic music of
+            the era. If you were watching a Silicon Dreams animation in the early 1990s, the soundtrack was probably
+            synthesizer-heavy, slightly new-agey, and optimistic-futuristic in a vague sort of way.</p>
+          <p class="para">The <b>Mind&rsquo;s Eye</b> compilation films used ambient and new age compositions that
+            became inseparable from the visual aesthetic. In the late 1990s and early 2000s, &ldquo;intelligent&rdquo;
+            drum and bass (LTJ Bukem, Goldie, the Good Looking Records scene) adopted Silicon Dreams imagery for album
+            covers and music videos. When <b>Vaporwave</b> emerged in the early 2010s, it explicitly incorporated
+            Silicon Dreams visual elements as part of its nostalgic collage.</p>
+
+          <h2 class="section-head" id="decline">Decline and revival</h2>
+          <p class="para">Silicon Dreams faded from mainstream use around 2002&ndash;2005 for a simple reason: CGI got
+            good enough to be invisible. The goal of much professional CGI had always been photorealism ,  the
+            ability to make digital images audiences couldn&rsquo;t distinguish from live action. By the mid-2000s, that
+            goal was achievable. And once it was achievable, it became the standard. The aesthetic baggage of early CGI
+            became marks of technical inadequacy rather than visual style.</p>
+          <p class="para">The internet revival came in two waves. Seapunk in the early 2010s was explicitly Silicon
+            Dreams-influenced. Vaporwave followed and deepened the connection. By the mid-2010s, there was a dedicated
+            online community specifically for Silicon Dreams imagery. The revival resonates for the same reason all
+            aesthetic revivals resonate: the imagery is tied to specific memories and to a particular cultural moment
+            ,  the time when computers were new enough to be magical.</p>
+          <div class="pull-quote">&ldquo;The fact that it&rsquo;s janky, that the polygons are visible, that the faces
+            are slightly wrong ,  that&rsquo;s not a flaw anymore. It&rsquo;s the texture of memory.&rdquo;</div>
+
+          <h2 class="section-head" id="checklist">Quick-reference checklist: is it Silicon Dreams?</h2>
+          <ul class="checklist">
+            <li>Sparse polygonal geometry with visible faceting?</li>
+            <li>Alien or abstract landscapes with no organic irregularity?</li>
+            <li>Large planets or celestial bodies in the background?</li>
+            <li>Chrome, metallic, or perfectly smooth reflective surfaces?</li>
+            <li>Bold, saturated colors that don&rsquo;t appear in nature?</li>
+            <li>Gradient skies with no clouds or atmospheric detail?</li>
+            <li>Textures that look hand-painted and stretched over a shape?</li>
+            <li>Overall vibe: &ldquo;this is what a computer thinks a world looks like&rdquo;?</li>
+          </ul>
+          <p class="para"><i>Four or more? You&rsquo;ve got a Silicon Dream. The future looked exactly like this,
+              briefly, and it was wonderful.</i></p>
+
+          <div class="see-also">
+            <h4>See also</h4>
+            <ul>
+              <li><a href="frutiger_aero.html">Frutiger Aero</a> ,  successor aesthetic</li>
+              <li><a href="signalwave.html">Signalwave</a> ,  related music aesthetic</li>
+              <li><a href="#">Vaporwave</a> ,  major revival context</li>
+              <li><a href="https://cari.institute/aesthetics/silicon-dreams" target="_blank">CARI ,  Silicon
+                  Dreams</a></li>
+            </ul>
+          </div>
+
+          <h2 class="section-head" id="gallery">Gallery</h2>
+          <p class="para">Click any image to enlarge. Images load on demand.</p>
+          <div class="gallery-grid" id="galleryGrid"></div>
+          <div class="cat-bar"><b>Categories:</b>
+            <a href="#">1980s</a><a href="#">1990s</a><a href="#">CGI</a>
+            <a href="#">Design Aesthetics</a><a href="#">Internet Aesthetics</a><a href="#">Silver</a><a
+              href="#">CARI</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="status-bar">
+      <span class="status-panel" id="statusText">Done</span>
+      <span class="status-panel">Internet zone</span>
+      <span class="status-panel" style="margin-left:auto;">Lostalgia Wiki v1.0 &nbsp;|&nbsp; lostalgia.net</span>
+    </div>
+  </div>
+  <div class="lightbox" id="lightbox">
+    <button class="lb-close" onclick="closeLightbox()">&#10005; Close</button>
+    <img id="lbImg" src="" alt="" style="display:none;" />
+    <div class="lb-loading" id="lbLoading"></div>
+    <div class="lb-cap" id="lbCap"></div>
+    <div class="lb-nav">
+      <button class="lb-btn" onclick="lbStep(-1)">&#8592; Prev</button>
+      <button class="lb-btn" onclick="lbStep(1)">Next &#8594;</button>
+    </div>
+  </div>
+  <script>
+    const IMGS_RAW = [["001", "https://i.ibb.co/Q3nZVkMm/001.webp"], ["002", "https://i.ibb.co/hRY3HxY9/002.webp"], ["003", "https://i.ibb.co/hJPkspTc/003.webp"], ["004", "https://i.ibb.co/27yLtThh/004.webp"], ["005", "https://i.ibb.co/pvN1CX67/005.webp"], ["006", "https://i.ibb.co/Ps3wTzq5/006.webp"], ["007", "https://i.ibb.co/sp1fY9d9/007.webp"], ["008", "https://i.ibb.co/CgG1wWs/008.webp"], ["009", "https://i.ibb.co/HLfgvkcC/009.webp"], ["010", "https://i.ibb.co/wZ3wntjT/010.webp"], ["011", "https://i.ibb.co/HpYFgG60/011.webp"], ["012", "https://i.ibb.co/S7HDJZpD/012.webp"], ["013", "https://i.ibb.co/zHQWnJgR/013.webp"], ["014", "https://i.ibb.co/605KSnyN/014.webp"], ["015", "https://i.ibb.co/HpYgHqGT/015.webp"], ["016", "https://i.ibb.co/Kp4wkZQH/016.webp"], ["017", "https://i.ibb.co/6GbhBgf/017.webp"], ["018", "https://i.ibb.co/rGz6cvvx/018.webp"], ["019", "https://i.ibb.co/yB5HB46y/019.webp"], ["020", "https://i.ibb.co/8n1vkdRh/020.webp"], ["021", "https://i.ibb.co/QtvqQnF/021.webp"], ["022", "https://i.ibb.co/hSrj3tn/022.webp"], ["023", "https://i.ibb.co/MHPsTj0/023.webp"], ["024", "https://i.ibb.co/cc2bqnLv/024.webp"], ["025", "https://i.ibb.co/7Mgdy18/025.webp"], ["026", "https://i.ibb.co/d0yCsRV0/026.webp"], ["027", "https://i.ibb.co/PZn1J2vg/027.webp"], ["028", "https://i.ibb.co/3ySSHHf6/028.webp"], ["029", "https://i.ibb.co/XkW7mDvx/029.webp"], ["030", "https://i.ibb.co/CZW6BXt/030.webp"], ["031", "https://i.ibb.co/YFqHvYPb/031.webp"], ["032", "https://i.ibb.co/3ySwhLxj/032.webp"], ["033", "https://i.ibb.co/bwn8WcQ/033.webp"], ["034", "https://i.ibb.co/7NyNm4z3/034.webp"], ["035", "https://i.ibb.co/3Y99Wpw2/035.webp"], ["036", "https://i.ibb.co/jPxWWwdS/036.webp"], ["037", "https://i.ibb.co/5gCRrQG0/037.webp"], ["038", "https://i.ibb.co/1VFrHWw/038.webp"], ["039", "https://i.ibb.co/nNqHqCcH/039.webp"], ["040", "https://i.ibb.co/sJC2tj9W/040.webp"]];
+
+    // image data: key -> full url
+    const imgKeys = IMGS_RAW.map(r => r[0]);
+    const IMGS = {};
+    IMGS_RAW.forEach(r => { IMGS[r[0]] = r[1]; });
+
+    // counter
+    let count = 0; const target = 83412;
+    const counterEl = document.getElementById('counter');
+    const step = Math.ceil(target / 50);
+    const tick = setInterval(() => { count = Math.min(count + step, target); counterEl.textContent = String(count).padStart(7, '0'); if (count >= target) clearInterval(tick); }, 25);
+
+    // toc scroll
+    document.querySelectorAll('.toc a').forEach(a => {
+      a.addEventListener('click', e => {
+        e.preventDefault();
+        const id = a.getAttribute('href').replace('#', '');
+        const el = document.getElementById(id);
+        const ca = document.querySelector('.content-area');
+        if (el && ca) { ca.scrollTo({ top: el.offsetTop - 10, behavior: 'smooth' }); }
+        else if (el) { el.scrollIntoView({ behavior: 'smooth' }); }
+        setStatus('Navigating...'); setTimeout(() => setStatus('Done'), 700);
+      });
+    });
+
+    function setStatus(t) { const el = document.getElementById('statusText'); if (el) el.textContent = t; }
+
+    // mobile drawer toggle
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const sidebar = document.querySelector('.sidebar');
+    if (mobileMenuBtn && sidebar) {
+      mobileMenuBtn.addEventListener('click', () => {
+        sidebar.classList.toggle('open');
+        mobileMenuBtn.textContent = sidebar.classList.contains('open') ? '\\u2715' : '\\u2630';
+      });
+    }
+
+    // gallery: lazy load thumbnails, open full-res in lightbox
+    const gallery = document.getElementById('galleryGrid');
+    if (gallery) {
+      imgKeys.forEach((key, i) => {
+        const item = document.createElement('div');
+        item.className = 'gallery-item';
+        item.onclick = () => openLightbox(i);
+        const img = document.createElement('img');
+        img.className = 'loading';
+        img.alt = 'Image ' + key;
+        img.loading = 'lazy';
+        // use small thumb by appending ibb size param trick ,  just load normal url lazily
+        img.src = IMGS[key];
+        img.onload = () => img.classList.remove('loading');
+        const cap = document.createElement('div');
+        cap.className = 'gallery-caption';
+        cap.textContent = key;
+        item.appendChild(img); item.appendChild(cap);
+        gallery.appendChild(item);
+      });
+    }
+
+    // lightbox: load full-res on demand
+    let lbIndex = 0;
+    function openLightbox(i) {
+      lbIndex = i;
+      const lbImg = document.getElementById('lbImg');
+      const lbLoad = document.getElementById('lbLoading');
+      lbImg.style.display = 'none';
+      if (lbLoad) lbLoad.textContent = 'Loading...';
+      lbImg.src = IMGS[imgKeys[i]];
+      lbImg.onload = () => { lbImg.style.display = 'block'; if (lbLoad) lbLoad.textContent = ''; };
+      document.getElementById('lbCap').textContent = imgKeys[i] + '  \\u2014  ' + (i + 1) + ' / ' + imgKeys.length;
+      document.getElementById('lightbox').classList.add('open');
+      setStatus('Image: ' + imgKeys[i]);
+    }
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('open');
+      setStatus('Done');
+    }
+    function lbStep(dir) {
+      lbIndex = (lbIndex + dir + imgKeys.length) % imgKeys.length;
+      const lbImg = document.getElementById('lbImg');
+      const lbLoad = document.getElementById('lbLoading');
+      lbImg.style.display = 'none';
+      if (lbLoad) lbLoad.textContent = 'Loading...';
+      lbImg.src = IMGS[imgKeys[lbIndex]];
+      lbImg.onload = () => { lbImg.style.display = 'block'; if (lbLoad) lbLoad.textContent = ''; };
+      document.getElementById('lbCap').textContent = imgKeys[lbIndex] + '  \\u2014  ' + (lbIndex + 1) + ' / ' + imgKeys.length;
+    }
+    document.getElementById('lightbox').addEventListener('click', e => { if (e.target === document.getElementById('lightbox')) closeLightbox(); });
+    document.addEventListener('keydown', e => {
+      if (!document.getElementById('lightbox').classList.contains('open')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowRight') lbStep(1);
+      if (e.key === 'ArrowLeft') lbStep(-1);
+    });
+
+  function randomArticle(){
+  const articles=['frutiger_aero.html','gen_x_soft_club.html','global_village_coffeehouse.html','bright_tertiaries.html','silicon_dreams.html','mizuiro.html','fotonight_web.html','signalwave.html','cryptidcore.html','liminal_space.html','surf_crush.html'];
+  location.href=articles[Math.floor(Math.random()*articles.length)];
+}
+</script>
+</body>
+
+</html>

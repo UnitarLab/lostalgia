@@ -1,6 +1,9 @@
-# Temporary files
-*.tmp
-*.log
+# Main Entry Point
+index.html
+
+# Ignore other HTML versions/exports
+*.html
+!index.html
 
 # Utility/Automation Scripts (Unrelated to theme/app)
 add_*.js
@@ -15,6 +18,11 @@ deep_lore.js
 create_*.js
 debug_*.js
 search_*.js
+
+# Temporary files
+*.tmp
+*.log
+*.zip
 
 # Data files
 *.json

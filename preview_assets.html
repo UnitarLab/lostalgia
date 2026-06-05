@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Lostalgia Favicon Preview</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0a0a1a;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            gap: 48px;
+            padding: 40px;
+        }
+
+        h1 {
+            font-size: 22px;
+            color: #a0b8ff;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            opacity: 0.8;
+        }
+
+        .section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .label {
+            font-size: 13px;
+            color: #5a6a8a;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .bubble-demos {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .demo-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .demo-size {
+            font-size: 12px;
+            color: #3a4a6a;
+            letter-spacing: 1px;
+        }
+
+        .tab-mock {
+            background: #1e2030;
+            border: 1px solid #2a3050;
+            border-radius: 8px 8px 0 0;
+            padding: 8px 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: #c0c8e8;
+            width: 240px;
+            margin-top: 24px;
+        }
+
+        .tab-mock img {
+            width: 16px;
+            height: 16px;
+        }
+
+        .tab-mock span {
+            font-size: 13px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .og-preview {
+            border: 1px solid #2a3050;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 200, 0.2);
+            max-width: 600px;
+            width: 100%;
+        }
+
+        .og-preview img {
+            width: 100%;
+            display: block;
+        }
+
+        .og-preview .og-meta {
+            background: #12162a;
+            padding: 14px 18px;
+            border-top: 1px solid #2a3050;
+        }
+
+        .og-meta .site {
+            font-size: 11px;
+            color: #4a5a7a;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .og-meta .title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #d0d8f8;
+            margin: 4px 0;
+        }
+
+        .og-meta .desc {
+            font-size: 13px;
+            color: #5a6a8a;
+            line-height: 1.5;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid #1a2040;
+            width: 80%;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Lostalgia — Brand Assets Preview</h1>
+
+    <div class="section">
+        <div class="label">Bubble Favicon — Multiple Sizes</div>
+        <div class="bubble-demos">
+            <div class="demo-box">
+                <img src="favicon.svg" width="128" height="128" alt="128px" />
+                <div class="demo-size">128×128</div>
+            </div>
+            <div class="demo-box">
+                <img src="favicon.svg" width="64" height="64" alt="64px" />
+                <div class="demo-size">64×64</div>
+            </div>
+            <div class="demo-box">
+                <img src="favicon.svg" width="32" height="32" alt="32px" />
+                <div class="demo-size">32×32</div>
+            </div>
+            <div class="demo-box">
+                <img src="favicon.svg" width="16" height="16" alt="16px" />
+                <div class="demo-size">16×16</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="label">Browser Tab Mock</div>
+        <div class="tab-mock">
+            <img src="favicon.svg" alt="favicon" />
+            <span>Lostalgia Wiki — Aesthetic Explorer</span>
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="section">
+        <div class="label">Viber / WhatsApp / Twitter Link Preview</div>
+        <div class="og-preview">
+            <img src="og-image.svg" alt="OG Preview Image" />
+            <div class="og-meta">
+                <div class="site">lostalgia.vercel.app</div>
+                <div class="title">Lostalgia — Aesthetics Wiki Explorer</div>
+                <div class="desc">Browse 1,100+ internet aesthetics — images, lore &amp; vibes</div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

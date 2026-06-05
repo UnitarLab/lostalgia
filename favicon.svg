@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <defs>
+    <!-- Outer iridescent bubble gradient -->
+    <radialGradient id="bubbleBase" cx="38%" cy="35%" r="62%">
+      <stop offset="0%"   stop-color="#ffffff" stop-opacity="0.95"/>
+      <stop offset="18%"  stop-color="#c8f0ff" stop-opacity="0.80"/>
+      <stop offset="40%"  stop-color="#b8aaff" stop-opacity="0.55"/>
+      <stop offset="62%"  stop-color="#ff9de2" stop-opacity="0.45"/>
+      <stop offset="82%"  stop-color="#7fefbd" stop-opacity="0.40"/>
+      <stop offset="100%" stop-color="#ffe066" stop-opacity="0.30"/>
+    </radialGradient>
+
+    <!-- Rainbow rim gradient (conic-like via linearGradients on border) -->
+    <linearGradient id="rimGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%"   stop-color="#ff6fcf"/>
+      <stop offset="25%"  stop-color="#7c6fff"/>
+      <stop offset="50%"  stop-color="#00d4ff"/>
+      <stop offset="75%"  stop-color="#44ffa0"/>
+      <stop offset="100%" stop-color="#ffe566"/>
+    </linearGradient>
+
+    <!-- Specular highlight top-left -->
+    <radialGradient id="gloss" cx="32%" cy="28%" r="36%">
+      <stop offset="0%"   stop-color="#ffffff" stop-opacity="1.0"/>
+      <stop offset="45%"  stop-color="#e0f8ff" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0.0"/>
+    </radialGradient>
+
+    <!-- Bottom reflection -->
+    <radialGradient id="bottomGlow" cx="60%" cy="85%" r="30%">
+      <stop offset="0%"   stop-color="#b4ffee" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#b4ffee" stop-opacity="0.0"/>
+    </radialGradient>
+
+    <!-- Inner refraction band -->
+    <linearGradient id="refract" x1="100%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%"   stop-color="#ffe0fb" stop-opacity="0.0"/>
+      <stop offset="40%"  stop-color="#c3adff" stop-opacity="0.35"/>
+      <stop offset="60%"  stop-color="#7fffea" stop-opacity="0.30"/>
+      <stop offset="100%" stop-color="#ffe0fb" stop-opacity="0.0"/>
+    </linearGradient>
+
+    <!-- Clip to circle -->
+    <clipPath id="bubbleClip">
+      <circle cx="50" cy="50" r="46"/>
+    </clipPath>
+
+    <filter id="softBlur">
+      <feGaussianBlur stdDeviation="1.2"/>
+    </filter>
+  </defs>
+
+  <!-- Shadow underneath bubble -->
+  <ellipse cx="50" cy="94" rx="24" ry="4" fill="#000" opacity="0.12" filter="url(#softBlur)"/>
+
+  <!-- Rainbow border ring -->
+  <circle cx="50" cy="50" r="47" fill="none" stroke="url(#rimGrad)" stroke-width="3" opacity="0.7"/>
+
+  <!-- Main bubble body -->
+  <circle cx="50" cy="50" r="46" fill="url(#bubbleBase)"/>
+
+  <!-- Refraction band across middle -->
+  <ellipse cx="50" cy="52" rx="46" ry="24" fill="url(#refract)" clip-path="url(#bubbleClip)"/>
+
+  <!-- Bottom glow reflection -->
+  <circle cx="50" cy="50" r="46" fill="url(#bottomGlow)"/>
+
+  <!-- Main specular highlight — large soft -->
+  <ellipse cx="36" cy="30" rx="18" ry="13" fill="url(#gloss)" opacity="0.95"/>
+
+  <!-- Tiny sharp highlight dot -->
+  <ellipse cx="32" cy="24" rx="5" ry="3.5" fill="white" opacity="0.98"/>
+  <ellipse cx="30" cy="22.5" rx="2" ry="1.5" fill="white" opacity="1"/>
+
+  <!-- Secondary small highlight bottom-right -->
+  <ellipse cx="66" cy="70" rx="5" ry="3" fill="white" opacity="0.30" transform="rotate(-25 66 70)"/>
+
+  <!-- Thin iridescent inner ring edge -->
+  <circle cx="50" cy="50" r="43" fill="none" stroke="url(#rimGrad)" stroke-width="1" opacity="0.4"/>
+</svg>

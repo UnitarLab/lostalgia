@@ -1,3 +1,4 @@
 # lostalgia
 
-A high-fidelity aesthetics explorer powered by the Aesthetics Wiki (Fandom) API. Browse 1,100+ aesthetics with images, text, and YouTube videos.
+A high-fidelity explorer of internet history. Browse nostalgic aesthetics with images, lore, and culture.
+

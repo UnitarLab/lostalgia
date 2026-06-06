@@ -8,7 +8,7 @@
   <!-- ── Primary Meta ───────────────────────────────────────────── -->
   <title>Lostalgia — Aesthetics Wiki Explorer</title>
   <meta name="description"
-    content="Browse 1,100+ internet aesthetics — images, lore, music &amp; vibes. Your portal to Frutiger Aero, Vaporwave, Cottagecore &amp; beyond.">
+    content="Browse nostalgic aesthetics — images, lore, music & vibes. Your portal to Frutiger Aero, Vaporwave, Cottagecore & beyond.">
   <meta name="theme-color" content="#0a0a1a">
 
   <!-- ── Favicon ────────────────────────────────────────────────── -->
@@ -20,7 +20,7 @@
   <meta property="og:url" content="https://lostalgia.vercel.app/">
   <meta property="og:title" content="Lostalgia — Aesthetics Wiki Explorer">
   <meta property="og:description"
-    content="Browse 1,100+ internet aesthetics — images, lore, music &amp; vibes. Your portal to Frutiger Aero, Vaporwave, Cottagecore &amp; beyond.">
+    content="Browse nostalgic aesthetics — images, lore, music & vibes. Your portal to Frutiger Aero, Vaporwave, Cottagecore & beyond.">
   <meta property="og:image" content="https://lostalgia.vercel.app/og-image.svg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -30,7 +30,7 @@
   <!-- ── Twitter / X Card ──────────────────────────────────────── -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Lostalgia — Aesthetics Wiki Explorer">
-  <meta name="twitter:description" content="Browse 1,100+ internet aesthetics — images, lore, music &amp; vibes.">
+  <meta name="twitter:description" content="Browse nostalgic aesthetics — images, lore, music & vibes.">
   <meta name="twitter:image" content="https://lostalgia.vercel.app/og-image.svg">
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap');
@@ -97,20 +97,330 @@
     .menu-bar {
       background: #d4d0c8;
       border-bottom: 1px solid #808080;
-      padding: 2px 6px;
+      padding: 0 6px;
       display: flex;
       flex-shrink: 0;
+      position: relative;
+      z-index: 500;
     }
 
-    .menu-bar span {
-      padding: 2px 10px;
+    /* ── Menu Items ── */
+    .menu-item {
+      position: relative;
+    }
+
+    .menu-item>span {
+      display: block;
+      padding: 3px 10px;
       font-size: 12px;
+      cursor: pointer;
+      user-select: none;
+      line-height: 20px;
+    }
+
+    .menu-item>span:hover,
+    .menu-item.open>span {
+      background: #000080;
+      color: #fff;
+    }
+
+    /* ── Win98 Dropdown ── */
+    .dropdown {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: #d4d0c8;
+      border: 1px solid;
+      border-top-color: #fff;
+      border-left-color: #fff;
+      border-bottom-color: #404040;
+      border-right-color: #404040;
+      box-shadow: 2px 2px 0 #000;
+      min-width: 190px;
+      z-index: 9000;
+      font-size: 12px;
+      padding: 2px 0;
+    }
+
+    .menu-item.open>.dropdown {
+      display: block;
+    }
+
+    .dropdown hr {
+      border: none;
+      border-top: 1px solid #808080;
+      border-bottom: 1px solid #fff;
+      margin: 2px 4px;
+    }
+
+    .dd-item {
+      padding: 4px 20px 4px 28px;
+      cursor: pointer;
+      white-space: nowrap;
+      position: relative;
+    }
+
+    .dd-item:hover {
+      background: #000080;
+      color: #fff;
+    }
+
+    .dd-item.disabled {
+      color: #808080;
+      cursor: default;
+    }
+
+    .dd-item.disabled:hover {
+      background: transparent;
+      color: #808080;
+    }
+
+    .dd-item .dd-icon {
+      position: absolute;
+      left: 6px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .dd-item .dd-shortcut {
+      float: right;
+      color: #555;
+      margin-left: 24px;
+      font-size: 11px;
+    }
+
+    .dd-item:hover .dd-shortcut {
+      color: #ccc;
+    }
+
+    /* ── Win98 Dialog boxes ── */
+    .win-dialog-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.15);
+      z-index: 10000;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .win-dialog-overlay.open {
+      display: flex;
+    }
+
+    .win-dialog {
+      background: #d4d0c8;
+      border: 2px solid;
+      border-top-color: #fff;
+      border-left-color: #fff;
+      border-bottom-color: #404040;
+      border-right-color: #404040;
+      box-shadow: 4px 4px 0 #000;
+      min-width: 320px;
+      max-width: 480px;
+      font-family: Tahoma, 'Segoe UI', Arial, sans-serif;
+      font-size: 12px;
+      user-select: none;
+    }
+
+    .win-dialog-title {
+      background: linear-gradient(90deg, #000080 0%, #1084d0 100%);
+      color: #fff;
+      font-weight: bold;
+      font-size: 12px;
+      padding: 3px 6px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .win-dialog-title .dialog-close {
+      background: #c0c0c0;
+      border: 1.5px solid;
+      border-top-color: #fff;
+      border-left-color: #fff;
+      border-bottom-color: #606060;
+      border-right-color: #606060;
+      width: 16px;
+      height: 14px;
+      font-size: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: #000;
+      font-weight: bold;
+    }
+
+    .win-dialog-body {
+      padding: 16px 20px 12px;
+    }
+
+    .win-dialog-footer {
+      padding: 8px 12px;
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      border-top: 1px solid #808080;
+    }
+
+    .win-btn-full {
+      background: linear-gradient(180deg, #e0dcd4, #c4c0b8);
+      border: 1.5px solid;
+      border-top-color: #fff;
+      border-left-color: #fff;
+      border-bottom-color: #606060;
+      border-right-color: #606060;
+      padding: 3px 20px;
+      font-size: 12px;
+      font-family: Tahoma, sans-serif;
+      cursor: pointer;
+      min-width: 70px;
+    }
+
+    .win-btn-full:active {
+      border-top-color: #606060;
+      border-left-color: #606060;
+      border-bottom-color: #fff;
+      border-right-color: #fff;
+    }
+
+    /* ── 56K progress bar ── */
+    .modem-bar-track {
+      background: #fff;
+      border: 1px inset #808080;
+      height: 18px;
+      margin: 10px 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .modem-bar-fill {
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      background: #000080;
+      width: 0%;
+      transition: none;
+    }
+
+    .modem-bar-chunks {
+      position: absolute;
+      inset: 0;
+      display: flex;
+    }
+
+    .modem-chunk {
+      flex: 1;
+      border-right: 1px solid transparent;
+      transition: background 0.05s;
+    }
+
+    .modem-chunk.lit {
+      background: #000080;
+    }
+
+    .modem-bar-label {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      color: #fff;
+      mix-blend-mode: difference;
+      font-family: Tahoma, sans-serif;
+      font-weight: bold;
+    }
+
+    /* ── Keyboard Shortcuts dialog ── */
+    .shortcut-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 8px;
+    }
+
+    .shortcut-table td {
+      padding: 3px 8px;
+      font-size: 12px;
+    }
+
+    .shortcut-table tr:nth-child(even) td {
+      background: rgba(0, 0, 0, 0.06);
+    }
+
+    .shortcut-key {
+      background: #e0dcd4;
+      border: 1px solid #808080;
+      border-bottom: 2px solid #404040;
+      border-right: 2px solid #404040;
+      padding: 1px 5px;
+      font-family: monospace;
+      font-size: 11px;
+      white-space: nowrap;
+    }
+
+    /* ── Desktop Destroyer canvas ── */
+    #destroyerCanvas {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 99999;
+      pointer-events: none;
+      display: none;
+    }
+
+    #destroyerCanvas.active {
+      pointer-events: all;
+      cursor: crosshair;
+      display: block;
+    }
+
+    #destroyerHUD {
+      position: fixed;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 30, 0.88);
+      border: 2px solid #4060ff;
+      border-radius: 6px;
+      padding: 6px 20px;
+      color: #a0c0ff;
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      letter-spacing: 2px;
+      z-index: 100000;
+      display: none;
+      text-align: center;
+      text-shadow: 0 0 8px #4060ff;
+      box-shadow: 0 0 20px rgba(64, 96, 255, 0.4);
+    }
+
+    #destroyerHUD.active {
+      display: block;
+    }
+
+    #destroyerEsc {
+      position: fixed;
+      bottom: 18px;
+      right: 20px;
+      background: rgba(0, 0, 30, 0.88);
+      border: 1px solid #4060ff;
+      border-radius: 4px;
+      padding: 4px 12px;
+      color: #607090;
+      font-family: Tahoma, sans-serif;
+      font-size: 11px;
+      z-index: 100000;
+      display: none;
       cursor: pointer;
     }
 
-    .menu-bar span:hover {
-      background: #000080;
-      color: #fff;
+    #destroyerEsc.active {
+      display: block;
     }
 
     .toolbar {
@@ -1001,8 +1311,102 @@
       </div>
     </div>
     <!-- Desktop menu/toolbar -->
-    <div class="menu-bar">
-      <span>File</span><span>Edit</span><span>View</span><span>Favorites</span><span>Tools</span><span>Help</span>
+    <div class="menu-bar" id="menuBar">
+
+      <!-- FILE -->
+      <div class="menu-item" id="mFile">
+        <span>File</span>
+        <div class="dropdown">
+          <div class="dd-item" onclick="menu_newWindow()"><span class="dd-icon">🗔</span>New Window<span
+              class="dd-shortcut">Ctrl+N</span></div>
+          <div class="dd-item" onclick="menu_print()"><span class="dd-icon">🖨️</span>Print...<span
+              class="dd-shortcut">Ctrl+P</span></div>
+          <hr>
+          <div class="dd-item" onclick="menu_fakeSave()"><span class="dd-icon">💾</span>Save As...<span
+              class="dd-shortcut">Ctrl+S</span></div>
+          <hr>
+          <div class="dd-item disabled"><span class="dd-icon">📤</span>Send Page by Email...</div>
+          <hr>
+          <div class="dd-item" onclick="window.close()"><span class="dd-icon">❌</span>Close</div>
+        </div>
+      </div>
+
+      <!-- EDIT -->
+      <div class="menu-item" id="mEdit">
+        <span>Edit</span>
+        <div class="dropdown">
+          <div class="dd-item disabled"><span class="dd-icon">✂️</span>Cut<span class="dd-shortcut">Ctrl+X</span></div>
+          <div class="dd-item" onclick="document.execCommand('copy')"><span class="dd-icon">📋</span>Copy<span
+              class="dd-shortcut">Ctrl+C</span></div>
+          <div class="dd-item disabled"><span class="dd-icon">📌</span>Paste<span class="dd-shortcut">Ctrl+V</span>
+          </div>
+          <hr>
+          <div class="dd-item" onclick="menu_selectAll()"><span class="dd-icon">⬛</span>Select All<span
+              class="dd-shortcut">Ctrl+A</span></div>
+          <hr>
+          <div class="dd-item" onclick="menu_find()"><span class="dd-icon">🔍</span>Find on this Page...<span
+              class="dd-shortcut">Ctrl+F</span></div>
+        </div>
+      </div>
+
+      <!-- VIEW -->
+      <div class="menu-item" id="mView">
+        <span>View</span>
+        <div class="dropdown">
+          <div class="dd-item" onclick="menu_zoomIn()"><span class="dd-icon">🔍</span>Zoom In<span
+              class="dd-shortcut">Ctrl++</span></div>
+          <div class="dd-item" onclick="menu_zoomOut()"><span class="dd-icon">🔎</span>Zoom Out<span
+              class="dd-shortcut">Ctrl+-</span></div>
+          <div class="dd-item" onclick="menu_zoomReset()"><span class="dd-icon">⊙</span>Reset Zoom<span
+              class="dd-shortcut">Ctrl+0</span></div>
+          <hr>
+          <div class="dd-item" onclick="menu_toggleSidebar()"><span class="dd-icon">📂</span>Toggle Sidebar<span
+              class="dd-shortcut">F9</span></div>
+          <hr>
+          <div class="dd-item" onclick="location.reload()"><span class="dd-icon">🔄</span>Refresh<span
+              class="dd-shortcut">F5</span></div>
+          <div class="dd-item" onclick="menu_viewSource()"><span class="dd-icon">📄</span>View Source<span
+              class="dd-shortcut">Ctrl+U</span></div>
+        </div>
+      </div>
+
+      <!-- FAVORITES -->
+      <div class="menu-item" id="mFav">
+        <span>Favorites</span>
+        <div class="dropdown" id="favsDropdown">
+          <div class="dd-item" onclick="menu_addFavorite()"><span class="dd-icon">⭐</span>Add to Favorites...</div>
+          <div class="dd-item" onclick="menu_clearFavorites()"><span class="dd-icon">🗑️</span>Clear Favorites</div>
+          <hr>
+          <!-- dynamic favs injected here -->
+          <div id="favsListContainer"></div>
+        </div>
+      </div>
+
+      <!-- TOOLS -->
+      <div class="menu-item" id="mTools">
+        <span>Tools</span>
+        <div class="dropdown">
+          <div class="dd-item" onclick="randomArticle()"><span class="dd-icon">🎲</span>Random Aesthetic</div>
+          <div class="dd-item" onclick="menu_find()"><span class="dd-icon">🔍</span>Search...</div>
+          <hr>
+          <div class="dd-item" onclick="menu_destroyer()"><span class="dd-icon">💥</span>Desktop Destroyer</div>
+          <hr>
+          <div class="dd-item" onclick="menu_shortcuts()"><span class="dd-icon">⌨️</span>Keyboard Shortcuts</div>
+          <div class="dd-item" onclick="menu_toggleDark()"><span class="dd-icon">🌙</span>Toggle Dark Mode</div>
+        </div>
+      </div>
+
+      <!-- HELP -->
+      <div class="menu-item" id="mHelp">
+        <span>Help</span>
+        <div class="dropdown">
+          <div class="dd-item" onclick="menu_about()"><span class="dd-icon">ℹ️</span>About Lostalgia</div>
+          <div class="dd-item disabled"><span class="dd-icon">📡</span>Check for Updates...</div>
+          <hr>
+          <div class="dd-item" onclick="menu_shortcuts()"><span class="dd-icon">⌨️</span>Keyboard Shortcuts</div>
+        </div>
+      </div>
+
     </div>
     <div class="toolbar">
       <button class="tb-btn" onclick="history.back()">&#8592; Back</button>
@@ -1717,6 +2121,571 @@
     function randomArticle() {
       const articles = ['frutiger_aero.html', 'gen_x_soft_club.html', 'global_village_coffeehouse.html', 'bright_tertiaries.html', 'silicon_dreams.html', 'mizuiro.html', 'fotonight_web.html', 'signalwave.html', 'cryptidcore.html', 'liminal_space.html', 'surf_crush.html', 'vectordelia.html', 'y2k.html', 'cottagecore.html', 'cyberpunk.html', 'dark_academia.html', 'weirdcore.html', 'seapunk.html', 'mcbling.html', 'frutiger_aurora.html', 'indie_sleaze.html', 'old_web.html', 'coquette.html', 'kidcore.html', 'old_money.html', 'scene.html', 'mallgoth.html', 'sanriocore.html', 'glitchcore.html', 'steampunk.html', 'cybercore.html', 'poolcore.html', 'utopian_scholastic.html', 'lofi_art.html', 'frutiger_metro.html', 'barbiecore.html', 'naturecore.html', 'fairycore.html', 'gorpcore.html', 'decora.html', 'solarpunk.html', 'angelcore.html', 'goblincore.html', 'indie_kid.html', 'cybergoth.html', 'soft_grunge.html', 'normcore.html', 'darkcore.html'];
       location.href = articles[Math.floor(Math.random() * articles.length)];
+    }
+
+    /* ========================================================
+       WIN98 MENU SYSTEM
+    ======================================================== */
+    let currentZoom = 1;
+    let sidebarHidden = false;
+    let darkMode = false;
+
+    // Click a menu item to open; click elsewhere to close
+    document.querySelectorAll('.menu-item > span').forEach(span => {
+      span.addEventListener('click', e => {
+        e.stopPropagation();
+        const item = span.parentElement;
+        const wasOpen = item.classList.contains('open');
+        document.querySelectorAll('.menu-item').forEach(m => m.classList.remove('open'));
+        if (!wasOpen) item.classList.add('open');
+      });
+    });
+    document.addEventListener('click', () => {
+      document.querySelectorAll('.menu-item').forEach(m => m.classList.remove('open'));
+    });
+    // Hover-open when another menu is already open
+    document.querySelectorAll('.menu-item').forEach(item => {
+      item.addEventListener('mouseenter', () => {
+        const anyOpen = document.querySelector('.menu-item.open');
+        if (anyOpen && anyOpen !== item) {
+          anyOpen.classList.remove('open');
+          item.classList.add('open');
+        }
+      });
+    });
+
+    /* -- Real actions -- */
+    function menu_newWindow() { window.open(location.href, '_blank'); closeMenus(); }
+    function menu_print() { closeMenus(); setTimeout(() => window.print(), 100); }
+    function menu_selectAll() { document.execCommand('selectAll'); closeMenus(); }
+    function menu_find() { closeMenus(); setTimeout(() => { const s = prompt('Find on page:'); if (s) window.find(s); }, 100); }
+    function menu_zoomIn() { currentZoom = Math.min(2, currentZoom + 0.1); document.body.style.zoom = currentZoom; closeMenus(); }
+    function menu_zoomOut() { currentZoom = Math.max(0.5, currentZoom - 0.1); document.body.style.zoom = currentZoom; closeMenus(); }
+    function menu_zoomReset() { currentZoom = 1; document.body.style.zoom = 1; closeMenus(); }
+    function menu_viewSource() { window.open('view-source:' + location.href); closeMenus(); }
+    function menu_toggleSidebar() {
+      sidebarHidden = !sidebarHidden;
+      document.querySelector('.sidebar').style.display = sidebarHidden ? 'none' : '';
+      closeMenus();
+    }
+    function menu_toggleDark() {
+      darkMode = !darkMode;
+      document.querySelector('.content-area').style.filter = darkMode ? 'invert(1) hue-rotate(180deg)' : '';
+      closeMenus();
+    }
+    function closeMenus() {
+      document.querySelectorAll('.menu-item').forEach(m => m.classList.remove('open'));
+    }
+
+    /* -- Favorites -- */
+    function menu_addFavorite() {
+      closeMenus();
+      const name = prompt('Bookmark name:', document.title);
+      if (!name) return;
+      const favs = JSON.parse(localStorage.getItem('lostalgia_favs') || '[]');
+      favs.push({ name, url: location.href });
+      localStorage.setItem('lostalgia_favs', JSON.stringify(favs));
+      renderFavs();
+    }
+    function menu_clearFavorites() {
+      if (!confirm('Clear all favorites?')) return;
+      localStorage.removeItem('lostalgia_favs');
+      renderFavs();
+      closeMenus();
+    }
+    function renderFavs() {
+      const container = document.getElementById('favsListContainer');
+      const favs = JSON.parse(localStorage.getItem('lostalgia_favs') || '[]');
+      if (!favs.length) { container.innerHTML = '<div class="dd-item disabled">  (empty)</div>'; return; }
+      container.innerHTML = favs.map((f, i) =>
+        `<div class="dd-item" onclick="location.href='${f.url}'"><span class="dd-icon">⭐</span>${f.name.slice(0, 28)}</div>`
+      ).join('');
+    }
+    renderFavs();
+
+    /* ========================================================
+       EASTER EGG A — FAKE 56K SAVE DIALOG
+    ======================================================== */
+    function menu_fakeSave() {
+      closeMenus();
+      const overlay = document.getElementById('dlgSave');
+      overlay.classList.add('open');
+      const chunks = overlay.querySelectorAll('.modem-chunk');
+      const label = overlay.querySelector('.modem-bar-label');
+      let lit = 0;
+      const total = chunks.length;
+      const interval = setInterval(() => {
+        if (lit < total) {
+          chunks[lit].classList.add('lit');
+          lit++;
+          const pct = Math.round((lit / total) * 100);
+          const kbs = (Math.random() * 3 + 4.5).toFixed(1);
+          label.textContent = `${pct}%  —  ${kbs} KB/s`;
+        } else {
+          clearInterval(interval);
+          label.textContent = 'Done! 😄';
+          setTimeout(() => {
+            overlay.classList.remove('open');
+            chunks.forEach(c => c.classList.remove('lit'));
+          }, 1000);
+        }
+      }, 80);
+    }
+
+    /* ========================================================
+       EASTER EGG B — ABOUT DIALOG
+    ======================================================== */
+    function menu_about() {
+      closeMenus();
+      document.getElementById('dlgAbout').classList.add('open');
+    }
+
+    /* ========================================================
+       KEYBOARD SHORTCUTS DIALOG
+    ======================================================== */
+    function menu_shortcuts() {
+      closeMenus();
+      document.getElementById('dlgShortcuts').classList.add('open');
+    }
+
+    document.addEventListener('keydown', e => {
+      if (e.ctrlKey && e.key === '+') { e.preventDefault(); menu_zoomIn(); }
+      if (e.ctrlKey && e.key === '-') { e.preventDefault(); menu_zoomOut(); }
+      if (e.ctrlKey && e.key === '0') { e.preventDefault(); menu_zoomReset(); }
+      if (e.key === 'F9') menu_toggleSidebar();
+    });
+
+    /* ========================================================
+       EASTER EGG C — DESKTOP DESTROYER
+       ASMR glass-crack sounds via Web Audio API + Multiple Weapons
+    ======================================================== */
+    function menu_destroyer() {
+      closeMenus();
+      const canvas = document.getElementById('destroyerCanvas');
+      const hud = document.getElementById('destroyerHUD');
+      const escBtn = document.getElementById('destroyerEsc');
+      canvas.classList.add('active');
+      hud.classList.add('active');
+      escBtn.classList.add('active');
+
+      const ctx = canvas.getContext('2d');
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      const WEAPONS = ['Hammer', 'Machine Gun', 'Flamethrower', 'Error Stamp'];
+      let currentWeapon = 0;
+      const cracks = [];
+      let hits = 0;
+
+      function updateHUD() {
+        hud.textContent = `💥 DESTRUCTOR 3000 | WEP: ${WEAPONS[currentWeapon]} [Right-Click] | HITS: ${hits} | ESC to stop`;
+      }
+      updateHUD();
+
+      // ── Web Audio Synthesizer ──
+      let audioCtx;
+      function getAudioCtx() {
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        return audioCtx;
+      }
+
+      function playSound(type) {
+        const ac = getAudioCtx();
+        const now = ac.currentTime;
+        if (type === 0) { // Hammer
+          for (let i = 0; i < 6; i++) {
+            const buf = ac.createBuffer(1, ac.sampleRate * 0.25, ac.sampleRate);
+            const data = buf.getChannelData(0);
+            for (let j = 0; j < data.length; j++) {
+              const t = j / ac.sampleRate;
+              const env = Math.exp(-t * (18 + Math.random() * 20));
+              data[j] = (Math.random() * 2 - 1) * env;
+            }
+            const src = ac.createBufferSource();
+            src.buffer = buf;
+            const gain = ac.createGain();
+            const filter = ac.createBiquadFilter();
+            filter.type = 'bandpass';
+            filter.frequency.value = 800 + Math.random() * 6000;
+            filter.Q.value = 0.3 + Math.random() * 2;
+            gain.gain.setValueAtTime(0.18 + Math.random() * 0.12, now);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + 0.2);
+            src.connect(filter); filter.connect(gain); gain.connect(ac.destination);
+            src.start(now + i * 0.015);
+          }
+          const osc = ac.createOscillator();
+          const gThud = ac.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(80, now);
+          osc.frequency.exponentialRampToValueAtTime(30, now + 0.08);
+          gThud.gain.setValueAtTime(0.25, now);
+          gThud.gain.exponentialRampToValueAtTime(0.001, now + 0.1);
+          osc.connect(gThud); gThud.connect(ac.destination);
+          osc.start(now); osc.stop(now + 0.1);
+        } else if (type === 1) { // Machine Gun
+          const buf = ac.createBuffer(1, ac.sampleRate * 0.1, ac.sampleRate);
+          const data = buf.getChannelData(0);
+          for (let j = 0; j < data.length; j++) {
+            data[j] = (Math.random() * 2 - 1) * Math.exp(-j / (ac.sampleRate * 0.02));
+          }
+          const src = ac.createBufferSource();
+          src.buffer = buf;
+          const gain = ac.createGain();
+          gain.gain.value = 0.3;
+          const filter = ac.createBiquadFilter();
+          filter.type = 'lowpass';
+          filter.frequency.setValueAtTime(2000, now);
+          filter.frequency.exponentialRampToValueAtTime(300, now + 0.1);
+          src.connect(filter); filter.connect(gain); gain.connect(ac.destination);
+          src.start(now);
+        } else if (type === 2) { // Flamethrower
+          const buf = ac.createBuffer(1, ac.sampleRate * 0.15, ac.sampleRate);
+          const data = buf.getChannelData(0);
+          for (let j = 0; j < data.length; j++) {
+            data[j] = (Math.random() * 2 - 1) * 0.1;
+          }
+          const src = ac.createBufferSource();
+          src.buffer = buf;
+          const filter = ac.createBiquadFilter();
+          filter.type = 'lowpass';
+          filter.frequency.value = 400 + Math.random() * 200;
+          src.connect(filter); filter.connect(ac.destination);
+          src.start(now);
+        } else if (type === 3) { // Stamp
+          const osc = ac.createOscillator();
+          const gain = ac.createGain();
+          osc.type = 'square';
+          osc.frequency.setValueAtTime(120, now);
+          osc.frequency.exponentialRampToValueAtTime(60, now + 0.1);
+          gain.gain.setValueAtTime(0.2, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.2);
+          osc.connect(gain); gain.connect(ac.destination);
+          osc.start(now); osc.stop(now + 0.2);
+        }
+      }
+
+      function fireWeapon(x, y) {
+        hits++;
+        updateHUD();
+        playSound(currentWeapon);
+
+        if (currentWeapon === 0) {
+          const arms = 6 + Math.floor(Math.random() * 7);
+          for (let a = 0; a < arms; a++) {
+            const angle = (a / arms) * Math.PI * 2 + (Math.random() - 0.5) * 0.4;
+            const len = 40 + Math.random() * 120;
+            const pts = [{ x, y }];
+            let cx = x, cy = y;
+            const steps = 4 + Math.floor(Math.random() * 5);
+            for (let s = 0; s < steps; s++) {
+              const frac = (s + 1) / steps;
+              const jitter = (Math.random() - 0.5) * 18;
+              const nx = x + Math.cos(angle + jitter * 0.04) * len * frac + Math.cos(angle + Math.PI / 2) * jitter;
+              const ny = y + Math.sin(angle + jitter * 0.04) * len * frac + Math.sin(angle + Math.PI / 2) * jitter;
+              pts.push({ x: nx, y: ny });
+              cx = nx; cy = ny;
+            }
+            if (Math.random() > 0.4) {
+              const bAngle = angle + (Math.random() - 0.5) * 1.2;
+              const bLen = len * (0.3 + Math.random() * 0.4);
+              const bPts = [{ x: cx, y: cy }];
+              for (let s = 0; s < 3; s++) {
+                bPts.push({
+                  x: cx + Math.cos(bAngle) * bLen * (s + 1) / 3 + (Math.random() - 0.5) * 10,
+                  y: cy + Math.sin(bAngle) * bLen * (s + 1) / 3 + (Math.random() - 0.5) * 10
+                });
+              }
+              cracks.push({ type: 'crack', pts: bPts, width: 0.5 + Math.random() * 0.8, alpha: 0.5 + Math.random() * 0.3 });
+            }
+            cracks.push({ type: 'crack', pts, width: 0.8 + Math.random() * 1.2, alpha: 0.7 + Math.random() * 0.3 });
+          }
+          cracks.push({ type: 'ring', x, y, r: 0, maxR: 12 + Math.random() * 16, alpha: 0.9 });
+          for (let s = 0; s < 5 + Math.floor(Math.random() * 6); s++) {
+            const a1 = Math.random() * Math.PI * 2;
+            const a2 = a1 + 0.3 + Math.random() * 0.6;
+            const r1 = 10 + Math.random() * 50;
+            cracks.push({
+              type: 'shard',
+              pts: [{ x, y }, { x: x + Math.cos(a1) * r1, y: y + Math.sin(a1) * r1 }, { x: x + Math.cos(a2) * r1 * 0.8, y: y + Math.sin(a2) * r1 * 0.8 }],
+              alpha: 0.06 + Math.random() * 0.12
+            });
+          }
+        } else if (currentWeapon === 1) {
+          cracks.push({ type: 'hole', x, y, r: 4 + Math.random() * 2 });
+        } else if (currentWeapon === 2) {
+          cracks.push({ type: 'burn', x, y, r: 20 + Math.random() * 20 });
+        } else if (currentWeapon === 3) {
+          cracks.push({ type: 'stamp', x, y });
+        }
+        redraw();
+      }
+
+      function redraw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        for (const c of cracks) {
+          if (c.type === 'ring') {
+            c.r = Math.min(c.r + 1.5, c.maxR);
+            ctx.beginPath();
+            ctx.arc(c.x, c.y, c.r, 0, Math.PI * 2);
+            ctx.strokeStyle = `rgba(200,220,255,${c.alpha * (1 - c.r / c.maxR)})`;
+            ctx.lineWidth = 1.5;
+            ctx.stroke();
+          } else if (c.type === 'shard') {
+            ctx.beginPath();
+            ctx.moveTo(c.pts[0].x, c.pts[0].y);
+            c.pts.slice(1).forEach(p => ctx.lineTo(p.x, p.y));
+            ctx.closePath();
+            ctx.fillStyle = `rgba(20,30,80,${c.alpha})`;
+            ctx.fill();
+          } else if (c.type === 'crack') {
+            ctx.beginPath();
+            ctx.moveTo(c.pts[0].x, c.pts[0].y);
+            c.pts.slice(1).forEach(p => ctx.lineTo(p.x, p.y));
+            const g = ctx.createLinearGradient(c.pts[0].x, c.pts[0].y, c.pts[c.pts.length - 1].x, c.pts[c.pts.length - 1].y);
+            g.addColorStop(0, `rgba(255,255,255,${c.alpha})`);
+            g.addColorStop(0.3, `rgba(180,200,255,${c.alpha * 0.8})`);
+            g.addColorStop(1, `rgba(40,40,80,${c.alpha * 0.4})`);
+            ctx.strokeStyle = g;
+            ctx.lineWidth = c.width;
+            ctx.stroke();
+          } else if (c.type === 'hole') {
+            ctx.beginPath();
+            ctx.arc(c.x, c.y, c.r, 0, Math.PI * 2);
+            ctx.fillStyle = '#111';
+            ctx.fill();
+            ctx.beginPath();
+            ctx.arc(c.x, c.y, c.r + 1.5, 0, Math.PI * 2);
+            ctx.strokeStyle = '#888';
+            ctx.lineWidth = 1;
+            ctx.stroke();
+          } else if (c.type === 'burn') {
+            const radGrad = ctx.createRadialGradient(c.x, c.y, 0, c.x, c.y, c.r);
+            radGrad.addColorStop(0, 'rgba(0,0,0,0.8)');
+            radGrad.addColorStop(0.4, 'rgba(50,20,0,0.6)');
+            radGrad.addColorStop(1, 'rgba(0,0,0,0)');
+            ctx.fillStyle = radGrad;
+            ctx.beginPath();
+            ctx.arc(c.x, c.y, c.r, 0, Math.PI * 2);
+            ctx.fill();
+          } else if (c.type === 'stamp') {
+            ctx.save();
+            ctx.translate(c.x, c.y);
+            ctx.rotate((Math.random() - 0.5) * 0.4);
+            ctx.fillStyle = '#d00';
+            ctx.font = 'bold 36px Arial';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.globalAlpha = 0.8;
+            ctx.fillText('ERROR', 0, 0);
+            ctx.strokeStyle = '#d00';
+            ctx.lineWidth = 3;
+            ctx.strokeRect(-65, -25, 130, 50);
+            ctx.restore();
+          }
+        }
+        if (cracks.some(c => c.type === 'ring' && c.r < c.maxR)) requestAnimationFrame(redraw);
+      }
+
+      let isDown = false;
+      let lastFire = 0;
+
+      const fireEvent = (e) => {
+        // e.offsetX / offsetY is reliable even with CSS zoom!
+        const x = e.offsetX !== undefined ? e.offsetX : (e.clientX || e.touches[0].clientX);
+        const y = e.offsetY !== undefined ? e.offsetY : (e.clientY || e.touches[0].clientY);
+
+        if (currentWeapon === 0 || currentWeapon === 3) {
+          fireWeapon(x, y);
+        } else {
+          const now = Date.now();
+          if (now - lastFire > 60) {
+            fireWeapon(x, y);
+            lastFire = now;
+          }
+        }
+      };
+
+      canvas.addEventListener('mousedown', e => {
+        if (e.button === 2) {
+          e.preventDefault();
+          currentWeapon = (currentWeapon + 1) % WEAPONS.length;
+          updateHUD();
+          return;
+        }
+        if (e.button !== 0) return;
+        isDown = true;
+        fireEvent(e);
+      });
+      canvas.addEventListener('mousemove', e => {
+        if (isDown && (currentWeapon === 1 || currentWeapon === 2)) {
+          fireEvent(e);
+        }
+      });
+      canvas.addEventListener('mouseup', () => isDown = false);
+      canvas.addEventListener('mouseleave', () => isDown = false);
+      canvas.addEventListener('contextmenu', e => e.preventDefault());
+
+      function stopDestroyer() {
+        canvas.classList.remove('active');
+        hud.classList.remove('active');
+        escBtn.classList.remove('active');
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        cracks.length = 0;
+        hits = 0;
+        const clone = canvas.cloneNode(true);
+        canvas.parentNode.replaceChild(clone, canvas);
+      }
+
+      escBtn.onclick = stopDestroyer;
+      document.addEventListener('keydown', function escHandler(e) {
+        if (e.key === 'Escape' && document.getElementById('destroyerCanvas').classList.contains('active')) {
+          stopDestroyer();
+          document.removeEventListener('keydown', escHandler);
+        }
+        if (document.getElementById('destroyerCanvas').classList.contains('active')) {
+          if (e.key === '1') { currentWeapon = 0; updateHUD(); }
+          if (e.key === '2') { currentWeapon = 1; updateHUD(); }
+          if (e.key === '3') { currentWeapon = 2; updateHUD(); }
+          if (e.key === '4') { currentWeapon = 3; updateHUD(); }
+        }
+      });
+    }
+
+  </script>
+
+  <!-- ====================================================
+       WIN98 DIALOG BOXES
+  ==================================================== -->
+
+  <!-- Fake 56K Save Dialog -->
+  <div class="win-dialog-overlay" id="dlgSave" onclick="if(event.target===this)this.classList.remove('open')">
+    <div class="win-dialog" style="min-width:360px">
+      <div class="win-dialog-title">
+        <span>💾 Save As... — Microsoft Internet Explorer</span>
+        <div class="dialog-close" onclick="document.getElementById('dlgSave').classList.remove('open')">✕</div>
+      </div>
+      <div class="win-dialog-body">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+          <span style="font-size:32px">💾</span>
+          <div>
+            <div style="font-weight:bold;margin-bottom:4px">Saving page to disk...</div>
+            <div style="color:#555;font-size:11px">Lostalgia_Wiki_Main_Page.html</div>
+          </div>
+        </div>
+        <div style="font-size:12px;margin-bottom:6px">Transferring data at 56k...</div>
+        <div class="modem-bar-track">
+          <div class="modem-bar-chunks" id="modemChunks"></div>
+          <div class="modem-bar-label">0%</div>
+        </div>
+        <div style="font-size:11px;color:#666;margin-top:6px">Estimated time: 14 minutes 22 seconds</div>
+      </div>
+      <div class="win-dialog-footer">
+        <button class="win-btn-full"
+          onclick="document.getElementById('dlgSave').classList.remove('open')">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- About Dialog -->
+  <div class="win-dialog-overlay" id="dlgAbout" onclick="if(event.target===this)this.classList.remove('open')">
+    <div class="win-dialog" style="min-width:380px">
+      <div class="win-dialog-title">
+        <span>ℹ️ About Lostalgia</span>
+        <div class="dialog-close" onclick="document.getElementById('dlgAbout').classList.remove('open')">✕</div>
+      </div>
+      <div class="win-dialog-body">
+        <div style="display:flex;gap:16px;align-items:flex-start">
+          <img src="favicon.svg" width="48" height="48" style="flex-shrink:0" alt="logo" />
+          <div>
+            <div style="font-size:16px;font-weight:bold;font-family:Georgia,serif;margin-bottom:6px">Lostalgia Wiki
+            </div>
+            <div style="font-size:11px;color:#555">Version 1.0.0 (Build 2026)</div>
+            <div style="font-size:11px;color:#555;margin-top:2px">Microsoft Internet Explorer 6.0 SP3</div>
+            <div style="border-top:1px solid #a0a0a0;margin:10px 0"></div>
+            <div style="font-size:12px;line-height:1.7">
+              A high-fidelity explorer of internet history.<br>
+              Browse <strong>nostalgic aesthetics</strong> with images,<br>lore, and culture.
+            </div>
+            <div style="margin-top:10px;font-size:11px;color:#666">
+              &copy; 2026 Lostalgia. This product is licensed to:<br>
+              <strong>The Internet</strong>.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="win-dialog-footer">
+        <button class="win-btn-full" onclick="document.getElementById('dlgAbout').classList.remove('open')">OK</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Keyboard Shortcuts Dialog -->
+  <div class="win-dialog-overlay" id="dlgShortcuts" onclick="if(event.target===this)this.classList.remove('open')">
+    <div class="win-dialog" style="min-width:360px">
+      <div class="win-dialog-title">
+        <span>⌨️ Keyboard Shortcuts</span>
+        <div class="dialog-close" onclick="document.getElementById('dlgShortcuts').classList.remove('open')">✕</div>
+      </div>
+      <div class="win-dialog-body">
+        <table class="shortcut-table">
+          <tr>
+            <td><span class="shortcut-key">Ctrl+N</span></td>
+            <td>New Window</td>
+          </tr>
+          <tr>
+            <td><span class="shortcut-key">Ctrl+P</span></td>
+            <td>Print</td>
+          </tr>
+          <tr>
+            <td><span class="shortcut-key">Ctrl+F</span></td>
+            <td>Find on Page</td>
+          </tr>
+          <tr>
+            <td><span class="shortcut-key">Ctrl++</span></td>
+            <td>Zoom In</td>
+          </tr>
+          <tr>
+            <td><span class="shortcut-key">Ctrl+-</span></td>
+            <td>Zoom Out</td>
+          </tr>
+          <tr>
+            <td><span class="shortcut-key">Ctrl+0</span></td>
+            <td>Reset Zoom</td>
+          </tr>
+          <tr>
+            <td><span class="shortcut-key">F5</span></td>
+            <td>Refresh</td>
+          </tr>
+          <tr>
+            <td><span class="shortcut-key">F9</span></td>
+            <td>Toggle Sidebar</td>
+          </tr>
+          <tr>
+            <td><span class="shortcut-key">Esc</span></td>
+            <td>Exit Desktop Destroyer</td>
+          </tr>
+        </table>
+      </div>
+      <div class="win-dialog-footer">
+        <button class="win-btn-full"
+          onclick="document.getElementById('dlgShortcuts').classList.remove('open')">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Desktop Destroyer Canvas + HUD -->
+  <canvas id="destroyerCanvas"></canvas>
+  <div id="destroyerHUD">💥 DESTRUCTOR 3000 | HITS: 0 | ESC to stop</div>
+  <div id="destroyerEsc" onclick="document.dispatchEvent(new KeyboardEvent('keydown',{key:'Escape'}))">[ ESC ] Stop
+    Destroyer</div>
+
+  <!-- Build modem bar chunks -->
+  <script>
+    const chunksEl = document.getElementById('modemChunks');
+    for (let i = 0; i < 30; i++) {
+      const c = document.createElement('div');
+      c.className = 'modem-chunk';
+      chunksEl.appendChild(c);
     }
   </script>
 </body>
